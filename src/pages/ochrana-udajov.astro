@@ -1,0 +1,20 @@
+---
+import Base from "../layouts/Base.astro";
+import { site } from "../data/site";
+
+const description = "Ako Sála Kinekus spracúva údaje z nezáväzného dopytu: čo zbierame, prečo a komu ich pošleme.";
+---
+
+<Base title="Ochrana údajov | Sála Kinekus" description={description}>
+  <article class="section">
+    <div class="wrap prose">
+      <p class="eyebrow">Ochrana údajov</p>
+      <h1>Údaje z dopytu slúžia na to, aby sme sa vám ozvali.</h1>
+      <p>Prevádzkovateľom je {site.legalName}, {site.street}, {site.postal} {site.city}.</p>
+      <p>Z formulára si berieme meno, e-mail, telefón, typ akcie, odhad počtu hostí, vybrané dátumy a text správy. Posielame ich na {site.email}, aby vás tím sály mohol kontaktovať k nezáväznému dopytu.</p>
+      <p>Dopyt sa nezapisuje do kalendára. Termín platí až po našom potvrdení. Údaje nepredávame a nepoužívame ich na newsletter.</p>
+      <p>Web neukladá marketingové cookies. Kalendár, ktorý vidíte, obsahuje len zoznam obsadených dní — nie názvy akcií, opisy ani mená účastníkov.</p>
+      <p>Ak chcete údaje opraviť alebo vymazať, napíšte na {site.email} alebo zavolajte na {site.phone}.</p>
+    </div>
+  </article>
+</Base>

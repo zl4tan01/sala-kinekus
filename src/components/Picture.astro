@@ -1,0 +1,38 @@
+---
+interface Source {
+  w: number;
+  src: string;
+}
+interface Img {
+  alt: string;
+  width: number;
+  height: number;
+  webp: Source[];
+  avif: Source[];
+}
+interface Props {
+  image: Img;
+  sizes?: string;
+  priority?: boolean;
+  class?: string;
+}
+const { image, sizes = "100vw", priority = false, class: className } = Astro.props;
+const srcset = (list: Source[]) => list.map((item) => `${item.src} ${item.w}w`).join(", ");
+const fallback = image.webp[image.webp.length - 1]?.src ?? "";
+---
+
+<picture>
+  <source type="image/avif" srcset={srcset(image.avif)} sizes={sizes} />
+  <source type="image/webp" srcset={srcset(image.webp)} sizes={sizes} />
+  <img
+    class={className}
+    src={fallback}
+    alt={image.alt}
+    width={image.width}
+    height={image.height}
+    sizes={sizes}
+    loading={priority ? "eager" : "lazy"}
+    decoding="async"
+    fetchpriority={priority ? "high" : "auto"}
+  />
+</picture>

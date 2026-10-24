@@ -1,0 +1,33 @@
+---
+import Base from "../layouts/Base.astro";
+import Logos from "../components/Logos.astro";
+import { quotes } from "../data/site";
+
+const description = "Referencie hostí sály Kinekus v Žiline: svadby, konferencia IPA Slovakia, firemný večierok METRO a ďalšie akcie.";
+---
+
+<Base title="Referencie | Sála Kinekus Žilina" description={description}>
+  <article class="section">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Referencie</p>
+        <h1>Ako sa u nás páčilo.</h1>
+        <p class="lead">Texty sú referencie zverejnené na pôvodnej stránke sály. Neupravovali sme, čo hostia chválili — len sme ich upravili do čitateľnej podoby.</p>
+      </div>
+      <div class="quote-grid">
+        {quotes.map((quote) => (
+          <blockquote class="quote">
+            <p>„{quote.text}“</p>
+            <footer>
+              <cite>{quote.name}</cite>
+              <small>{quote.meta}</small>
+            </footer>
+          </blockquote>
+        ))}
+      </div>
+      <h2 style="margin:2.5rem 0 1rem;font-size:2rem">Klienti sály</h2>
+      <Logos />
+      <p style="margin-top:1.5rem"><a class="btn btn-dark" href="/#termin">Overiť voľný termín</a></p>
+    </div>
+  </article>
+</Base>

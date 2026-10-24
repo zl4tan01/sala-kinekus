@@ -1,0 +1,105 @@
+---
+import { kinds, site } from "../data/site";
+interface Props {
+  segment?: string;
+  kind?: string;
+  title?: string;
+  lead?: string;
+}
+const {
+  segment = "",
+  kind = "",
+  title = "Overte voľný termín",
+  lead = "Obsadené sú dni, na ktoré už siaha celodenná akcia. Kliknutie deň nerezervuje. Pošlete nezáväzný dopyt a termín potvrdíme my.",
+} = Astro.props;
+---
+
+<section class="section" id="termin" data-booking>
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Nezáväzný dopyt</p>
+      <h2>{title}</h2>
+      <p class="lead">{lead}</p>
+    </div>
+    <div class="booking-grid">
+      <div>
+        <div class="calendar" data-calendar data-endpoint="/api/availability.php" aria-live="polite"></div>
+        <p class="note" data-cal-note hidden></p>
+        <p class="form-error" data-cal-error hidden>
+          Dostupnosť sa nepodarilo načítať, napíšte nám. Formulár môžete vyplniť aj tak.
+        </p>
+        <ul class="chips" data-selected></ul>
+      </div>
+      <div>
+        <div class="thanks" data-thanks tabindex="-1" hidden>
+          <h3>Ďakujeme, dopyt máme.</h3>
+          <p>
+            Termín zatiaľ nie je rezervovaný. Ozveme sa vám a potvrdíme, či vybraný deň platí.
+            Ak sa neozveme do najbližšieho pracovného dňa, zavolajte na {site.phone}.
+          </p>
+        </div>
+        <form class="form" data-form action="/api/inquiry.php" method="post" data-segment={segment} data-kind={kind} novalidate>
+          <p class="form-error" data-form-error hidden></p>
+          <div class="hp" aria-hidden="true">
+            <label>Webová stránka firmy
+              <input name="company_url" tabindex="-1" autocomplete="off" />
+            </label>
+          </div>
+          <fieldset>
+            <legend class="eyebrow">Typ podujatia</legend>
+            <div class="segment">
+              <label><input type="radio" name="segment" value="b2b" required /> Firemná akcia</label>
+              <label><input type="radio" name="segment" value="b2c" /> Súkromná akcia</label>
+            </div>
+            <p class="field-error" data-error-for="segment" hidden></p>
+          </fieldset>
+          <label>Druh
+            <select name="kind" required>
+              <option value="">Vyberte</option>
+              {kinds.map((item) => (
+                <option value={item.id} data-segment={item.segment}>{item.label}</option>
+              ))}
+            </select>
+          </label>
+          <p class="field-error" data-error-for="kind" hidden></p>
+          <label>Dátumy
+            <input name="dates" required autocomplete="off" inputmode="numeric" placeholder="2026-11-14 alebo viac dní čiarkou" />
+          </label>
+          <p class="note">Kliknutím na voľný deň sa dátum doplní. Môžete ich označiť aj viac.</p>
+          <p class="field-error" data-error-for="dates" hidden></p>
+          <label>Odhadovaný počet hostí
+            <input name="guests" type="number" inputmode="numeric" min="1" max="5000" required />
+          </label>
+          <p class="field-error" data-error-for="guests" hidden></p>
+          <label>Meno a priezvisko
+            <input name="name" autocomplete="name" required maxlength="120" />
+          </label>
+          <p class="field-error" data-error-for="name" hidden></p>
+          <label>E-mail
+            <input name="email" type="email" autocomplete="email" required maxlength="160" />
+          </label>
+          <p class="field-error" data-error-for="email" hidden></p>
+          <label>Telefón
+            <input name="phone" type="tel" autocomplete="tel" required maxlength="40" />
+          </label>
+          <p class="field-error" data-error-for="phone" hidden></p>
+          <label>Správa
+            <textarea name="message" maxlength="4000" placeholder="Program, čas, catering, čo potrebujete od nás."></textarea>
+          </label>
+          <label class="check">
+            <input type="checkbox" name="gdpr" value="1" required />
+            <span>
+              Súhlasím so spracovaním údajov z tohto formulára, aby ma Sála Kinekus mohla kontaktovať k nezáväznému dopytu.
+              Viac v <a href="/ochrana-udajov/">ochrane údajov</a>.
+            </span>
+          </label>
+          <p class="field-error" data-error-for="gdpr" hidden></p>
+          <button class="btn btn-dark" type="submit">Odoslať nezáväzný dopyt</button>
+          <p class="note">
+            Administratíva je {site.hours}. Dopyt sa nezapíše do kalendára, kým termín nepotvrdíme.
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

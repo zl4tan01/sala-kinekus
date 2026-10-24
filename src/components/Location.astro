@@ -1,0 +1,34 @@
+---
+import { site } from "../data/site";
+const bbox = "18.752,49.193,18.789,49.210";
+const src = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${site.geo.lat}%2C${site.geo.lng}`;
+const maps = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${site.street}, ${site.postal} ${site.city}`)}`;
+---
+
+<section class="section" id="miesto">
+  <div class="wrap map-grid">
+    <div class="contact-card">
+      <p class="eyebrow">Kde nás nájdete</p>
+      <h2>Na okraji Žiliny, parkovanie pred dverami</h2>
+      <p class="lead" style="margin-top:0.8rem">
+        Sála je na Rosinskej ceste, pri distribučnom centre Kinekus. Prístup autom je priamy a zaparkujete pred budovou.
+      </p>
+      <p style="margin-top:1rem">
+        {site.legalName}<br />
+        {site.street}<br />
+        {site.postal} {site.city}
+      </p>
+      <p>
+        <a href={site.phoneHref}>{site.phone}</a><br />
+        <a href={`mailto:${site.email}`}>{site.email}</a>
+      </p>
+      <p>
+        {site.landline}<br />
+        <a href={`mailto:${site.infoEmail}`}>{site.infoEmail}</a>
+      </p>
+      <p class="note">Administratíva {site.hours}.</p>
+      <p style="margin-top:0.8rem"><a href={maps}>Otvoriť v Google Maps</a></p>
+    </div>
+    <iframe class="map-frame" title="Mapa: Sála Kinekus, Rosinská cesta 13, Žilina" src={src} loading="lazy"></iframe>
+  </div>
+</section>

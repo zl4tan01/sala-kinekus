@@ -1,0 +1,38 @@
+---
+import Base from "../layouts/Base.astro";
+import Picture from "../components/Picture.astro";
+import Booking from "../components/Booking.astro";
+import media from "../data/media.json";
+
+const description = "Stužková v Žiline pre 100 až 300 hostí. Veľké pódium 12×6 m pre kapelu alebo DJ-a, ozvučenie Yamaha a parkovanie pred budovou na Rosinskej ceste.";
+---
+
+<Base title="Stužková Žilina | Sála Kinekus" description={description} bookingHref="#termin">
+  <article>
+    <header class="sub-hero">
+      <div class="wrap">
+        <p class="eyebrow">Stužkové</p>
+        <h1>Stužková v Žiline, kde sa zmestí program aj parket.</h1>
+        <p class="lead" style="margin-top:1rem">
+          Sála je stavaná na stužkové s väčším počtom hostí. Pódium unesie kapelu aj DJ-a, ozvučenie je v priestore a zaparkujete pred budovou.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-dark" href="#termin">Overiť voľný termín</a>
+        </div>
+      </div>
+    </header>
+    <div class="section">
+      <div class="wrap">
+        <div class="frame" style="margin-bottom:1.5rem">
+          <Picture image={media.stuzkova} sizes="(min-width: 980px) 74rem, 100vw" priority />
+        </div>
+        <div class="prose">
+          <p>Pre stužkové sála uvádza 100 až 300 hostí. Pódium má 12×6 m a hodí sa na sprievodný program aj na kapelu alebo DJ-a.</p>
+          <p>Ozvučenie tvoria náhlavné aj ručné mikrofóny, mixážny pult Yamaha a sústava reproduktorov. Svetlo sa dá prepínať do scén, okná SMART systémom zatieniť.</p>
+          <p>Z sály sa vychádza na balkón a terasu. Sála je na Rosinskej ceste 13 v Žiline, s parkovaním priamo pred budovou.</p>
+        </div>
+      </div>
+    </div>
+  </article>
+  <Booking segment="b2c" kind="stuzkova" title="Termín stužkovej" />
+</Base>

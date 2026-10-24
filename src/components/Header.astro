@@ -1,0 +1,27 @@
+---
+import { nav } from "../data/site";
+interface Props {
+  bookingHref?: string;
+}
+const { bookingHref = "/#termin" } = Astro.props;
+const path = Astro.url.pathname;
+---
+
+<header class="header">
+  <div class="wrap header-inner">
+    <a class="brand" href="/">
+      Sála Kinekus
+      <small>Žilina</small>
+    </a>
+    <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav">
+      Menu
+    </button>
+    <nav id="site-nav" class="nav-panel" aria-label="Hlavné">
+      <a href="/" aria-current={path === "/" ? "page" : undefined}>Úvod</a>
+      {nav.map((item) => (
+        <a href={item.href} aria-current={path === item.href ? "page" : undefined}>{item.label}</a>
+      ))}
+    </nav>
+    <a class="btn header-cta" href={bookingHref}>Overiť termín</a>
+  </div>
+</header>

@@ -1,0 +1,59 @@
+---
+import Picture from "./Picture.astro";
+import media from "../data/media.json";
+import { galleryFilters } from "../data/site";
+interface Props {
+  ids?: string[];
+  filters?: boolean;
+  heading?: string;
+  lead?: string;
+}
+const {
+  ids,
+  filters = true,
+  heading = "Ako sála vyzerá, keď je obsadená",
+  lead = "Fotografie z akcií, ktoré sa v sále už konali: svadby, konferencie, stužkové, večierky aj slávnostné otvorenie.",
+} = Astro.props;
+const source = ids
+  ? ids.flatMap((id) => media.gallery.filter((item) => item.id === id))
+  : media.gallery;
+---
+
+<section class="section" id="galeria" data-gallery>
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Galéria</p>
+      <h2>{heading}</h2>
+      <p class="lead">{lead}</p>
+    </div>
+    {filters && (
+      <div class="gallery-tools" role="group" aria-label="Filtrovať galériu">
+        {galleryFilters.map((filter, index) => (
+          <button type="button" class="filter" data-filter={filter.id} aria-pressed={index === 0 ? "true" : "false"}>
+            {filter.label}
+          </button>
+        ))}
+      </div>
+    )}
+    <div class="gallery-grid">
+      {source.map((item) => (
+        <button
+          type="button"
+          class="shot"
+          data-cat={item.cat}
+          data-alt={item.alt}
+          data-full={item.webp[item.webp.length - 1]?.src}
+        >
+          <Picture image={item} sizes="(min-width: 980px) 30vw, 50vw" />
+        </button>
+      ))}
+    </div>
+    <dialog class="lightbox">
+      <div class="lightbox-bar">
+        <p data-caption></p>
+        <form method="dialog"><button type="submit">Zavrieť</button></form>
+      </div>
+      <img alt="" />
+    </dialog>
+  </div>
+</section>
