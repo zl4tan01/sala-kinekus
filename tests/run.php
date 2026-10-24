@@ -178,11 +178,14 @@ check(
     is_string($placesJson)
     && $places['reviews'][0]['author'] === 'Jana'
     && str_starts_with($places['reviews'][0]['text'], 'Krásna sála')
+    && str_starts_with($places['hero']['text'], 'Krásna sála')
     && !str_contains($placesJson, 'Translated')
     && !str_contains($placesJson, 'TAJNY-KLUC')
-    && $places['ratingLabel'] === '4,4'
-    && $places['countLabel'] === '36 recenzií',
-    'Places berie pôvodný text a neprezradí kľúč'
+    && !str_contains($placesJson, '4,4')
+    && !isset($places['ratingLabel'])
+    && $places['proofLabel'] === '★ 36 recenzií na Google'
+    && $places['themes'] === [],
+    'Places berie pôvodný text, bez priemeru a bez kľúča'
 );
 
 $sampleFile = json_decode((string) file_get_contents(dirname(__DIR__) . '/content/google-reviews.json'), true);
@@ -201,12 +204,69 @@ $manual = sala_reviews_from_manual([
         'url' => 'https://maps.app.goo.gl/nT8hn4QGFAZ5ZP8K8',
     ]],
 ]);
+check($manual['available'] === false, 'vzorová veta ani samotný súčet sa nezobrazia');
+
+$curated = sala_reviews_from_manual([
+    'sample' => false,
+    'listingUrl' => 'https://maps.app.goo.gl/nT8hn4QGFAZ5ZP8K8',
+    'writeReviewUrl' => 'https://search.google.com/local/writereview?placeid=ChIJyXiJBeZZFEcRWa4yofV7rGg',
+    'rating' => 4.4,
+    'userRatingCount' => 36,
+    'reviews' => [
+        [
+            'author' => 'Eva Dlhá',
+            'rating' => 5,
+            'text' => 'Na stužkovej nám pomohol personál a organizácia bola pokojná, parkovanie pred sálou bolo veľké a priestor na tanec ostal voľný po celý večer.',
+            'url' => 'https://maps.app.goo.gl/nT8hn4QGFAZ5ZP8K8',
+        ],
+        [
+            'author' => 'Peter',
+            'rating' => 5,
+            'text' => 'Parkovanie pred sálou je naozaj veľké.',
+            'url' => 'https://maps.app.goo.gl/nT8hn4QGFAZ5ZP8K8',
+        ],
+        [
+            'author' => 'Mia',
+            'rating' => 3,
+            'text' => 'Parkovanie pred sálou je naozaj veľké a svadba bola krásna.',
+            'url' => 'https://maps.app.goo.gl/nT8hn4QGFAZ5ZP8K8',
+        ],
+        [
+            'author' => 'Leo',
+            'rating' => 5,
+            'text' => 'Odporúčam všetkým.',
+            'url' => 'https://maps.app.goo.gl/nT8hn4QGFAZ5ZP8K8',
+        ],
+        [
+            'author' => 'Hana',
+            'rating' => 4,
+            'text' => 'Svadba v priestrannej sále, parkovanie hneď pred vchodom.',
+            'url' => 'https://maps.app.goo.gl/nT8hn4QGFAZ5ZP8K8',
+        ],
+    ],
+]);
+$curatedJson = json_encode($curated, JSON_UNESCAPED_UNICODE);
+$themeBlob = implode("\n", array_column($curated['reviews'], 'text'));
+$themesOk = true;
+foreach ($curated['themes'] as $theme) {
+    if (!str_contains($themeBlob, $theme['text'])) {
+        $themesOk = false;
+    }
+}
 check(
-    $manual['available'] === true
-    && $manual['reviews'] === []
-    && $manual['ratingLabel'] === '4,4'
-    && $manual['countLabel'] === '36 recenzií',
-    'vzorová veta sa preskočí, súčet ostane'
+    is_string($curatedJson)
+    && $curated['hero']['text'] === 'Parkovanie pred sálou je naozaj veľké.'
+    && $curated['hero']['author'] === 'Peter'
+    && str_starts_with($curated['formQuote']['text'], 'Svadba v priestrannej sále')
+    && $curated['reviews'][0]['author'] === 'Peter'
+    && count($curated['reviews']) === 3
+    && count($curated['themes']) === 2
+    && $themesOk
+    && $curated['proofLabel'] === '★ 36 recenzií na Google'
+    && !str_contains($curatedJson, '4,4')
+    && !str_contains($curatedJson, 'Odporúčam')
+    && !str_contains($curatedJson, 'Mia'),
+    'najkratšie konkrétne citácie idú prvé a témy sú doslovné'
 );
 
 $public = sala_reviews_public([

@@ -78,11 +78,11 @@ Do `api/config.php` doplňte kľúč:
 'google_places_api_key' => 'váš kľúč Places API (New)',
 ```
 
-Kľúč patrí len do `config.php` na serveri. Do verejného JSON sa nedostane. Prehliadač dostane hodnotenie, počet recenzií, odkaz na profil a pri každej recenzii krstné meno, hviezdičky, úryvok a odkaz. Text sa berie z pôvodného znenia, nie z prekladu Google.
+Kľúč patrí len do `config.php` na serveri. Do verejného JSON sa nedostane. Na web idú len recenzie so 4 alebo 5 hviezdičkami, ktoré spomínajú konkrétnu vec (priestor, parkovanie, personál, organizáciu, svadbu, stužkovú, atmosféru). Najkratšie idú prvé. Text je pôvodné znenie, nie preklad Google, a kráti sa len výpustkou. Vedľa citácie je malý odkaz s počtom recenzií. Samotné priemerné hodnotenie sa na stránku nevypisuje. Opakované témy sú doslovné úryvky, nie naše nadpisy.
 
-Kým kľúč nie je, endpoint číta `content/google-reviews.json`. Súbor v repozitári má `"sample": true`, preto sa odznak ani sekcia na webe nezobrazia. Keď chcete recenzie vložiť ručne, skopírujte skutočné znenie z Google, nastavte `"sample": false`, vyplňte `rating`, `userRatingCount` a pri každej recenzii nechajte `sample` vypnuté. Meno môže byť celé — web ukáže prvé slovo. Vzorovú vetu „Tento vzorový záznam sa na webe nezobrazí“ nechajte len pri ukážke. Priečinok `dist/content/` má `.htaccess`, ktorý súbor zvonku zakáže; číta ho len PHP.
+Kým kľúč nie je, endpoint číta `content/google-reviews.json`. Súbor v repozitári má `"sample": true` a v poli `instructions` je postup. Vzor sa na webe nezobrazí. Keď vkladáte recenzie ručne, nastavte `"sample": false`, doplňte `rating` a `userRatingCount` z profilu a pri každej recenzii nechajte `sample` vypnuté. Uprednostnite texty, ktoré spomínajú stužkovú, svadbu alebo parkovanie. Meno môže byť celé — web ukáže prvé slovo. Priečinok `dist/content/` má `.htaccess`, ktorý súbor zvonku zakáže; číta ho len PHP.
 
-Na stránku nepridávame `aggregateRating`. Čísla a citácie sa nezobrazia, kým nie sú z API alebo z upraveného JSON.
+Na stránku nepridávame `aggregateRating`. Citácie ostanú skryté, kým nie sú z API alebo z upraveného JSON.
 
 ## Testy
 

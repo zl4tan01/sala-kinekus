@@ -33,11 +33,13 @@ if (!cateringPhoto) throw new Error("Chýba fotografia svadba-22");
         <a class="btn" href="#termin">Overiť voľný termín</a>
         <a class="btn-line" href="#prehliadka">Virtuálna prehliadka</a>
       </div>
-      <p class="rating-badge" data-rating hidden>
-        <a href={site.maps} data-rating-link rel="noopener noreferrer">
-          <span data-rating-text></span>
-        </a>
-      </p>
+      <figure class="hero-quote" data-hero-quote hidden>
+        <blockquote data-hero-quote-text></blockquote>
+        <figcaption>
+          <span data-hero-quote-by></span>
+          <a class="hero-proof" data-review-proof href={site.maps} hidden rel="noopener noreferrer"></a>
+        </figcaption>
+      </figure>
     </div>
   </section>
 
@@ -257,14 +259,16 @@ if (!cateringPhoto) throw new Error("Chýba fotografia svadba-22");
     <div class="wrap">
       <div class="section-head">
         <p class="eyebrow">Google</p>
-        <h2>Recenzie na Google</h2>
-        <p class="lead" data-reviews-summary></p>
+        <h2>Z recenzií na Google</h2>
+        <p class="lead">Kratšie úryvky, ktoré spomínajú konkrétnu vec. Text je z profilu a krátime ho len výpustkou.</p>
       </div>
+      <ul class="theme-grid" data-review-themes></ul>
       <div class="review-grid" data-review-list></div>
       <div class="reviews-actions">
+        <a class="review-count" data-review-count href={site.maps} hidden rel="noopener noreferrer"></a>
         <a class="btn btn-dark" href={site.writeReview} data-write-review rel="noopener noreferrer">Napísať recenziu</a>
       </div>
-      <p class="note">Čísla a texty sú z verejného profilu na Google. Na webe ich neprepisujeme.</p>
+      <p class="note">Citácie sú z verejného profilu na Google. Na webe ich neprepisujeme.</p>
     </div>
   </section>
 

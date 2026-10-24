@@ -1,4 +1,5 @@
 {
+  "instructions": "Web citácie ukáže, až keď sample nastavíte na false a vzor nahradíte skutočnými recenziami z profilu Sála Žilina na Google. Text vložte doslovne, neprepisujte ho. Web ho smie skrátiť len výpustkou. rating a userRatingCount vezmite z profilu, nevymýšľajte ich. Uprednostnite recenzie so 4 alebo 5 hviezdičkami, ktoré spomínajú stužkovú, svadbu alebo parkovanie, a ďalšie konkrétne veci: priestor, personál, organizáciu, atmosféru. Pri každej dajte meno (stačí krstné, alebo celé — na web ide prvé slovo), rating a url na profil. Záznam so sample true sa nezobrazí. Vetu Tento vzorový záznam sa na webe nezobrazí nechajte len pri ukážke.",
   "sample": true,
   "listingUrl": "https://maps.app.goo.gl/nT8hn4QGFAZ5ZP8K8",
   "writeReviewUrl": "https://search.google.com/local/writereview?placeid=ChIJyXiJBeZZFEcRWa4yofV7rGg",

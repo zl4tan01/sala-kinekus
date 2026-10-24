@@ -87,6 +87,10 @@ const selected = kinds.find((item) => item.id === kind) ?? kinds.find((item) => 
             </span>
           </label>
           <p class="field-error" data-error-for="gdpr" hidden></p>
+          <figure class="form-quote" data-form-quote hidden>
+            <blockquote data-form-quote-text></blockquote>
+            <figcaption data-form-quote-by></figcaption>
+          </figure>
           <button class="btn btn-dark" type="submit">Odoslať nezáväzný dopyt</button>
           <p class="note">
             Administratíva je {site.hours}. Dopyt sa nezapíše do kalendára, kým termín nepotvrdíme.

@@ -149,27 +149,189 @@ function sala_reviews_one(array $review, bool $places): ?array
     ];
 }
 
+/** @return array<string, list<string>> */
+function sala_review_theme_needles(): array
+{
+    return [
+        'priestor' => ['priestor', 'priestrann', 'sála', 'sálu', 'sále', 'salu'],
+        'parkovanie' => ['parkov'],
+        'personal' => ['personál', 'personal', 'obsluh', 'ochotn', 'prívet', 'pracovní'],
+        'organizacia' => ['organiz', 'koordin'],
+        'svadba' => ['svadb'],
+        'stuzkova' => ['stužk', 'stuzk'],
+        'atmosfera' => ['atmosfér', 'atmosfer'],
+    ];
+}
+
+/** @return list<string> */
+function sala_review_theme_hits(string $text): array
+{
+    $hay = mb_strtolower($text);
+    $hits = [];
+    foreach (sala_review_theme_needles() as $id => $needles) {
+        foreach ($needles as $needle) {
+            if (mb_strpos($hay, $needle) !== false) {
+                $hits[] = $id;
+                break;
+            }
+        }
+    }
+    return $hits;
+}
+
+/** @param list<string> $needles */
+function sala_review_clause(string $text, array $needles): string
+{
+    $parts = preg_split('/[\.!\?;,]+/u', $text) ?: [];
+    $best = '';
+    foreach ($parts as $part) {
+        $part = trim($part);
+        if (mb_strlen($part) < 12) {
+            continue;
+        }
+        $hay = mb_strtolower($part);
+        $matched = false;
+        foreach ($needles as $needle) {
+            if (mb_strpos($hay, $needle) !== false) {
+                $matched = true;
+                break;
+            }
+        }
+        if (!$matched) {
+            continue;
+        }
+        if ($best === '' || mb_strlen($part) < mb_strlen($best)) {
+            $best = $part;
+        }
+    }
+    return $best === '' ? '' : sala_review_excerpt($best, 80);
+}
+
+/**
+ * @param array{author:string,rating:int,text:string,url:string} $review
+ * @return array{author:string,rating:int,text:string,url:string}
+ */
+function sala_review_line(array $review, int $limit): array
+{
+    return [
+        'author' => $review['author'],
+        'rating' => $review['rating'],
+        'text' => sala_review_excerpt($review['text'], $limit),
+        'url' => $review['url'],
+    ];
+}
+
+/**
+ * @param list<array{author:string,rating:int,text:string,url:string}> $reviews
+ * @return array{reviews:list<array{author:string,rating:int,text:string,url:string}>,hero:array{author:string,rating:int,text:string,url:string},formQuote:array{author:string,rating:int,text:string,url:string},themes:list<array{text:string}>}
+ */
+function sala_reviews_curate(array $reviews): array
+{
+    $picked = [];
+    foreach ($reviews as $review) {
+        if ($review['rating'] < 4) {
+            continue;
+        }
+        $hits = sala_review_theme_hits($review['text']);
+        if ($hits === []) {
+            continue;
+        }
+        $review['hits'] = $hits;
+        $picked[] = $review;
+    }
+    usort($picked, static function (array $a, array $b): int {
+        $byLength = mb_strlen($a['text']) <=> mb_strlen($b['text']);
+        if ($byLength !== 0) {
+            return $byLength;
+        }
+        return count($b['hits']) <=> count($a['hits']);
+    });
+    $picked = array_slice($picked, 0, 5);
+
+    $shown = [];
+    foreach ($picked as $review) {
+        unset($review['hits']);
+        $shown[] = $review;
+    }
+    if ($shown === []) {
+        return ['reviews' => [], 'hero' => ['author' => '', 'rating' => 0, 'text' => '', 'url' => ''], 'formQuote' => ['author' => '', 'rating' => 0, 'text' => '', 'url' => ''], 'themes' => []];
+    }
+
+    $counts = [];
+    foreach ($picked as $review) {
+        foreach ($review['hits'] as $hit) {
+            $counts[$hit] = ($counts[$hit] ?? 0) + 1;
+        }
+    }
+    $priority = array_flip(array_keys(sala_review_theme_needles()));
+    $themeIds = array_keys(array_filter($counts, static fn (int $count): bool => $count >= 2));
+    usort($themeIds, static function (string $a, string $b) use ($counts, $priority): int {
+        $byCount = $counts[$b] <=> $counts[$a];
+        if ($byCount !== 0) {
+            return $byCount;
+        }
+        return ($priority[$a] ?? 99) <=> ($priority[$b] ?? 99);
+    });
+    $needles = sala_review_theme_needles();
+    $themes = [];
+    $used = [];
+    foreach ($themeIds as $id) {
+        if (count($themes) >= 4) {
+            break;
+        }
+        $phrase = '';
+        foreach ($picked as $review) {
+            if (!in_array($id, $review['hits'], true)) {
+                continue;
+            }
+            $clause = sala_review_clause($review['text'], $needles[$id]);
+            if ($clause === '' || isset($used[$clause])) {
+                continue;
+            }
+            if ($phrase === '' || mb_strlen($clause) < mb_strlen($phrase)) {
+                $phrase = $clause;
+            }
+        }
+        if ($phrase !== '') {
+            $used[$phrase] = true;
+            $themes[] = ['text' => $phrase];
+        }
+    }
+
+    $heroSource = $shown[0];
+    $formSource = $shown[1] ?? $shown[0];
+    return [
+        'reviews' => $shown,
+        'hero' => sala_review_line($heroSource, 140),
+        'formQuote' => sala_review_line($formSource, 160),
+        'themes' => $themes,
+    ];
+}
+
 /**
  * @param list<array{author:string,rating:int,text:string,url:string}> $reviews
  * @return array<string,mixed>
  */
 function sala_reviews_payload(?float $rating, ?int $count, string $listing, string $write, array $reviews): array
 {
-    $hasScore = $rating !== null && $count !== null && $rating >= 1 && $rating <= 5 && $count >= 1;
-    if (!$hasScore && $reviews === []) {
+    unset($rating);
+    $curated = sala_reviews_curate($reviews);
+    if ($curated['reviews'] === []) {
         return ['available' => false];
     }
     $payload = [
         'available' => true,
         'listingUrl' => $listing,
         'writeUrl' => $write,
-        'reviews' => $reviews,
+        'hero' => $curated['hero'],
+        'formQuote' => $curated['formQuote'],
+        'themes' => $curated['themes'],
+        'reviews' => $curated['reviews'],
     ];
-    if ($hasScore) {
-        $payload['rating'] = round((float) $rating, 1);
-        $payload['ratingLabel'] = sala_rating_label((float) $rating);
+    if ($count !== null && $count >= 1) {
         $payload['count'] = $count;
-        $payload['countLabel'] = sala_review_count_label((int) $count);
+        $payload['countLabel'] = sala_review_count_label($count);
+        $payload['proofLabel'] = '★ ' . $payload['countLabel'] . ' na Google';
     }
     return $payload;
 }
