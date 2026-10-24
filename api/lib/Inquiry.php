@@ -5,25 +5,20 @@ declare(strict_types=1);
 function sala_kind_labels(): array
 {
     return [
-        'konferencia' => 'Konferencia',
-        'skolenie' => 'Školenie',
-        'prezentacia' => 'Prezentácia',
-        'firemna-akcia' => 'Firemná akcia',
         'svadba' => 'Svadba',
         'stuzkova' => 'Stužková',
-        'oslava' => 'Oslava — narodeniny, jubileum, krstiny',
-        'ples' => 'Ples',
-        'ine' => 'Iné',
+        'firemna' => 'Firemná akcia alebo konferencia',
     ];
 }
 
-/** @return array<string,list<string>> */
-function sala_kinds_by_segment(): array
+function sala_segment_for_kind(string $kind): ?string
 {
-    return [
-        'b2b' => ['konferencia', 'skolenie', 'prezentacia', 'firemna-akcia', 'ine'],
-        'b2c' => ['svadba', 'stuzkova', 'oslava', 'ples', 'ine'],
+    $map = [
+        'svadba' => 'b2c',
+        'stuzkova' => 'b2c',
+        'firemna' => 'b2b',
     ];
+    return $map[$kind] ?? null;
 }
 
 /**
@@ -36,8 +31,8 @@ function sala_validate_inquiry(array $post, ?array $occupied, string $today): ar
     $name = sala_one_line((string) ($post['name'] ?? ''), 120);
     $email = sala_clean_header((string) ($post['email'] ?? ''));
     $phone = sala_one_line((string) ($post['phone'] ?? ''), 40);
-    $segment = (string) ($post['segment'] ?? '');
     $kind = (string) ($post['kind'] ?? '');
+    $segment = sala_segment_for_kind($kind) ?? '';
     $message = sala_clean_text((string) ($post['message'] ?? ''), 4000);
     $gdpr = (string) ($post['gdpr'] ?? '');
     $guestsRaw = trim((string) ($post['guests'] ?? ''));
@@ -53,10 +48,7 @@ function sala_validate_inquiry(array $post, ?array $occupied, string $today): ar
         $errors['phone'] = 'Napíšte telefón, na ktorom vás zastihneme.';
     }
 
-    $allowed = sala_kinds_by_segment();
-    if (!isset($allowed[$segment])) {
-        $errors['segment'] = 'Vyberte, či ide o firemnú alebo súkromnú akciu.';
-    } elseif (!in_array($kind, $allowed[$segment], true)) {
+    if ($segment === '') {
         $errors['kind'] = 'Vyberte druh podujatia.';
     }
 
@@ -146,7 +138,7 @@ function sala_parse_dates(string $raw): array
 function sala_inquiry_body(array $data): string
 {
     $labels = sala_kind_labels();
-    $segment = $data['segment'] === 'b2b' ? 'Firemná akcia' : 'Súkromná oslava';
+    $segment = $data['segment'] === 'b2b' ? 'Pre firmy' : 'Svadba alebo stužková';
     $kind = $labels[$data['kind']] ?? $data['kind'];
     $dates = array_map('sala_format_sk_date', $data['dates']);
     $lines = [

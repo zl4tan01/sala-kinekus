@@ -104,32 +104,16 @@ function setupBooking(root: HTMLElement): void {
   let cursor = { year: ty, month: tm };
   let occupied = new Set<string>();
 
-  const presetSegment = form.dataset.segment || "";
   const presetKind = form.dataset.kind || "";
-  if (presetSegment) {
-    const radio = form.querySelector<HTMLInputElement>(`input[name=segment][value="${presetSegment}"]`);
-    if (radio) radio.checked = true;
-  }
-  filterKinds();
   if (presetKind && kindSelect) kindSelect.value = presetKind;
+  syncSegment();
+  kindSelect?.addEventListener("change", syncSegment);
 
-  form.querySelectorAll<HTMLInputElement>("input[name=segment]").forEach((radio) => {
-    radio.addEventListener("change", filterKinds);
-  });
-
-  function filterKinds(): void {
-    if (!kindSelect) return;
-    const segment = form.querySelector<HTMLInputElement>("input[name=segment]:checked")?.value || "";
-    if (!segment) return;
-    let first = "";
-    kindSelect.querySelectorAll<HTMLOptionElement>("option").forEach((option) => {
-      const show = !option.dataset.segment || option.dataset.segment === segment || option.dataset.segment === "both";
-      option.hidden = !show;
-      option.disabled = !show;
-      if (show && option.value && !first) first = option.value;
-    });
-    const current = kindSelect.selectedOptions[0];
-    if (!current || current.disabled) kindSelect.value = first;
+  function syncSegment(): void {
+    const hidden = form.querySelector<HTMLInputElement>("input[name=segment]");
+    if (!hidden || !kindSelect) return;
+    const next = kindSelect.selectedOptions[0]?.dataset.segment || "";
+    if (next) hidden.value = next;
   }
 
   function syncDates(): void {

@@ -84,6 +84,6 @@ Skript zapíše `public/media/` a `src/data/media.json`.
 
 ## Štruktúra po nahratí
 
-- `index.html` a podstránky (svadby, stužková, oslavy, konferencie, catering, galéria, referencie, kontakt)
+- `index.html` a podstránky (svadby, stužková, konferencie, catering, galéria, referencie, kontakt). Adresa `/oslavy/` presmeruje na úvod.
 - `api/availability.php`, `api/inquiry.php`, `api/config.php`
 - `sitemap-index.xml`, `robots.txt`

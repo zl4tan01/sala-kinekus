@@ -8,11 +8,11 @@ interface Props {
 }
 const {
   segment = "b2c",
-  kind = "",
-  title = "Overte termín oslavy",
-  lead = "Obsadené sú dni, na ktoré už siaha celodenná akcia. Kliknutie deň nerezervuje. Predvolene počítame so súkromnou oslavou. Termín potvrdíme my.",
+  kind = "svadba",
+  title = "Overte voľný termín",
+  lead = "Obsadené sú dni, na ktoré už siaha celodenná akcia. Kliknutie deň nerezervuje. Pošlete nezáväzný dopyt na svadbu, stužkovú alebo firemnú akciu a termín potvrdíme my.",
 } = Astro.props;
-const privateFirst = segment !== "b2b";
+const selected = kinds.find((item) => item.id === kind) ?? kinds.find((item) => item.segment === segment) ?? kinds[0];
 ---
 
 <section class="section" id="termin" data-booking>
@@ -39,26 +39,18 @@ const privateFirst = segment !== "b2b";
             Ak sa neozveme do najbližšieho pracovného dňa, zavolajte na {site.phone}.
           </p>
         </div>
-        <form class="form" data-form action="/api/inquiry.php" method="post" data-segment={segment} data-kind={kind} novalidate>
+        <form class="form" data-form action="/api/inquiry.php" method="post" data-segment={selected.segment} data-kind={selected.id} novalidate>
           <p class="form-error" data-form-error hidden></p>
           <div class="hp" aria-hidden="true">
             <label>Webová stránka firmy
               <input name="company_url" tabindex="-1" autocomplete="off" />
             </label>
           </div>
-          <fieldset>
-            <legend class="eyebrow">Typ podujatia</legend>
-            <div class="segment">
-              <label><input type="radio" name="segment" value="b2c" required checked={privateFirst} /> Súkromná oslava</label>
-              <label><input type="radio" name="segment" value="b2b" checked={!privateFirst} /> Firemná akcia</label>
-            </div>
-            <p class="field-error" data-error-for="segment" hidden></p>
-          </fieldset>
-          <label>Druh
+          <input type="hidden" name="segment" value={selected.segment} />
+          <label>Druh podujatia
             <select name="kind" required>
-              <option value="">Vyberte</option>
               {kinds.map((item) => (
-                <option value={item.id} data-segment={item.segment}>{item.label}</option>
+                <option value={item.id} data-segment={item.segment} selected={item.id === selected.id}>{item.label}</option>
               ))}
             </select>
           </label>

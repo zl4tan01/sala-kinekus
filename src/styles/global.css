@@ -744,30 +744,15 @@ textarea { min-height: 7rem; resize: vertical; }
 
 .frame img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; display: block; }
 
-.firms {
-  display: grid;
-  min-width: 0;
-  background: var(--deep);
-  color: var(--cream);
-  border-radius: 1.25rem;
-  overflow: hidden;
+.aside-line {
+  margin: 1.1rem 0 0;
+  padding: 0.85rem 0 0.85rem 1rem;
+  border-left: 3px solid var(--brass-bright);
+  color: var(--ink-soft);
+  max-width: 46rem;
 }
 
-.firms picture { display: block; aspect-ratio: 16 / 9; overflow: hidden; }
-
-.firms img { width: 100%; height: 100%; object-fit: cover; }
-
-.firms-body {
-  min-width: 0;
-  padding: 1.25rem 1.2rem 1.45rem;
-  display: grid;
-  gap: 0.75rem;
-  align-content: center;
-}
-
-.firms h2 { font-size: clamp(1.7rem, 3vw, 2.3rem); }
-
-.firms p { color: rgba(247, 243, 236, 0.86); }
+.path-wide { min-width: 0; }
 
 .chips { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 0; padding: 0; list-style: none; }
 
@@ -779,9 +764,9 @@ textarea { min-height: 7rem; resize: vertical; }
   .proof article { border-bottom: 0; padding: 1.6rem 1rem 1.6rem 0; }
   .proof article + article { border-left: 1px solid var(--line); padding-left: 1rem; }
   .path-grid, .quote-grid, .booking-grid, .map-grid { grid-template-columns: 1fr 1fr; }
-  .firms { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.2fr); align-items: stretch; }
-  .firms picture { aspect-ratio: auto; min-height: 100%; }
-  .firms img { height: 100%; min-height: 14rem; }
+  .path-wide { grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); align-items: stretch; }
+  .path-wide picture { aspect-ratio: auto; height: 100%; min-height: 18rem; }
+  .path-wide img { height: 100%; min-height: 18rem; }
   .layout-grid, .fact-grid { grid-template-columns: 1fr 1fr; }
   .gallery-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0.7rem; }
   .logo-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }

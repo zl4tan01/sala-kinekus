@@ -105,8 +105,11 @@ check(isset($blocked['errors']['dates']), 'obsadený deň neprejde');
 $unknown = sala_validate_inquiry($base, null, $today);
 check($unknown['errors'] === [], 'keď dostupnosť zlyhá, dátum sa neblokuje');
 
-$wrongKind = sala_validate_inquiry(array_merge($base, ['segment' => 'b2b']), [], $today);
-check(isset($wrongKind['errors']['kind']), 'svadba nie je firemný druh');
+$wrongKind = sala_validate_inquiry(array_merge($base, ['kind' => 'oslava', 'segment' => 'b2c']), [], $today);
+check(isset($wrongKind['errors']['kind']), 'neznámy druh neprejde');
+
+$firm = sala_validate_inquiry(array_merge($base, ['kind' => 'firemna', 'segment' => 'b2c']), [], $today);
+check($firm['errors'] === [] && $firm['data']['segment'] === 'b2b', 'firemná akcia je firemný dopyt');
 
 $inject = array_merge($base, ['name' => "Jana\r\nBcc: evil@x.com"]);
 $injectResult = sala_validate_inquiry($inject, [], $today);

@@ -21,10 +21,9 @@ export const site = {
 export const nav = [
   { href: "/svadby/", label: "Svadby" },
   { href: "/stuzkova/", label: "Stužkové" },
-  { href: "/oslavy/", label: "Oslavy" },
+  { href: "/konferencie/", label: "Pre firmy" },
   { href: "/galeria/", label: "Galéria" },
   { href: "/referencie/", label: "Referencie" },
-  { href: "/konferencie/", label: "Konferencie" },
   { href: "/kontakt/", label: "Kontakt" },
 ];
 
@@ -37,7 +36,7 @@ export const kinekusLinks = [
 ];
 
 export const proof = [
-  { value: "100–300", label: "hostí na svadbu a stužkovú" },
+  { value: "50–250", label: "osôb v sále" },
   { value: "12×6 m", label: "pódium a parket" },
   { value: "Pred budovou", label: "parkovanie pre hostí" },
   { value: "Balkón", label: "a terasa zo sály" },
@@ -46,20 +45,14 @@ export const proof = [
 export const kinds = [
   { id: "svadba", segment: "b2c", label: "Svadba" },
   { id: "stuzkova", segment: "b2c", label: "Stužková" },
-  { id: "oslava", segment: "b2c", label: "Oslava — narodeniny, jubileum, krstiny" },
-  { id: "ples", segment: "b2c", label: "Ples" },
-  { id: "konferencia", segment: "b2b", label: "Konferencia" },
-  { id: "skolenie", segment: "b2b", label: "Školenie" },
-  { id: "prezentacia", segment: "b2b", label: "Prezentácia" },
-  { id: "firemna-akcia", segment: "b2b", label: "Firemná akcia" },
-  { id: "ine", segment: "both", label: "Iné" },
+  { id: "firemna", segment: "b2b", label: "Firemná akcia alebo konferencia" },
 ];
 
 export const steps = [
   {
     n: "01",
     title: "Dopyt",
-    text: "Označíte voľný deň a napíšete, či chystáte svadbu, stužkovú, oslavu alebo ples. Dopyt je nezáväzný — deň sa tým ešte nerezervuje.",
+    text: "Označíte voľný deň a napíšete, či chystáte svadbu, stužkovú alebo firemnú akciu. Dopyt je nezáväzný — deň sa tým ešte nerezervuje.",
   },
   {
     n: "02",
@@ -74,7 +67,7 @@ export const steps = [
   {
     n: "04",
     title: "Realizácia",
-    text: "V deň oslavy je sála pripravená podľa dohody. Termín platí, až keď ho potvrdíme — nie kliknutím v kalendári.",
+    text: "V deň akcie je sála pripravená podľa dohody. Termín platí, až keď ho potvrdíme — nie kliknutím v kalendári.",
   },
 ];
 
@@ -82,17 +75,17 @@ export const layouts = [
   {
     id: "banket",
     title: "Banket",
-    text: "Okrúhle alebo spoločné stoly. Svadobná hostina, jubileum, krstiny, slávnostná večera.",
+    text: "Okrúhle alebo spoločné stoly. Svadobná hostina a slávnostná večera.",
   },
   {
     id: "party",
     title: "Párty",
-    text: "Parket ostáva voľný a pódium 12×6 m je pre kapelu alebo DJ-a. Stužková, ples, zábava po večeri.",
+    text: "Parket ostáva voľný a pódium 12×6 m je pre kapelu alebo DJ-a. Stužková, ples aj zábava po večeri.",
   },
   {
     id: "divadlo",
     title: "Divadlo",
-    text: "Stoličky v radoch k pódiu. Keď má oslava program, príhovor alebo krátke predstavenie.",
+    text: "Stoličky v radoch k pódiu. Program, príhovor alebo prednáška.",
   },
   {
     id: "skola",
@@ -103,16 +96,16 @@ export const layouts = [
 
 export const faqs = [
   {
-    q: "Koľko hostí unesie svadba, stužková alebo rodinná oslava?",
-    a: "Pre svadby a stužkové sála uvádza 100 až 300 hostí. Celková kapacita priestoru je 50 až 250 osôb. Menšia oslava sa sem zmestí tiež. Presné usadenie závisí od stolov, pódia a cateringu — navrhneme ho podľa vášho večera.",
+    q: "Koľko hostí sa do sály zmestí?",
+    a: "Kapacita je 50 až 250 osôb. Presné usadenie závisí od stolov, pódia a cateringu — navrhneme ho podľa svadby, stužkovej alebo firemnej akcie.",
   },
   {
-    q: "Keď je deň v kalendári voľný, mám ho na oslavu rezervovaný?",
-    a: "Nie. Kalendár ukazuje dni, na ktoré už siaha celodenná akcia. Kliknutím posielate nezáväzný dopyt. Termín svadby, stužkovej alebo oslavy potvrdí tím sály a až potom platí.",
+    q: "Keď je deň v kalendári voľný, mám ho rezervovaný?",
+    a: "Nie. Kalendár ukazuje dni, na ktoré už siaha celodenná akcia. Kliknutím posielate nezáväzný dopyt. Termín svadby, stužkovej alebo firemnej akcie potvrdí tím sály a až potom platí.",
   },
   {
-    q: "Dá sa oslava prispôsobiť rozpočtu?",
-    a: "Cenník na webe nie je. Cenu povieme podľa typu oslavy, termínu a toho, čo z techniky využijete. Rozpočet si určíte vy, my navrhneme rozloženie a rozsah, ktorý mu sedí.",
+    q: "Ako sa pri stužkovej dohodnú pravidlá?",
+    a: "Dohodneme vopred jasné pravidlá. Študentom, rodičom aj triednym povieme, ako večer prebehne, skôr než termín potvrdíme. Chceme, aby stužková bola pokojná a pod dohľadom.",
   },
   {
     q: "Pomôžete s prípravou, alebo si všetko riešime sami?",
@@ -127,7 +120,7 @@ export const faqs = [
     a: "Priamo pred budovou. Sála je na Rosinskej ceste, na okraji Žiliny, s dobrým prístupom autom.",
   },
   {
-    q: "Dá sa z oslavy vyjsť von?",
+    q: "Dá sa zo sály vyjsť von?",
     a: "Áno. Z sály sa prechádza priamo na balkón a terasu.",
   },
   {
@@ -135,12 +128,12 @@ export const faqs = [
     a: "Pódium má 12×6 m a hodí sa na kapelu, DJ-a aj sprievodný program. Parket ostáva na tanec. Ozvučenie má mixážny pult Yamaha, náhlavné aj ručné mikrofóny a reproduktory. Svetelné scény sa dajú prepínať podľa večera.",
   },
   {
-    q: "A čo keď potrebujeme sálu na firmu?",
-    a: "Konferencie, školenia, prezentácie a firemné akcie vieme tiež. V sále je Full HD projektor so svietivosťou 5 400 lumenov a SMART zatemnenie okien. Viac je na stránke konferencií.",
+    q: "Dá sa sála prenajať aj na firmu?",
+    a: "Áno. Konferencie, školenia, prezentácie a firemné akcie sú druhý pilier sály. V priestore je Full HD projektor so svietivosťou 5 400 lumenov a SMART zatemnenie okien. Viac je na stránke pre firmy.",
   },
   {
     q: "Kedy vás zastihneme?",
-    a: "Administratíva je v pracovných dňoch od 7:00 do 15:30. Samotné oslavy sa konajú podľa dohodnutého programu, nie len v týchto hodinách.",
+    a: "Administratíva je v pracovných dňoch od 7:00 do 15:30. Samotné akcie sa konajú podľa dohodnutého programu, nie len v týchto hodinách.",
   },
   {
     q: "Sú priestory bezbariérové?",
@@ -210,7 +203,7 @@ export const galleryFilters = [
   { id: "all", label: "Všetko" },
   { id: "svadby", label: "Svadby" },
   { id: "stuzkova", label: "Stužkové" },
-  { id: "vecierok", label: "Oslavy a večierky" },
+  { id: "vecierok", label: "Večierky" },
   { id: "konferencie", label: "Konferencie" },
   { id: "otvorenie", label: "Otvorenie sály" },
 ];
