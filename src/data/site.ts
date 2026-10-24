@@ -15,7 +15,11 @@ export const site = {
   instagram: "https://www.instagram.com/sala_zilina_kinekus/",
   facebook: "https://www.facebook.com/salazilina",
   tour: "https://tourmkr.com/F1bNk2eajH/31139046p&58.92h&89.39t",
-  geo: { lat: 49.201466, lng: 18.77034 },
+  maps: "https://maps.app.goo.gl/nT8hn4QGFAZ5ZP8K8",
+  placeId: "ChIJyXiJBeZZFEcRWa4yofV7rGg",
+  writeReview: "https://search.google.com/local/writereview?placeid=ChIJyXiJBeZZFEcRWa4yofV7rGg",
+  whatsapp: "https://wa.me/421908761253",
+  geo: { lat: 49.2013982, lng: 18.7699948 },
 };
 
 export const nav = [

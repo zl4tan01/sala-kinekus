@@ -378,6 +378,160 @@ function setupGallery(root: HTMLElement): void {
   });
 }
 
+function httpsUrl(value: unknown): string {
+  return typeof value === "string" && value.startsWith("https://") ? value : "";
+}
+
+function setupReviews(): void {
+  const badge = document.querySelector<HTMLElement>("[data-rating]");
+  const section = document.querySelector<HTMLElement>("[data-reviews]");
+  if (!badge && !section) return;
+
+  fetch("/api/reviews.php", { headers: { Accept: "application/json" } })
+    .then(async (response) => {
+      if (!response.ok) return;
+      const data = (await response.json()) as {
+        available?: boolean;
+        ratingLabel?: string;
+        countLabel?: string;
+        listingUrl?: string;
+        writeUrl?: string;
+        reviews?: Array<{ author?: string; rating?: number; text?: string; url?: string }>;
+      };
+      if (data.available !== true) return;
+
+      const listing = httpsUrl(data.listingUrl);
+      const write = httpsUrl(data.writeUrl);
+      const ratingLabel = typeof data.ratingLabel === "string" ? data.ratingLabel : "";
+      const countLabel = typeof data.countLabel === "string" ? data.countLabel : "";
+
+      if (badge && ratingLabel && countLabel && listing) {
+        const text = badge.querySelector("[data-rating-text]");
+        const link = badge.querySelector<HTMLAnchorElement>("[data-rating-link]");
+        if (text) text.textContent = `${ratingLabel} ★ · ${countLabel} na Google`;
+        if (link) link.href = listing;
+        badge.hidden = false;
+      }
+
+      if (!section) return;
+      const reviews = Array.isArray(data.reviews) ? data.reviews : [];
+      if (reviews.length === 0 && !(ratingLabel && write)) return;
+
+      const summary = section.querySelector("[data-reviews-summary]");
+      if (summary && ratingLabel && countLabel) {
+        summary.textContent = `${ratingLabel} ★ · ${countLabel} na Google`;
+      }
+
+      const list = section.querySelector("[data-review-list]");
+      if (list) {
+        reviews.forEach((review) => {
+          const quote = typeof review.text === "string" ? review.text.trim() : "";
+          const rating = Number(review.rating);
+          if (!quote || !Number.isInteger(rating) || rating < 1 || rating > 5) return;
+          const article = document.createElement("article");
+          article.className = "greview";
+          const stars = document.createElement("p");
+          stars.className = "greview-stars";
+          stars.textContent = `${rating} ★`;
+          stars.setAttribute("aria-label", `${rating} z 5`);
+          article.append(stars);
+          const author = typeof review.author === "string" ? review.author.trim() : "";
+          if (author) {
+            const name = document.createElement("p");
+            name.className = "greview-author";
+            name.textContent = author;
+            article.append(name);
+          }
+          const block = document.createElement("blockquote");
+          block.textContent = quote;
+          article.append(block);
+          const reviewUrl = httpsUrl(review.url);
+          if (reviewUrl) {
+            const link = document.createElement("a");
+            link.href = reviewUrl;
+            link.rel = "noopener noreferrer";
+            link.textContent = "Recenzia na Google";
+            article.append(link);
+          }
+          list.append(article);
+        });
+      }
+
+      const writeLink = section.querySelector<HTMLAnchorElement>("[data-write-review]");
+      if (writeLink && write) writeLink.href = write;
+      section.hidden = false;
+    })
+    .catch(() => {});
+}
+
+function activateFrame(frame: HTMLIFrameElement | null): boolean {
+  if (!frame || frame.getAttribute("src")) return false;
+  const src = frame.dataset.src || "";
+  if (!src.startsWith("https://")) return false;
+  frame.src = src;
+  frame.hidden = false;
+  frame.focus();
+  return true;
+}
+
+function setupTour(root: HTMLElement): void {
+  const button = root.querySelector<HTMLButtonElement>("[data-tour-open]");
+  const frame = root.querySelector<HTMLIFrameElement>("[data-tour-frame]");
+  const poster = root.querySelector<HTMLElement>("[data-tour-poster]");
+  button?.addEventListener("click", () => {
+    if (!activateFrame(frame)) return;
+    if (poster) poster.hidden = true;
+  });
+}
+
+function setupMap(root: HTMLElement): void {
+  const button = root.querySelector<HTMLButtonElement>("[data-map-open]");
+  const frame = root.querySelector<HTMLIFrameElement>("[data-map-frame]");
+  button?.addEventListener("click", () => {
+    if (!activateFrame(frame)) return;
+    button.hidden = true;
+    root.querySelectorAll<HTMLElement>(".note").forEach((note) => {
+      note.hidden = true;
+    });
+  });
+}
+
+function setupConsent(): void {
+  const box = document.querySelector<HTMLElement>("[data-consent]");
+  if (!box) return;
+  try {
+    if (localStorage.getItem("sala-consent") === "1") return;
+  } catch {
+    return;
+  }
+  box.hidden = false;
+  box.querySelector("[data-consent-ok]")?.addEventListener("click", () => {
+    try {
+      localStorage.setItem("sala-consent", "1");
+    } catch {
+      /* úložisko môže byť vypnuté */
+    }
+    box.hidden = true;
+  });
+}
+
+function setupViewing(): void {
+  const line = "Chcem si dohodnúť obhliadku sály.";
+  document.querySelectorAll<HTMLAnchorElement>("[data-viewing]").forEach((link) => {
+    link.addEventListener("click", () => {
+      const field = document.querySelector<HTMLTextAreaElement>('textarea[name="message"]');
+      if (!field || field.value.includes(line)) return;
+      const current = field.value.trim();
+      field.value = current === "" ? line : `${current}\n${line}`;
+    });
+  });
+}
+
 setupNav();
 document.querySelectorAll<HTMLElement>("[data-booking]").forEach(setupBooking);
 document.querySelectorAll<HTMLElement>("[data-gallery]").forEach(setupGallery);
+setupReviews();
+document.querySelectorAll<HTMLElement>("[data-tour]").forEach(setupTour);
+document.querySelectorAll<HTMLElement>("[data-map]").forEach(setupMap);
+setupConsent();
+setupViewing();

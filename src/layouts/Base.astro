@@ -38,7 +38,7 @@ const jsonLd = {
     longitude: site.geo.lng,
   },
   maximumAttendeeCapacity: 250,
-  sameAs: [site.facebook, site.instagram],
+  sameAs: [site.facebook, site.instagram, site.maps],
   parentOrganization: {
     "@type": "Organization",
     name: site.legalName,
@@ -79,6 +79,14 @@ const json = JSON.stringify(jsonLd).replace(/</g, "\\u003c");
       <slot />
     </main>
     <Footer />
+    <div class="consent" data-consent hidden>
+      <p>Analytické cookies nepoužívame. Mapa a 360° prehliadka sa načítajú až po kliknutí.</p>
+      <button type="button" data-consent-ok>Rozumiem</button>
+    </div>
+    <div class="dock">
+      <a class="btn btn-dark" href={site.phoneHref}>Zavolať</a>
+      <a class="btn" href={bookingHref}>Overiť termín</a>
+    </div>
     <script>
       import "../scripts/site.ts";
     </script>

@@ -5,6 +5,7 @@ import Booking from "../components/Booking.astro";
 import Gallery from "../components/Gallery.astro";
 import Location from "../components/Location.astro";
 import Logos from "../components/Logos.astro";
+import Tour from "../components/Tour.astro";
 import media from "../data/media.json";
 import { faqs, layouts, proof, quotes, site, steps } from "../data/site";
 
@@ -30,8 +31,13 @@ if (!cateringPhoto) throw new Error("Chýba fotografia svadba-22");
       </p>
       <div class="hero-actions">
         <a class="btn" href="#termin">Overiť voľný termín</a>
-        <a class="btn-line" href={site.tour} target="_blank" rel="noopener noreferrer">Virtuálna prehliadka</a>
+        <a class="btn-line" href="#prehliadka">Virtuálna prehliadka</a>
       </div>
+      <p class="rating-badge" data-rating hidden>
+        <a href={site.maps} data-rating-link rel="noopener noreferrer">
+          <span data-rating-text></span>
+        </a>
+      </p>
     </div>
   </section>
 
@@ -121,6 +127,8 @@ if (!cateringPhoto) throw new Error("Chýba fotografia svadba-22");
   </section>
   </div>
 
+  <Tour />
+
   <section class="section" id="priebeh" style="padding-top:0">
     <div class="wrap">
       <div class="section-head">
@@ -138,6 +146,10 @@ if (!cateringPhoto) throw new Error("Chýba fotografia svadba-22");
           </li>
         ))}
       </ol>
+      <div class="viewing">
+        <a class="btn btn-dark" href="#termin" data-viewing>Obhliadka sály</a>
+        <p class="note">Dohodneme termín, kedy si sálu prejdete naživo.</p>
+      </div>
     </div>
   </section>
 
@@ -241,12 +253,27 @@ if (!cateringPhoto) throw new Error("Chýba fotografia svadba-22");
     <a class="btn-line" href="/galeria/" style="color:var(--ink)">Celá galéria</a>
   </div>
 
+  <section class="section" id="recenzie-google" data-reviews hidden>
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Google</p>
+        <h2>Recenzie na Google</h2>
+        <p class="lead" data-reviews-summary></p>
+      </div>
+      <div class="review-grid" data-review-list></div>
+      <div class="reviews-actions">
+        <a class="btn btn-dark" href={site.writeReview} data-write-review rel="noopener noreferrer">Napísať recenziu</a>
+      </div>
+      <p class="note">Čísla a texty sú z verejného profilu na Google. Na webe ich neprepisujeme.</p>
+    </div>
+  </section>
+
   <section class="section" id="referencie">
     <div class="wrap">
       <div class="section-head">
-        <p class="eyebrow">Referencie</p>
-        <h2>Čo o sále povedali hostia.</h2>
-        <p class="lead">Vyberáme z referencií, ktoré sála zverejnila. Celé znenie je na stránke referencií.</p>
+        <p class="eyebrow">Referencie klientov</p>
+        <h2>Referencie z pôvodného webu.</h2>
+        <p class="lead">Texty sú z salazilina.sk. Nie sú to recenzie z Google. Celé znenie je na stránke referencií.</p>
       </div>
       <div class="quote-grid">
         {featured.map((quote) => (

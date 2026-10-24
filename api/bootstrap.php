@@ -18,6 +18,11 @@ function sala_config(): array
         'mail_file' => '',
         'rate_limit_max' => 8,
         'rate_limit_window' => 1800,
+        'google_places_api_key' => '',
+        'google_place_id' => 'ChIJyXiJBeZZFEcRWa4yofV7rGg',
+        'google_maps_url' => 'https://maps.app.goo.gl/nT8hn4QGFAZ5ZP8K8',
+        'google_reviews_cache_seconds' => 86400,
+        'google_reviews_file' => '',
     ];
 
     $explicit = getenv('SALAK_CONFIG');

@@ -5,6 +5,7 @@ require_once __DIR__ . '/../api/bootstrap.php';
 require_once __DIR__ . '/../api/lib/Calendar.php';
 require_once __DIR__ . '/../api/lib/Availability.php';
 require_once __DIR__ . '/../api/lib/Inquiry.php';
+require_once __DIR__ . '/../api/lib/Reviews.php';
 
 $failed = 0;
 
@@ -144,6 +145,83 @@ putenv('SALAK_TZ_TEST=1');
 $payload = sala_occupied_from_ics($ics, sala_today(), sala_add_months(sala_today(), 18));
 $encoded = json_encode(['occupied' => $payload, 'updated' => date('c')]);
 check(is_string($encoded) && !str_contains($encoded, 'ATTENDEE') && !str_contains($encoded, 'example.com'), 'výstup z iCal okna nemá kontakty');
+
+check(sala_review_count_label(1) === '1 recenzia', '1 recenzia');
+check(sala_review_count_label(2) === '2 recenzie', '2 recenzie');
+check(sala_review_count_label(4) === '4 recenzie', '4 recenzie');
+check(sala_review_count_label(5) === '5 recenzií', '5 recenzií');
+check(sala_review_count_label(11) === '11 recenzií', '11 recenzií');
+check(sala_review_count_label(12) === '12 recenzií', '12 recenzií');
+check(sala_review_count_label(22) === '22 recenzie', '22 recenzie');
+check(sala_review_count_label(36) === '36 recenzií', '36 recenzií');
+check(sala_rating_label(4.4) === '4,4', 'hodnotenie s čiarkou');
+check(sala_review_first_name('Jana Nováková') === 'Jana', 'krstné meno');
+check(sala_review_first_name('A') === '', 'jedno písmeno sa nepoužije');
+$long = 'Krásna sála ' . str_repeat('s parketom ', 40);
+$excerpt = sala_review_excerpt($long);
+check(str_starts_with($excerpt, 'Krásna sála') && str_ends_with($excerpt, '…') && mb_strlen($excerpt) <= 281, 'úryvok nechá pôvodný začiatok');
+
+$places = sala_reviews_from_places([
+    'rating' => 4.4,
+    'userRatingCount' => 36,
+    'googleMapsUri' => 'https://maps.google.com/?cid=7542539770840395353',
+    'reviews' => [[
+        'rating' => 5,
+        'text' => ['text' => 'Translated hall text that must stay hidden.'],
+        'originalText' => ['text' => 'Krásna sála s parketom a pódiom.'],
+        'authorAttribution' => ['displayName' => 'Jana Nováková'],
+        'googleMapsUri' => 'https://maps.google.com/maps/reviews/data=!example',
+    ]],
+], 'ChIJyXiJBeZZFEcRWa4yofV7rGg', 'https://maps.app.goo.gl/nT8hn4QGFAZ5ZP8K8');
+$placesJson = json_encode($places, JSON_UNESCAPED_UNICODE);
+check(
+    is_string($placesJson)
+    && $places['reviews'][0]['author'] === 'Jana'
+    && str_starts_with($places['reviews'][0]['text'], 'Krásna sála')
+    && !str_contains($placesJson, 'Translated')
+    && !str_contains($placesJson, 'TAJNY-KLUC')
+    && $places['ratingLabel'] === '4,4'
+    && $places['countLabel'] === '36 recenzií',
+    'Places berie pôvodný text a neprezradí kľúč'
+);
+
+$sampleFile = json_decode((string) file_get_contents(dirname(__DIR__) . '/content/google-reviews.json'), true);
+check(is_array($sampleFile) && sala_reviews_from_manual($sampleFile) === ['available' => false], 'vzorový súbor sa nezobrazí');
+
+$manual = sala_reviews_from_manual([
+    'sample' => false,
+    'listingUrl' => 'https://maps.app.goo.gl/nT8hn4QGFAZ5ZP8K8',
+    'writeReviewUrl' => 'https://search.google.com/local/writereview?placeid=ChIJyXiJBeZZFEcRWa4yofV7rGg',
+    'rating' => 4.4,
+    'userRatingCount' => 36,
+    'reviews' => [[
+        'author' => 'Meno',
+        'rating' => 5,
+        'text' => 'Sem vložte doslovný text recenzie z Google. Tento vzorový záznam sa na webe nezobrazí.',
+        'url' => 'https://maps.app.goo.gl/nT8hn4QGFAZ5ZP8K8',
+    ]],
+]);
+check(
+    $manual['available'] === true
+    && $manual['reviews'] === []
+    && $manual['ratingLabel'] === '4,4'
+    && $manual['countLabel'] === '36 recenzií',
+    'vzorová veta sa preskočí, súčet ostane'
+);
+
+$public = sala_reviews_public([
+    'google_places_api_key' => '',
+    'google_place_id' => 'ChIJyXiJBeZZFEcRWa4yofV7rGg',
+    'google_reviews_file' => dirname(__DIR__) . '/content/google-reviews.json',
+]);
+$publicJson = json_encode($public);
+check(
+    ($public['available'] ?? null) === false
+    && is_string($publicJson)
+    && !str_contains($publicJson, 'google_places_api_key')
+    && !str_contains($publicJson, 'AIza'),
+    'bez kľúča a so vzorom je odpoveď prázdna'
+);
 
 echo $failed === 0 ? "\nVšetky testy prešli.\n" : "\nZlyhalo: {$failed}\n";
 exit($failed === 0 ? 0 : 1);

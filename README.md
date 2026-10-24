@@ -1,6 +1,6 @@
 # Sála Kinekus
 
-Nový web sály na Rosinskej ceste 13 v Žiline. Nahrádza [salazilina.sk](https://www.salazilina.sk). Statické stránky (Astro) a dva PHP endpointy: dostupnosť z Google Kalendára a nezáväzný dopyt e-mailom.
+Nový web sály na Rosinskej ceste 13 v Žiline. Nahrádza [salazilina.sk](https://www.salazilina.sk). Statické stránky (Astro) a PHP endpointy: dostupnosť z Google Kalendára, nezáväzný dopyt e-mailom a recenzie z Google Places.
 
 Texty sú po slovensky. Fotografie pochádzajú z pôvodného webu a v repozitári sú už zmenšené do WebP a AVIF.
 
@@ -68,6 +68,22 @@ Formulár má skryté pole proti robotom (honeypot) a limit odoslaní z jednej I
 
 Kým `config.php` nie je, `mode` je `mock`. Na skúšku odoslania bez pošty dajte `'mail_transport' => 'file'` a `'mail_file' => '/tmp/sala-dopyt.txt'`. Na ostrom webe nechajte `mail`.
 
+## Recenzie z Google
+
+`GET /api/reviews.php` číta Place Details (Places API New) pre profil **Sála Žilina**. Place ID `ChIJyXiJBeZZFEcRWa4yofV7rGg` je v `api/config.example.php` už vyplnené. Odpoveď si server pamätá asi 24 hodín v `api/cache/reviews.json`. Keď Google práve neodpovie, ešte 14 dní vráti posledný úspešný súčet.
+
+Do `api/config.php` doplňte kľúč:
+
+```php
+'google_places_api_key' => 'váš kľúč Places API (New)',
+```
+
+Kľúč patrí len do `config.php` na serveri. Do verejného JSON sa nedostane. Prehliadač dostane hodnotenie, počet recenzií, odkaz na profil a pri každej recenzii krstné meno, hviezdičky, úryvok a odkaz. Text sa berie z pôvodného znenia, nie z prekladu Google.
+
+Kým kľúč nie je, endpoint číta `content/google-reviews.json`. Súbor v repozitári má `"sample": true`, preto sa odznak ani sekcia na webe nezobrazia. Keď chcete recenzie vložiť ručne, skopírujte skutočné znenie z Google, nastavte `"sample": false`, vyplňte `rating`, `userRatingCount` a pri každej recenzii nechajte `sample` vypnuté. Meno môže byť celé — web ukáže prvé slovo. Vzorovú vetu „Tento vzorový záznam sa na webe nezobrazí“ nechajte len pri ukážke. Priečinok `dist/content/` má `.htaccess`, ktorý súbor zvonku zakáže; číta ho len PHP.
+
+Na stránku nepridávame `aggregateRating`. Čísla a citácie sa nezobrazia, kým nie sú z API alebo z upraveného JSON.
+
 ## Testy
 
 `npm test` spustí `tests/run.php` na vzorovom `tests/sample.ics`. Overí celodennú udalosť, viacdňovú udalosť (koniec je výlučný), že časované udalosti deň neobsadia, a že sa do JSON nedostane názov, opis ani účastník. Samostatne prejde aj tvar odpovede Google Calendar API a validácia formulára.
@@ -85,5 +101,6 @@ Skript zapíše `public/media/` a `src/data/media.json`.
 ## Štruktúra po nahratí
 
 - `index.html` a podstránky (svadby, stužková, konferencie, catering, galéria, referencie, kontakt). Adresa `/oslavy/` presmeruje na úvod.
-- `api/availability.php`, `api/inquiry.php`, `api/config.php`
+- `api/availability.php`, `api/inquiry.php`, `api/reviews.php`, `api/config.php`
+- `content/google-reviews.json` (vzor, zvonku zakázaný)
 - `sitemap-index.xml`, `robots.txt`

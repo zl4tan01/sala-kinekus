@@ -1,0 +1,16 @@
+{
+  "sample": true,
+  "listingUrl": "https://maps.app.goo.gl/nT8hn4QGFAZ5ZP8K8",
+  "writeReviewUrl": "https://search.google.com/local/writereview?placeid=ChIJyXiJBeZZFEcRWa4yofV7rGg",
+  "rating": null,
+  "userRatingCount": null,
+  "reviews": [
+    {
+      "sample": true,
+      "author": "Meno",
+      "rating": 5,
+      "text": "Sem vložte doslovný text recenzie z Google. Tento vzorový záznam sa na webe nezobrazí.",
+      "url": "https://maps.app.goo.gl/nT8hn4QGFAZ5ZP8K8"
+    }
+  ]
+}

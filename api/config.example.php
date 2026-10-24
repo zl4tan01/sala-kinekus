@@ -43,4 +43,15 @@ return [
     // Koľko odoslaní z jednej IP za okno (sekundy).
     'rate_limit_max' => 8,
     'rate_limit_window' => 1800,
+
+    // --- Recenzie z Google ------------------------------------------------
+    // Places API (New), kľúč s obmedzením na Place Details.
+    // Place ID profilu „Sála Žilina“, Rosinská cesta 13.
+    // Kým je kľúč prázdny, web číta content/google-reviews.json.
+    // Vzorové záznamy (sample: true) sa nezobrazia.
+    'google_places_api_key' => '',
+    'google_place_id' => 'ChIJyXiJBeZZFEcRWa4yofV7rGg',
+    'google_maps_url' => 'https://maps.app.goo.gl/nT8hn4QGFAZ5ZP8K8',
+    'google_reviews_cache_seconds' => 86400,
+    'google_reviews_file' => '',
 ];
