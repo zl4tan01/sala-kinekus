@@ -3,6 +3,7 @@ import Base from "../layouts/Base.astro";
 import Picture from "../components/Picture.astro";
 import Booking from "../components/Booking.astro";
 import media from "../data/media.json";
+import { site } from "../data/site";
 
 const description = "Stužková v Žiline v sále pre 50 až 250 osôb. Pódium 12×6 m, ozvučenie Yamaha a parkovanie pred budovou. Pravidlá dohodneme vopred.";
 ---
@@ -34,6 +35,20 @@ const description = "Stužková v Žiline v sále pre 50 až 250 osôb. Pódium 
         </div>
       </div>
     </div>
+    <section class="section" id="recenzie-stuzkova" data-review-section="stuzkova" hidden style="padding-top:0">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Po stužkovej</p>
+          <h2>Ako stužková v sále dopadla.</h2>
+          <p class="lead">Dve recenzie z Google od ľudí, ktorí tu stužkovú mali. Text je doslovný.</p>
+        </div>
+        <div class="review-grid" data-review-list></div>
+        <div class="reviews-actions">
+          <a class="review-count" data-review-count href={site.maps} hidden rel="noopener noreferrer"></a>
+        </div>
+        <p class="note">Profil na Google uvádza, že recenzie nie sú overené. Každá citácia vedie na profil.</p>
+      </div>
+    </section>
   </article>
-  <Booking segment="b2c" kind="stuzkova" title="Termín stužkovej" />
+  <Booking segment="b2c" kind="stuzkova" title="Termín stužkovej" quoteSection="stuzkova" />
 </Base>

@@ -5,12 +5,14 @@ interface Props {
   kind?: string;
   title?: string;
   lead?: string;
+  quoteSection?: string;
 }
 const {
   segment = "b2c",
   kind = "svadba",
   title = "Overte voľný termín",
   lead = "Obsadené sú dni, na ktoré už siaha celodenná akcia. Kliknutie deň nerezervuje. Pošlete nezáväzný dopyt na svadbu, stužkovú alebo firemnú akciu a termín potvrdíme my.",
+  quoteSection = "",
 } = Astro.props;
 const selected = kinds.find((item) => item.id === kind) ?? kinds.find((item) => item.segment === segment) ?? kinds[0];
 ---
@@ -87,7 +89,7 @@ const selected = kinds.find((item) => item.id === kind) ?? kinds.find((item) => 
             </span>
           </label>
           <p class="field-error" data-error-for="gdpr" hidden></p>
-          <figure class="form-quote" data-form-quote hidden>
+          <figure class="form-quote" data-form-quote data-quote-section={quoteSection || undefined} hidden>
             <blockquote data-form-quote-text></blockquote>
             <figcaption data-form-quote-by></figcaption>
           </figure>

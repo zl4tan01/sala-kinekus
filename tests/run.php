@@ -181,15 +181,16 @@ check(
     && str_starts_with($places['hero']['text'], 'Krásna sála')
     && !str_contains($placesJson, 'Translated')
     && !str_contains($placesJson, 'TAJNY-KLUC')
-    && !str_contains($placesJson, '4,4')
     && !isset($places['ratingLabel'])
-    && $places['proofLabel'] === '★ 36 recenzií na Google'
+    && $places['proofLabel'] === '4,4 ★ · 36 recenzií na Google'
     && $places['themes'] === [],
-    'Places berie pôvodný text, bez priemeru a bez kľúča'
+    'Places berie pôvodný text a priemer len ako malý odkaz'
 );
 
-$sampleFile = json_decode((string) file_get_contents(dirname(__DIR__) . '/content/google-reviews.json'), true);
-check(is_array($sampleFile) && sala_reviews_from_manual($sampleFile) === ['available' => false], 'vzorový súbor sa nezobrazí');
+$hiddenSample = sala_reviews_from_manual(['sample' => true, 'reviews' => [['author' => 'Eva', 'rating' => 5, 'text' => 'Veľké parkovisko pred sálou na svadbu.']]]);
+check($hiddenSample === ['available' => false], 'vzorový súbor sa nezobrazí');
+$staff = sala_review_without_staff('Najkrajšia sála v Žiline. Veľmi chválim komunikáciu s pani Macku, ktorá pomohla.');
+check($staff === 'Najkrajšia sála v Žiline.' && !str_contains($staff, 'Mack'), 'veta s menom zamestnanca vypadne');
 
 $manual = sala_reviews_from_manual([
     'sample' => false,
@@ -262,8 +263,8 @@ check(
     && count($curated['reviews']) === 3
     && count($curated['themes']) === 2
     && $themesOk
-    && $curated['proofLabel'] === '★ 36 recenzií na Google'
-    && !str_contains($curatedJson, '4,4')
+    && $curated['proofLabel'] === '4,4 ★ · 36 recenzií na Google'
+    && !isset($curated['ratingLabel'])
     && !str_contains($curatedJson, 'Odporúčam')
     && !str_contains($curatedJson, 'Mia'),
     'najkratšie konkrétne citácie idú prvé a témy sú doslovné'
@@ -274,13 +275,36 @@ $public = sala_reviews_public([
     'google_place_id' => 'ChIJyXiJBeZZFEcRWa4yofV7rGg',
     'google_reviews_file' => dirname(__DIR__) . '/content/google-reviews.json',
 ]);
-$publicJson = json_encode($public);
+$publicJson = json_encode($public, JSON_UNESCAPED_UNICODE);
+$themeBlob = '';
+foreach (array_merge($public['reviews'] ?? [], $public['sections']['stuzkova'] ?? []) as $review) {
+    $themeBlob .= $review['text'] . "\n";
+}
+$liveThemes = true;
+foreach ($public['themes'] ?? [] as $theme) {
+    if (!str_contains($themeBlob, $theme['text'])) {
+        $liveThemes = false;
+    }
+}
 check(
-    ($public['available'] ?? null) === false
-    && is_string($publicJson)
+    is_string($publicJson)
+    && ($public['available'] ?? null) === true
+    && $public['hero']['author'] === 'Aneta'
+    && $public['hero']['text'] === 'Najkrajšia sála v Žiline. Všetko bolo pripravené podľa našich predstáv.'
+    && $public['formQuote']['author'] === 'Tatiana'
+    && array_column($public['reviews'], 'author') === ['Aneta', 'Tatiana', 'Jaroslav']
+    && array_column($public['sections']['stuzkova'], 'author') === ['Emilka', 'Erika']
+    && $public['sectionQuotes']['stuzkova']['author'] === 'Erika'
+    && $public['proofLabel'] === '4,4 ★ · 36 recenzií na Google'
+    && $liveThemes
+    && !str_contains($publicJson, 'Mack')
+    && !str_contains($publicJson, 'Video DJ')
+    && !str_contains($publicJson, '27×')
     && !str_contains($publicJson, 'google_places_api_key')
-    && !str_contains($publicJson, 'AIza'),
-    'bez kľúča a so vzorom je odpoveď prázdna'
+    && !str_contains($publicJson, 'AIza')
+    && str_contains($public['sections']['stuzkova'][0]['text'], 'veľké parkovisko')
+    && str_contains($public['sections']['stuzkova'][1]['text'], 'na parkovisku dostatok miesta'),
+    'živý súbor má päť recenzií bez mena zamestnanca a bez rozpisu'
 );
 
 echo $failed === 0 ? "\nVšetky testy prešli.\n" : "\nZlyhalo: {$failed}\n";

@@ -393,11 +393,51 @@ function reviewBits(review: PublicReview): { text: string; meta: string } | null
   return { text, meta };
 }
 
+function fillQuoteFigure(root: HTMLElement, review: PublicReview): boolean {
+  const bits = reviewBits(review);
+  if (!bits) return false;
+  const quote = root.querySelector("[data-hero-quote-text], [data-form-quote-text]");
+  const by = root.querySelector("[data-hero-quote-by], [data-form-quote-by]");
+  if (quote) quote.textContent = `„${bits.text}“`;
+  if (by) by.textContent = bits.meta;
+  root.hidden = false;
+  return true;
+}
+
+function fillReviewList(list: HTMLElement, reviews: PublicReview[], listing: string): number {
+  let shown = 0;
+  reviews.forEach((review) => {
+    const bits = reviewBits(review);
+    if (!bits) return;
+    const article = document.createElement("article");
+    article.className = "greview";
+    const meta = document.createElement("p");
+    meta.className = "greview-author";
+    meta.textContent = bits.meta;
+    article.append(meta);
+    const block = document.createElement("blockquote");
+    block.textContent = bits.text;
+    article.append(block);
+    const href = listing || httpsUrl(review.url);
+    if (href) {
+      const link = document.createElement("a");
+      link.href = href;
+      link.rel = "noopener noreferrer";
+      link.textContent = "Recenzia na Google";
+      article.append(link);
+    }
+    list.append(article);
+    shown += 1;
+  });
+  return shown;
+}
+
 function setupReviews(): void {
   const hero = document.querySelector<HTMLElement>("[data-hero-quote]");
   const section = document.querySelector<HTMLElement>("[data-reviews]");
-  const formQuote = document.querySelector<HTMLElement>("[data-form-quote]");
-  if (!hero && !section && !formQuote) return;
+  const formQuotes = [...document.querySelectorAll<HTMLElement>("[data-form-quote]")];
+  const sectionBlocks = [...document.querySelectorAll<HTMLElement>("[data-review-section]")];
+  if (!hero && !section && formQuotes.length === 0 && sectionBlocks.length === 0) return;
 
   fetch("/api/reviews.php", { headers: { Accept: "application/json" } })
     .then(async (response) => {
@@ -409,8 +449,10 @@ function setupReviews(): void {
         writeUrl?: string;
         hero?: PublicReview;
         formQuote?: PublicReview;
+        sectionQuotes?: Record<string, PublicReview>;
         themes?: Array<{ text?: string }>;
         reviews?: PublicReview[];
+        sections?: Record<string, PublicReview[]>;
       };
       if (data.available !== true) return;
 
@@ -418,82 +460,58 @@ function setupReviews(): void {
       const write = httpsUrl(data.writeUrl);
       const proof = typeof data.proofLabel === "string" ? data.proofLabel : "";
 
-      const heroBits = data.hero ? reviewBits(data.hero) : null;
-      if (hero && heroBits) {
-        const quote = hero.querySelector("[data-hero-quote-text]");
-        const by = hero.querySelector("[data-hero-quote-by]");
-        if (quote) quote.textContent = `„${heroBits.text}“`;
-        if (by) by.textContent = heroBits.meta;
-        const link = hero.querySelector<HTMLAnchorElement>("[data-review-proof]");
-        if (link && proof && listing) {
-          link.textContent = proof;
-          link.href = listing;
-          link.hidden = false;
+      if (hero && data.hero) fillQuoteFigure(hero, data.hero);
+      const proofLink = hero?.querySelector<HTMLAnchorElement>("[data-review-proof]");
+      if (proofLink && proof && listing) {
+        proofLink.textContent = proof;
+        proofLink.href = listing;
+        proofLink.hidden = false;
+      }
+
+      formQuotes.forEach((formQuote) => {
+        const key = formQuote.dataset.quoteSection || "";
+        const source = key && data.sectionQuotes?.[key] ? data.sectionQuotes[key] : data.formQuote;
+        if (source) fillQuoteFigure(formQuote, source);
+      });
+
+      const showProof = (root: ParentNode) => {
+        const countLink = root.querySelector<HTMLAnchorElement>("[data-review-count]");
+        if (countLink && proof && listing) {
+          countLink.textContent = proof;
+          countLink.href = listing;
+          countLink.hidden = false;
         }
-        hero.hidden = false;
-      }
+        const writeLink = root.querySelector<HTMLAnchorElement>("[data-write-review]");
+        if (writeLink && write) writeLink.href = write;
+      };
 
-      const formBits = data.formQuote ? reviewBits(data.formQuote) : null;
-      if (formQuote && formBits) {
-        const quote = formQuote.querySelector("[data-form-quote-text]");
-        const by = formQuote.querySelector("[data-form-quote-by]");
-        if (quote) quote.textContent = `„${formBits.text}“`;
-        if (by) by.textContent = formBits.meta;
-        formQuote.hidden = false;
-      }
-
-      if (!section) return;
-      const reviews = Array.isArray(data.reviews) ? data.reviews : [];
-      const themes = Array.isArray(data.themes) ? data.themes : [];
-      const themeList = section.querySelector("[data-review-themes]");
-      if (themeList) {
-        themes.forEach((theme) => {
+      if (section) {
+        const themeList = section.querySelector("[data-review-themes]");
+        (data.themes || []).forEach((theme) => {
           const text = typeof theme.text === "string" ? theme.text.trim() : "";
-          if (!text) return;
+          if (!text || !themeList) return;
           const item = document.createElement("li");
           item.textContent = `„${text}“`;
           themeList.append(item);
         });
+        const list = section.querySelector<HTMLElement>("[data-review-list]");
+        const shown = list ? fillReviewList(list, data.reviews || [], listing) : 0;
+        if (shown > 0) {
+          showProof(section);
+          section.hidden = false;
+        }
       }
 
-      const list = section.querySelector("[data-review-list]");
-      let shown = 0;
-      if (list) {
-        reviews.forEach((review) => {
-          const bits = reviewBits(review);
-          if (!bits) return;
-          const article = document.createElement("article");
-          article.className = "greview";
-          const meta = document.createElement("p");
-          meta.className = "greview-author";
-          meta.textContent = bits.meta;
-          article.append(meta);
-          const block = document.createElement("blockquote");
-          block.textContent = bits.text;
-          article.append(block);
-          const href = listing || httpsUrl(review.url);
-          if (href) {
-            const link = document.createElement("a");
-            link.href = href;
-            link.rel = "noopener noreferrer";
-            link.textContent = "Recenzia na Google";
-            article.append(link);
-          }
-          list.append(article);
-          shown += 1;
-        });
-      }
-      if (shown === 0) return;
-
-      const countLink = section.querySelector<HTMLAnchorElement>("[data-review-count]");
-      if (countLink && proof && listing) {
-        countLink.textContent = proof;
-        countLink.href = listing;
-        countLink.hidden = false;
-      }
-      const writeLink = section.querySelector<HTMLAnchorElement>("[data-write-review]");
-      if (writeLink && write) writeLink.href = write;
-      section.hidden = false;
+      sectionBlocks.forEach((block) => {
+        const key = block.dataset.reviewSection || "";
+        const reviews = key && data.sections?.[key] ? data.sections[key] : [];
+        const list = block.querySelector<HTMLElement>("[data-review-list]");
+        const shown = list ? fillReviewList(list, reviews, listing) : 0;
+        if (shown > 0) {
+          showProof(block);
+          block.hidden = false;
+        }
+      });
     })
     .catch(() => {});
 }

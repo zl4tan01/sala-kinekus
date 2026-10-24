@@ -83,6 +83,147 @@ function sala_reviews_from_places(array $body, string $placeId, string $fallback
  * @param array<string,mixed> $file
  * @return array<string,mixed>
  */
+function sala_review_without_staff(string $text): string
+{
+    $parts = preg_split('/(?<=[\.!\?])\s+/u', trim($text)) ?: [];
+    $kept = [];
+    foreach ($parts as $part) {
+        if (preg_match('/mack[uů]/iu', $part) === 1) {
+            continue;
+        }
+        $part = trim($part);
+        if ($part !== '') {
+            $kept[] = $part;
+        }
+    }
+    return trim(implode(' ', $kept));
+}
+
+/**
+ * @param array<string,mixed> $spec
+ * @param list<array{author:string,rating:int,text:string,url:string}> $reviews
+ * @return array{author:string,rating:int,text:string,url:string}|null
+ */
+function sala_review_specified(array $spec, array $reviews): ?array
+{
+    $text = trim((string) ($spec['text'] ?? ''));
+    if ($text === '' || preg_match('/mack[uů]/iu', $text) === 1) {
+        return null;
+    }
+    $author = sala_review_first_name((string) ($spec['author'] ?? ''));
+    $rating = 0;
+    $url = '';
+    $found = false;
+    foreach ($reviews as $review) {
+        if (mb_stripos($review['text'], $text) === false) {
+            continue;
+        }
+        $found = true;
+        $rating = $review['rating'];
+        $url = $review['url'];
+        if ($author === '') {
+            $author = $review['author'];
+        }
+        break;
+    }
+    if (!$found || $rating < 4) {
+        return null;
+    }
+    return [
+        'author' => $author,
+        'rating' => $rating,
+        'text' => $text,
+        'url' => $url,
+    ];
+}
+
+/**
+ * @param list<array{author:string,rating:int,text:string,url:string,section?:string}> $reviews
+ * @return array<string,mixed>
+ */
+function sala_reviews_guided(array $file, array $reviews, ?float $rating, ?int $count, string $listing, string $write): array
+{
+    $general = [];
+    $sections = [];
+    foreach ($reviews as $review) {
+        if ($review['rating'] < 4) {
+            continue;
+        }
+        $section = trim((string) ($review['section'] ?? ''));
+        unset($review['section']);
+        if ($section !== '' && $section !== 'general') {
+            $sections[$section][] = $review;
+        } else {
+            $general[] = $review;
+        }
+    }
+    $pool = array_merge($general, ...array_values($sections));
+    if ($pool === []) {
+        return ['available' => false];
+    }
+
+    $hero = is_array($file['hero'] ?? null) ? sala_review_specified($file['hero'], $pool) : null;
+    $form = is_array($file['formQuote'] ?? null) ? sala_review_specified($file['formQuote'], $pool) : null;
+    $sectionQuotes = [];
+    foreach ($file['sectionQuotes'] ?? [] as $name => $spec) {
+        if (!is_string($name) || !is_array($spec)) {
+            continue;
+        }
+        $line = sala_review_specified($spec, $pool);
+        if ($line !== null) {
+            $sectionQuotes[$name] = $line;
+        }
+    }
+
+    $themes = [];
+    foreach ($file['themes'] ?? [] as $phrase) {
+        if (!is_string($phrase)) {
+            continue;
+        }
+        $phrase = trim($phrase);
+        if ($phrase === '' || preg_match('/mack[uů]/iu', $phrase) === 1) {
+            continue;
+        }
+        foreach ($pool as $review) {
+            if (mb_stripos($review['text'], $phrase) !== false) {
+                $themes[] = ['text' => $phrase];
+                break;
+            }
+        }
+        if (count($themes) >= 5) {
+            break;
+        }
+    }
+
+    if ($hero === null || $form === null || $themes === []) {
+        $curated = sala_reviews_curate($pool);
+        if ($hero === null) {
+            $hero = $curated['hero'];
+        }
+        if ($form === null) {
+            $form = $curated['formQuote'];
+        }
+        if ($themes === []) {
+            $themes = $curated['themes'];
+        }
+    }
+    if (($hero['text'] ?? '') === '') {
+        return ['available' => false];
+    }
+
+    return sala_reviews_with_proof([
+        'available' => true,
+        'listingUrl' => $listing,
+        'writeUrl' => $write,
+        'hero' => $hero,
+        'formQuote' => $form,
+        'sectionQuotes' => $sectionQuotes,
+        'themes' => $themes,
+        'reviews' => $general,
+        'sections' => $sections,
+    ], $rating, $count);
+}
+
 function sala_reviews_from_manual(array $file): array
 {
     if (($file['sample'] ?? false) === true) {
@@ -91,17 +232,27 @@ function sala_reviews_from_manual(array $file): array
     $listing = is_string($file['listingUrl'] ?? null) ? $file['listingUrl'] : '';
     $write = is_string($file['writeReviewUrl'] ?? null) ? $file['writeReviewUrl'] : '';
     $reviews = [];
+    $guided = is_array($file['hero'] ?? null) || is_array($file['themes'] ?? null);
     foreach ($file['reviews'] ?? [] as $review) {
         if (!is_array($review) || ($review['sample'] ?? false) === true) {
             continue;
         }
         $normalized = sala_reviews_one($review, false);
-        if ($normalized !== null) {
-            $reviews[] = $normalized;
+        if ($normalized === null) {
+            continue;
         }
+        $section = trim((string) ($review['section'] ?? ''));
+        if ($section !== '') {
+            $normalized['section'] = $section;
+            $guided = true;
+        }
+        $reviews[] = $normalized;
     }
     $rating = is_numeric($file['rating'] ?? null) ? (float) $file['rating'] : null;
     $count = is_numeric($file['userRatingCount'] ?? null) ? (int) $file['userRatingCount'] : null;
+    if ($guided) {
+        return sala_reviews_guided($file, $reviews, $rating, $count, $listing, $write);
+    }
     return sala_reviews_payload($rating, $count, $listing, $write, $reviews);
 }
 
@@ -130,7 +281,7 @@ function sala_reviews_one(array $review, bool $places): ?array
             return null;
         }
     }
-    $text = sala_review_excerpt($text);
+    $text = sala_review_excerpt(sala_review_without_staff($text), 640);
     if (mb_strlen($text) < 8) {
         return null;
     }
@@ -312,14 +463,33 @@ function sala_reviews_curate(array $reviews): array
  * @param list<array{author:string,rating:int,text:string,url:string}> $reviews
  * @return array<string,mixed>
  */
+/** @param array<string,mixed> $payload */
+function sala_reviews_with_proof(array $payload, ?float $rating, ?int $count): array
+{
+    if ($count === null || $count < 1) {
+        return $payload;
+    }
+    $payload['count'] = $count;
+    $payload['countLabel'] = sala_review_count_label($count);
+    if ($rating !== null && $rating >= 1 && $rating <= 5) {
+        $payload['proofLabel'] = sala_rating_label($rating) . ' ★ · ' . $payload['countLabel'] . ' na Google';
+    } else {
+        $payload['proofLabel'] = '★ ' . $payload['countLabel'] . ' na Google';
+    }
+    return $payload;
+}
+
+/**
+ * @param list<array{author:string,rating:int,text:string,url:string}> $reviews
+ * @return array<string,mixed>
+ */
 function sala_reviews_payload(?float $rating, ?int $count, string $listing, string $write, array $reviews): array
 {
-    unset($rating);
     $curated = sala_reviews_curate($reviews);
     if ($curated['reviews'] === []) {
         return ['available' => false];
     }
-    $payload = [
+    return sala_reviews_with_proof([
         'available' => true,
         'listingUrl' => $listing,
         'writeUrl' => $write,
@@ -327,13 +497,7 @@ function sala_reviews_payload(?float $rating, ?int $count, string $listing, stri
         'formQuote' => $curated['formQuote'],
         'themes' => $curated['themes'],
         'reviews' => $curated['reviews'],
-    ];
-    if ($count !== null && $count >= 1) {
-        $payload['count'] = $count;
-        $payload['countLabel'] = sala_review_count_label($count);
-        $payload['proofLabel'] = '★ ' . $payload['countLabel'] . ' na Google';
-    }
-    return $payload;
+    ], $rating, $count);
 }
 
 /** @return array<string,mixed> */
@@ -343,7 +507,7 @@ function sala_reviews_public(array $config): array
     $key = trim((string) ($config['google_places_api_key'] ?? ''));
     $listing = trim((string) ($config['google_maps_url'] ?? ''));
     if ($listing === '') {
-        $listing = 'https://maps.app.goo.gl/nT8hn4QGFAZ5ZP8K8';
+        $listing = 'https://www.google.com/maps/place/S%C3%A1la+%C5%BDilina/@49.2010185,18.7673104,17z/data=!4m8!3m7!1s0x471459e6058978c9:0x68ac7bf5a132ae59!8m2!3d49.2013982!4d18.7699948!9m1!1b1!16s%2Fg%2F11g0lbzfrx?hl=sk';
     }
     $ttl = (int) ($config['google_reviews_cache_seconds'] ?? 86400);
     if ($ttl < 300) {

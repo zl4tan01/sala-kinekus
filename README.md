@@ -78,11 +78,11 @@ Do `api/config.php` doplňte kľúč:
 'google_places_api_key' => 'váš kľúč Places API (New)',
 ```
 
-Kľúč patrí len do `config.php` na serveri. Do verejného JSON sa nedostane. Na web idú len recenzie so 4 alebo 5 hviezdičkami, ktoré spomínajú konkrétnu vec (priestor, parkovanie, personál, organizáciu, svadbu, stužkovú, atmosféru). Najkratšie idú prvé. Text je pôvodné znenie, nie preklad Google, a kráti sa len výpustkou. Vedľa citácie je malý odkaz s počtom recenzií. Samotné priemerné hodnotenie sa na stránku nevypisuje. Opakované témy sú doslovné úryvky, nie naše nadpisy.
+Kľúč patrí len do `config.php` na serveri. Do verejného JSON sa nedostane. Kým kľúč nie je, endpoint číta `content/google-reviews.json`. V tom súbore je päť recenzií z profilu, doslovne. Na úvod idú Aneta, Tatiana a Jaroslav. Emilka a Erika sú na stránke stužkovej. Vedľa citácie je malý odkaz „4,4 ★ · 36 recenzií na Google“. Rozpis hviezdičiek sa nezobrazuje. Vety s menom zamestnanca sa vynechajú. Google pri profile uvádza, že recenzie nie sú overené.
 
-Kým kľúč nie je, endpoint číta `content/google-reviews.json`. Súbor v repozitári má `"sample": true` a v poli `instructions` je postup. Vzor sa na webe nezobrazí. Keď vkladáte recenzie ručne, nastavte `"sample": false`, doplňte `rating` a `userRatingCount` z profilu a pri každej recenzii nechajte `sample` vypnuté. Uprednostnite texty, ktoré spomínajú stužkovú, svadbu alebo parkovanie. Meno môže byť celé — web ukáže prvé slovo. Priečinok `dist/content/` má `.htaccess`, ktorý súbor zvonku zakáže; číta ho len PHP.
+Ďalšiu recenziu pridáte do poľa `reviews`. Nový objekt má `author` (krstné meno), `rating` (4 alebo 5), `text` (doslovne z Google, bez prepisovania), `url` (nechajte `listingUrl`) a `section`: `general` na úvod, `stuzkova` na stránku stužkovej. Ak má byť v hero, pri formulári alebo medzi dlaždicami, úryvok v `hero`, `formQuote`, `sectionQuotes` alebo `themes` musí byť doslovná časť niektorej recenzie. `rating` a `userRatingCount` meňte len podľa aktuálneho súčtu na profile. Postup je aj v poli `instructions` v tom istom súbore. Priečinok `dist/content/` má `.htaccess`, ktorý súbor zvonku zakáže; číta ho len PHP.
 
-Na stránku nepridávame `aggregateRating`. Citácie ostanú skryté, kým nie sú z API alebo z upraveného JSON.
+Keď doplníte `google_places_api_key`, tento súbor sa obíde a recenzie sa načítajú z Places API. Na stránku nepridávame `aggregateRating`. Odkaz v adrese profilu `0x471459e6058978c9:0x68ac7bf5a132ae59` je to isté miesto ako Place ID `ChIJyXiJBeZZFEcRWa4yofV7rGg`.
 
 ## Testy
 
@@ -102,5 +102,5 @@ Skript zapíše `public/media/` a `src/data/media.json`.
 
 - `index.html` a podstránky (svadby, stužková, konferencie, catering, galéria, referencie, kontakt). Adresa `/oslavy/` presmeruje na úvod.
 - `api/availability.php`, `api/inquiry.php`, `api/reviews.php`, `api/config.php`
-- `content/google-reviews.json` (vzor, zvonku zakázaný)
+- `content/google-reviews.json` (recenzie, zvonku zakázaný)
 - `sitemap-index.xml`, `robots.txt`

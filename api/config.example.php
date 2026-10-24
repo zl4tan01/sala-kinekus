@@ -48,10 +48,11 @@ return [
     // Places API (New), kľúč s obmedzením na Place Details.
     // Place ID profilu „Sála Žilina“, Rosinská cesta 13.
     // Kým je kľúč prázdny, web číta content/google-reviews.json.
-    // Vzorové záznamy (sample: true) sa nezobrazia.
+    // Keď kľúč doplníte, recenzie idú z Places API a JSON sa nepoužije.
+    // Záznam so sample: true sa nezobrazí.
     'google_places_api_key' => '',
     'google_place_id' => 'ChIJyXiJBeZZFEcRWa4yofV7rGg',
-    'google_maps_url' => 'https://maps.app.goo.gl/nT8hn4QGFAZ5ZP8K8',
+    'google_maps_url' => 'https://www.google.com/maps/place/S%C3%A1la+%C5%BDilina/@49.2010185,18.7673104,17z/data=!4m8!3m7!1s0x471459e6058978c9:0x68ac7bf5a132ae59!8m2!3d49.2013982!4d18.7699948!9m1!1b1!16s%2Fg%2F11g0lbzfrx?hl=sk',
     'google_reviews_cache_seconds' => 86400,
     'google_reviews_file' => '',
 ];
