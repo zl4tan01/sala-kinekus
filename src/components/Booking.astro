@@ -7,11 +7,12 @@ interface Props {
   lead?: string;
 }
 const {
-  segment = "",
+  segment = "b2c",
   kind = "",
-  title = "Overte voľný termín",
-  lead = "Obsadené sú dni, na ktoré už siaha celodenná akcia. Kliknutie deň nerezervuje. Pošlete nezáväzný dopyt a termín potvrdíme my.",
+  title = "Overte termín oslavy",
+  lead = "Obsadené sú dni, na ktoré už siaha celodenná akcia. Kliknutie deň nerezervuje. Predvolene počítame so súkromnou oslavou. Termín potvrdíme my.",
 } = Astro.props;
+const privateFirst = segment !== "b2b";
 ---
 
 <section class="section" id="termin" data-booking>
@@ -48,8 +49,8 @@ const {
           <fieldset>
             <legend class="eyebrow">Typ podujatia</legend>
             <div class="segment">
-              <label><input type="radio" name="segment" value="b2b" required /> Firemná akcia</label>
-              <label><input type="radio" name="segment" value="b2c" /> Súkromná akcia</label>
+              <label><input type="radio" name="segment" value="b2c" required checked={privateFirst} /> Súkromná oslava</label>
+              <label><input type="radio" name="segment" value="b2b" checked={!privateFirst} /> Firemná akcia</label>
             </div>
             <p class="field-error" data-error-for="segment" hidden></p>
           </fieldset>

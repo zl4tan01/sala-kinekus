@@ -12,7 +12,7 @@ const {
   ids,
   filters = true,
   heading = "Ako sála vyzerá, keď je obsadená",
-  lead = "Fotografie z akcií, ktoré sa v sále už konali: svadby, konferencie, stužkové, večierky aj slávnostné otvorenie.",
+  lead = "Fotografie z akcií, ktoré sa v sále už konali: svadby, stužkové, oslavy a večierky, konferencie aj slávnostné otvorenie.",
 } = Astro.props;
 const source = ids
   ? ids.flatMap((id) => media.gallery.filter((item) => item.id === id))

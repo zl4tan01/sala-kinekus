@@ -19,11 +19,12 @@ export const site = {
 };
 
 export const nav = [
-  { href: "/konferencie/", label: "Firmy" },
   { href: "/svadby/", label: "Svadby" },
   { href: "/stuzkova/", label: "Stužkové" },
+  { href: "/oslavy/", label: "Oslavy" },
   { href: "/galeria/", label: "Galéria" },
   { href: "/referencie/", label: "Referencie" },
+  { href: "/konferencie/", label: "Konferencie" },
   { href: "/kontakt/", label: "Kontakt" },
 ];
 
@@ -36,21 +37,21 @@ export const kinekusLinks = [
 ];
 
 export const proof = [
-  { value: "50–250", label: "hostí" },
-  { value: "12×6 m", label: "pódium" },
-  { value: "Pred budovou", label: "parkovanie" },
-  { value: "Stovky", label: "podujatí" },
+  { value: "100–300", label: "hostí na svadbu a stužkovú" },
+  { value: "12×6 m", label: "pódium a parket" },
+  { value: "Pred budovou", label: "parkovanie pre hostí" },
+  { value: "Balkón", label: "a terasa zo sály" },
 ];
 
 export const kinds = [
+  { id: "svadba", segment: "b2c", label: "Svadba" },
+  { id: "stuzkova", segment: "b2c", label: "Stužková" },
+  { id: "oslava", segment: "b2c", label: "Oslava — narodeniny, jubileum, krstiny" },
+  { id: "ples", segment: "b2c", label: "Ples" },
   { id: "konferencia", segment: "b2b", label: "Konferencia" },
   { id: "skolenie", segment: "b2b", label: "Školenie" },
   { id: "prezentacia", segment: "b2b", label: "Prezentácia" },
   { id: "firemna-akcia", segment: "b2b", label: "Firemná akcia" },
-  { id: "svadba", segment: "b2c", label: "Svadba" },
-  { id: "stuzkova", segment: "b2c", label: "Stužková" },
-  { id: "oslava", segment: "b2c", label: "Oslava" },
-  { id: "ples", segment: "b2c", label: "Ples" },
   { id: "ine", segment: "both", label: "Iné" },
 ];
 
@@ -58,80 +59,88 @@ export const steps = [
   {
     n: "01",
     title: "Dopyt",
-    text: "V kalendári označíte voľný deň a napíšete, čo chystáte. Je to nezáväzné — deň sa tým ešte nerezervuje.",
+    text: "Označíte voľný deň a napíšete, či chystáte svadbu, stužkovú, oslavu alebo ples. Dopyt je nezáväzný — deň sa tým ešte nerezervuje.",
   },
   {
     n: "02",
     title: "Obhliadka",
-    text: "Prejdete si sálu, pódium, techniku aj zázemie. Uvidíte svetlo, akustiku a to, ako sa do priestoru zmestí váš program.",
+    text: "Prejdete si parket, pódium, balkón aj to, ako si sadnú hostia. Uvidíte svetlo a akustiku na vlastné oči.",
   },
   {
     n: "03",
     title: "Príprava",
-    text: "Podľa počtu hostí a priebehu navrhneme rozloženie. Pomôžeme s technikou a odporučíme catering aj výzdobu.",
+    text: "Rozloženie navrhneme podľa počtu hostí, programu a rozpočtu. Pomôžeme s technikou a odporučíme catering aj výzdobu.",
   },
   {
     n: "04",
     title: "Realizácia",
-    text: "V deň akcie je sála pripravená podľa dohody. Termín platí, až keď ho potvrdíme — nie kliknutím v kalendári.",
+    text: "V deň oslavy je sála pripravená podľa dohody. Termín platí, až keď ho potvrdíme — nie kliknutím v kalendári.",
   },
 ];
 
 export const layouts = [
   {
-    id: "divadlo",
-    title: "Divadlo",
-    text: "Stoličky v radoch smerom k pódiu. Hodí sa na konferenciu, prezentáciu aj prednášku.",
-  },
-  {
-    id: "skola",
-    title: "Škola",
-    text: "Stoly v radoch, aby si hostia mali kam položiť poznámky. Na školenie a workshop.",
-  },
-  {
     id: "banket",
     title: "Banket",
-    text: "Okrúhle alebo spoločné stoly. Svadba, večierok, oslava, slávnostná večera.",
+    text: "Okrúhle alebo spoločné stoly. Svadobná hostina, jubileum, krstiny, slávnostná večera.",
   },
   {
     id: "party",
     title: "Párty",
-    text: "Parket ostáva voľný, pódium 12×6 m je pre kapelu alebo DJ-a. Ples, stužková, koncert.",
+    text: "Parket ostáva voľný a pódium 12×6 m je pre kapelu alebo DJ-a. Stužková, ples, zábava po večeri.",
+  },
+  {
+    id: "divadlo",
+    title: "Divadlo",
+    text: "Stoličky v radoch k pódiu. Keď má oslava program, príhovor alebo krátke predstavenie.",
+  },
+  {
+    id: "skola",
+    title: "Škola",
+    text: "Stoly v radoch. Skôr na školenie a workshop, keď sálu potrebujete aj na firemný deň.",
   },
 ];
 
 export const faqs = [
   {
-    q: "Keď je deň v kalendári voľný, mám ho rezervovaný?",
-    a: "Nie. Kalendár ukazuje dni, na ktoré už siaha celodenná akcia. Kliknutím posielate nezáväzný dopyt. Termín potvrdí tím sály a až potom platí.",
+    q: "Koľko hostí unesie svadba, stužková alebo rodinná oslava?",
+    a: "Pre svadby a stužkové sála uvádza 100 až 300 hostí. Celková kapacita priestoru je 50 až 250 osôb. Menšia oslava sa sem zmestí tiež. Presné usadenie závisí od stolov, pódia a cateringu — navrhneme ho podľa vášho večera.",
   },
   {
-    q: "Koľko ľudí sa do sály zmestí?",
-    a: "Sála uvádza kapacitu 50 až 250 osôb. Pre svadby a stužkové je v materiáloch sály uvedené 100 až 300 hostí. Presné usadenie závisí od rozloženia, pódia a cateringu — navrhneme ho podľa vašej akcie.",
+    q: "Keď je deň v kalendári voľný, mám ho na oslavu rezervovaný?",
+    a: "Nie. Kalendár ukazuje dni, na ktoré už siaha celodenná akcia. Kliknutím posielate nezáväzný dopyt. Termín svadby, stužkovej alebo oslavy potvrdí tím sály a až potom platí.",
   },
   {
-    q: "Čo je v cene prenájmu?",
-    a: "Cenník na webe zámerne nie je. Cena závisí od typu akcie, termínu a toho, čo z techniky využijete. Radi vám ju povieme vopred, ešte pred obhliadkou.",
+    q: "Dá sa oslava prispôsobiť rozpočtu?",
+    a: "Cenník na webe nie je. Cenu povieme podľa typu oslavy, termínu a toho, čo z techniky využijete. Rozpočet si určíte vy, my navrhneme rozloženie a rozsah, ktorý mu sedí.",
   },
   {
-    q: "Môžeme si doniesť vlastný catering?",
-    a: "Radi vám povieme, ako to pri vašej akcii vieme zariadiť. Overené cateringové firmy vám vieme odporučiť, mnohé zabezpečia aj výzdobu. Výber zostáva na vás.",
+    q: "Pomôžete s prípravou, alebo si všetko riešime sami?",
+    a: "Od dopytu po večer máte na druhej strane človeka. Na obhliadke prejdeme priestor, potom doladíme rozloženie, svetlo a zvuk. Catering a výzdobu odporučíme, vyberiete si vy.",
   },
   {
-    q: "Je pri sále parkovanie?",
-    a: "Áno. Sála je na Rosinskej ceste, na okraji Žiliny, s parkovaním priamo pred budovou.",
+    q: "Ako je to s jedlom a výzdobou?",
+    a: "Vlastnú kuchyňu v sále neprevádzkujeme. Odporučíme overené cateringové firmy, mnohé vedia zabezpečiť aj výzdobu. Ak už máte vlastného dodávateľa, radi vám povieme, ako to u nás zariadiť.",
   },
   {
-    q: "Aká technika je v sále?",
-    a: "Full HD projektor so svietivosťou 5 400 lumenov, SMART zatemnenie okien pripravené na projekciu a svetelné scény. Ozvučenie má mixážny pult Yamaha, náhlavné aj ručné mikrofóny a sústavu reproduktorov.",
+    q: "Kde zaparkujú hostia?",
+    a: "Priamo pred budovou. Sála je na Rosinskej ceste, na okraji Žiliny, s dobrým prístupom autom.",
   },
   {
-    q: "Dá sa z sály vyjsť von?",
-    a: "Áno. Z priestorov sa prechádza priamo na balkón a terasu.",
+    q: "Dá sa z oslavy vyjsť von?",
+    a: "Áno. Z sály sa prechádza priamo na balkón a terasu.",
+  },
+  {
+    q: "Čo unesie pódium a parket?",
+    a: "Pódium má 12×6 m a hodí sa na kapelu, DJ-a aj sprievodný program. Parket ostáva na tanec. Ozvučenie má mixážny pult Yamaha, náhlavné aj ručné mikrofóny a reproduktory. Svetelné scény sa dajú prepínať podľa večera.",
+  },
+  {
+    q: "A čo keď potrebujeme sálu na firmu?",
+    a: "Konferencie, školenia, prezentácie a firemné akcie vieme tiež. V sále je Full HD projektor so svietivosťou 5 400 lumenov a SMART zatemnenie okien. Viac je na stránke konferencií.",
   },
   {
     q: "Kedy vás zastihneme?",
-    a: "Administratíva je v pracovných dňoch od 7:00 do 15:30. Samotné akcie sa konajú podľa dohodnutého programu, nie len v týchto hodinách.",
+    a: "Administratíva je v pracovných dňoch od 7:00 do 15:30. Samotné oslavy sa konajú podľa dohodnutého programu, nie len v týchto hodinách.",
   },
   {
     q: "Sú priestory bezbariérové?",
@@ -166,11 +175,13 @@ export const quotes: Quote[] = [
   {
     name: "Marienka Ďuricová",
     meta: "Svadba, 25. 7. 2020",
+    featured: true,
     text: "Osláviť náš veľký deň v priestoroch sály Kinekus bolo veľmi dobré rozhodnutie. Sála je vybavená moderným osvetlením, ozvučením a hlavne je veľmi priestranná práve pre väčšiu kapacitu ľudí. Veľká vďaka patrí p. Labudovej za ochotný, milý prístup a hlavne za vybavenie všetkých požiadaviek, aké sme mali. Na našu udalosť sme si zabezpečili catering Agentúra Sofia, nič lepšie sme si nemohli vybrať. Veľmi profesionálny prístup p. Kučerikovej, ktorá nám pomohla a hlavne poradila s výborným výberom jedla, čo sa odzrkadlilo a hlavne potvrdilo aj od hostí, ktorým veľmi chutilo. Vďaka patrí aj hlavnému čašníkovi Jakubovi a čašníčkam, ktorí boli super zorganizovaní a veľmi profesionálni. Ďakujeme všetkým, boli sme veľmi spokojní.",
   },
   {
     name: "Gabriela Petreková",
     meta: "Svadba, 20. 6. 2020",
+    featured: true,
     text: "Nádherné priestory, mali sme tu svadbu 20. 6. 2020 a boli sme nad mieru spokojní. Všetko ohľadom komunikácie aj celkového priebehu svadby bolo bez chybičky. Veľké ďakujem patrí aj p. Labudovej za milý a ochotný prístup. Vrelo odporúčame.",
   },
   {
@@ -181,13 +192,11 @@ export const quotes: Quote[] = [
   {
     name: "IPA Slovakia, Žilina",
     meta: "Konferencia",
-    featured: true,
     text: "Hodnotíme ako veľmi dobré rozhodnutie pripraviť konferenciu v priestoroch sály Kinekus v Žiline. Na naše konferencie máme vysoké požiadavky, pretože chceme zákazníkom poskytnúť čo najpríjemnejšie prostredie pre jeho ďalší rozvoj a rozvoj jeho firmy. Veľmi pozitívne hodnotíme prozákaznícky prístup a starostlivosť pred a počas samotného priebehu konferencie.",
   },
   {
     name: "Zuzana Maďarová",
     meta: "METRO Cash & Carry SR s.r.o., firemný vianočný večierok",
-    featured: true,
     text: "V prvom rade by sme sa chceli poďakovať za možnosť usporiadať firemný vianočný večierok vo vašich nových priestoroch. Naša vďaka patrí za prístup a ochotu pri vybavovaní celej akcie, rovnako ako za poradenie so samotnou organizáciou. Nové priestory sú reprezentatívne a priestranné, dobre členené práve pre väčšie akcie tak, že zázemie je poruke a neruší priebeh samotnej akcie. Ozvučenie a nasvietenie zodpovedá moderným štandardom. Výborným nemenej dôležitým faktorom je dobré a priestranné parkovanie a bezproblémový prístup. Akcia bola aj vďaka krásnym priestorom vydarená, za čo sa chceme úprimne poďakovať.",
   },
   {
@@ -200,8 +209,8 @@ export const quotes: Quote[] = [
 export const galleryFilters = [
   { id: "all", label: "Všetko" },
   { id: "svadby", label: "Svadby" },
-  { id: "konferencie", label: "Konferencie" },
   { id: "stuzkova", label: "Stužkové" },
-  { id: "vecierok", label: "Večierky" },
+  { id: "vecierok", label: "Oslavy a večierky" },
+  { id: "konferencie", label: "Konferencie" },
   { id: "otvorenie", label: "Otvorenie sály" },
 ];

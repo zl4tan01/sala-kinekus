@@ -9,15 +9,14 @@ const path = Astro.url.pathname;
 
 <header class="header">
   <div class="wrap header-inner">
-    <a class="brand" href="/">
+    <a class="brand" href="/" aria-current={path === "/" ? "page" : undefined}>
       Sála Kinekus
       <small>Žilina</small>
     </a>
     <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav">
       Menu
     </button>
-    <nav id="site-nav" class="nav-panel" aria-label="Hlavné">
-      <a href="/" aria-current={path === "/" ? "page" : undefined}>Úvod</a>
+    <nav id="site-nav" class="nav-panel" aria-label="Hlavné" hidden>
       {nav.map((item) => (
         <a href={item.href} aria-current={path === item.href ? "page" : undefined}>{item.label}</a>
       ))}

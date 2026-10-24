@@ -8,26 +8,33 @@ import Logos from "../components/Logos.astro";
 import media from "../data/media.json";
 import { faqs, layouts, proof, quotes, site, steps } from "../data/site";
 
-const description = "Multifunkčná sála v Žiline pre 50–250 hostí. Konferencie, školenia, svadby, stužkové a firemné akcie. Pódium 12×6 m, parkovanie pred budovou. Overte voľný termín.";
+const description = "Svadobná sála v Žiline na svadby, stužkové, narodeniny, jubileá, krstiny a plesy. Parket, pódium 12×6 m, balkón a parkovanie pre hostí. Aj konferencie a školenia.";
 const featured = quotes.filter((quote) => quote.featured);
+const byId = (id: string) => {
+  const image = media.gallery.find((item) => item.id === id);
+  if (!image) throw new Error(`Chýba fotografia ${id}`);
+  return image;
+};
+const oslavaPhoto = byId("svadba-25");
+const cateringPhoto = byId("svadba-22");
 ---
 
 <Base
-  title="Sála Kinekus Žilina | Svadby, konferencie a stužkové"
+  title="Sála Kinekus Žilina | Svadby, stužkové a oslavy"
   description={description}
   bookingHref="#termin"
 >
   <section class="hero">
-    <Picture image={media.hero} sizes="100vw" priority />
+    <Picture image={media.b2c} sizes="100vw" priority />
     <div class="hero-shade"></div>
     <div class="wrap hero-copy">
       <p class="eyebrow">Sála Kinekus · Rosinská cesta, Žilina</p>
-      <h1>Sála, ktorá sa prispôsobí vašej akcii.</h1>
+      <h1>Svadba, stužková aj rodinná oslava v jednej sále.</h1>
       <p class="lead">
-        Multifunkčný priestor pre firmy aj súkromné oslavy. Rozloženie, svetlo a techniku nastavíme podľa programu — a od prvého dopytu po večer samotný máte podporu človeka, ktorý sálu pozná.
+        Narodeniny, jubileum, krstiny aj ples. Rozloženie, svetlo a program nastavíme podľa vás a podľa rozpočtu. Veľký parket, pódium 12×6 m, balkón a parkovanie pre hostí sú súčasťou priestoru. Od prvého dopytu po večer máte koho sa opýtať.
       </p>
       <div class="hero-actions">
-        <a class="btn" href="#termin">Overiť voľný termín</a>
+        <a class="btn" href="#termin">Overiť termín oslavy</a>
         <a class="btn-line" href={site.tour} target="_blank" rel="noopener noreferrer">Virtuálna prehliadka</a>
       </div>
     </div>
@@ -44,49 +51,93 @@ const featured = quotes.filter((quote) => quote.featured);
     </section>
   </div>
 
-  <section class="section" id="cesty">
+  <section class="section" id="oslavy">
     <div class="wrap">
       <div class="section-head">
-        <p class="eyebrow">Pre firmy aj pre vás</p>
-        <h2>Jedna sála, dve jasné cesty.</h2>
+        <p class="eyebrow">Súkromné oslavy</p>
+        <h2>Svadba, stužková, rodinná oslava aj ples.</h2>
         <p class="lead">
-          Či riešite firemný program, alebo rodinnú oslavu, priestor sa prispôsobí. Vyberte, čo chystáte.
+          Sála sa prispôsobí tomu, čo chystáte. Rozloženie, rozpočet aj prípravu riešime s vami. Parket, pódium, balkón a parkovanie pre hostí sú už v priestore.
         </p>
       </div>
       <div class="path-grid">
-        <article class="path" id="pre-firmy">
-          <Picture image={media.b2b} sizes="(min-width: 720px) 46vw, 100vw" />
-          <div class="path-body">
-            <p class="eyebrow">B2B</p>
-            <h3>Pre firmy</h3>
-            <p>Konferencie, školenia, prezentácie a firemné akcie, pri ktorých má technika fungovať a hostia majú kde zaparkovať.</p>
-            <ul>
-              <li>Full HD projektor so svietivosťou 5 400 lumenov</li>
-              <li>SMART zatemnenie okien pripravené na projekciu</li>
-              <li>Svetelné scény podľa programu</li>
-              <li>Ozvučenie s mixážnym pultom Yamaha, náhlavné a ručné mikrofóny</li>
-              <li>Parkovanie priamo pred budovou na Rosinskej ceste</li>
-            </ul>
-            <a class="btn btn-dark" href="/konferencie/">Konferenčná sála</a>
-          </div>
-        </article>
-        <article class="path" id="sukromne">
+        <article class="path">
           <Picture image={media.b2c} sizes="(min-width: 720px) 46vw, 100vw" />
           <div class="path-body">
-            <p class="eyebrow">B2C</p>
-            <h3>Pre súkromné oslavy</h3>
-            <p>Svadby, stužkové, oslavy a plesy. Veľký parket, pódium pre kapelu alebo DJ-a a priestor, ktorý unesie aj väčšiu rodinu.</p>
+            <p class="eyebrow">Svadby</p>
+            <h3>Svadba, na ktorú sa zmestí rodina</h3>
+            <p>Veľký parket a pódium 12×6 m pre kapelu alebo DJ-a. Svetlo nastavíme podľa večera, nie podľa jednej šablóny.</p>
             <ul>
-              <li>Veľký parket a pódium 12×6 m</li>
-              <li>Ozvučenie, ktoré unesie program aj zábavu</li>
-              <li>Balkón a terasa priamo zo sály</li>
-              <li>Pre svadby a stužkové sála uvádza 100–300 hostí</li>
+              <li>Flexibilita usporiadania: hostina pri stoloch, tanec na parkete</li>
+              <li>Individuálny prístup podľa rozpočtu, cenu povieme na mieru</li>
+              <li>Pomoc s prípravou od obhliadky po deň svadby</li>
               <li>Catering a výzdobu odporučíme, vyberiete si vy</li>
             </ul>
             <a class="btn btn-dark" href="/svadby/">Svadobná sála</a>
           </div>
         </article>
+        <article class="path">
+          <Picture image={media.stuzkova} sizes="(min-width: 720px) 46vw, 100vw" />
+          <div class="path-body">
+            <p class="eyebrow">Stužkové</p>
+            <h3>Stužková s pódiom a voľným parketom</h3>
+            <p>Program, tanec aj väčšia trieda. Pódium unesie kapelu aj DJ-a a hostia zaparkujú pred budovou.</p>
+            <ul>
+              <li>Stoly na večeru a parket na zábavu, podľa priebehu večera</li>
+              <li>Ozvučenie s mixážnym pultom Yamaha, náhlavné aj ručné mikrofóny</li>
+              <li>Parkovanie pre hostí priamo pred budovou na Rosinskej ceste</li>
+              <li>Pre stužkové sála uvádza 100–300 hostí</li>
+            </ul>
+            <a class="btn btn-dark" href="/stuzkova/">Stužková v sále</a>
+          </div>
+        </article>
+        <article class="path">
+          <Picture image={oslavaPhoto} sizes="(min-width: 720px) 46vw, 100vw" />
+          <div class="path-body">
+            <p class="eyebrow">Oslavy</p>
+            <h3>Narodeniny, jubileum aj krstiny</h3>
+            <p>Rodinný stôl, krátky príhovor alebo večer vonku. Sálu poskladáme podľa počtu hostí a toho, čo oslavujete.</p>
+            <ul>
+              <li>Flexibilita usporiadania podľa veľkosti rodiny</li>
+              <li>Balkón a terasa priamo zo sály</li>
+              <li>Pomoc s prípravou a rozsah podľa vášho rozpočtu</li>
+              <li>Catering odporučíme, vlastnú kuchyňu v sále neprevádzkujeme</li>
+            </ul>
+            <a class="btn btn-dark" href="/oslavy/">Rodinné oslavy</a>
+          </div>
+        </article>
+        <article class="path">
+          <Picture image={media.wide} sizes="(min-width: 720px) 46vw, 100vw" />
+          <div class="path-body">
+            <p class="eyebrow">Plesy</p>
+            <h3>Ples s parketom a pódiom</h3>
+            <p>Keď má večer tanečný parket a miesto pre kapelu. Svetelné scény sa dajú prepínať podľa programu.</p>
+            <ul>
+              <li>Veľký parket a pódium 12×6 m</li>
+              <li>Balkón a terasa, keď si hostia potrebujú oddýchnuť</li>
+              <li>Parkovanie pre hostí pred budovou</li>
+              <li>Od prvého dopytu po večer máte koho sa opýtať</li>
+            </ul>
+            <a class="btn btn-dark" href="#termin">Overiť termín plesu</a>
+          </div>
+        </article>
       </div>
+    </div>
+  </section>
+
+  <section class="section" id="aj-pre-firmy" style="padding-top:0">
+    <div class="wrap">
+      <article class="firms">
+        <Picture image={media.b2b} sizes="(min-width: 720px) 34vw, 100vw" />
+        <div class="firms-body">
+          <p class="eyebrow">Aj pre firmy</p>
+          <h2>Konferencie, školenia a firemné akcie.</h2>
+          <p>
+            Sála slúži aj firmám. V priestore je Full HD projektor so svietivosťou 5&nbsp;400 lumenov, SMART zatemnenie okien a ozvučenie. Hostia zaparkujú pred budovou.
+          </p>
+          <p><a class="btn" href="/konferencie/">Konferenčná sála</a></p>
+        </div>
+      </article>
     </div>
   </section>
 
@@ -201,10 +252,10 @@ const featured = quotes.filter((quote) => quote.featured);
   </section>
 
   <Gallery
-    ids={["svadba-01", "konf-03", "stuz-01", "party-04", "open-03", "svadba-22"]}
+    ids={["svadba-01", "stuz-01", "svadba-22", "stuz-06", "svadba-11", "svadba-25"]}
     filters={false}
-    heading="Šesť pohľadov, zvyšok v galérii"
-    lead="Výber z akcií, ktoré sa v sále už konali. Celú galériu nájdete na samostatnej stránke."
+    heading="Svadby, stužkové a slávnostné stoly"
+    lead="Výber z osláv, ktoré sa v sále už konali. Celú galériu, vrátane firemných akcií, nájdete na samostatnej stránke."
   />
   <div class="wrap" style="margin-top:-3rem;margin-bottom:2rem">
     <a class="btn-line" href="/galeria/" style="color:var(--ink)">Celá galéria</a>
@@ -248,7 +299,7 @@ const featured = quotes.filter((quote) => quote.featured);
         <p style="margin-top:1rem"><a class="btn btn-dark" href="/catering/">Viac o cateringu</a></p>
       </div>
       <div class="frame">
-        <Picture image={media.party} sizes="(min-width: 720px) 46vw, 100vw" />
+        <Picture image={cateringPhoto} sizes="(min-width: 720px) 46vw, 100vw" />
       </div>
     </div>
   </section>
@@ -270,6 +321,10 @@ const featured = quotes.filter((quote) => quote.featured);
     </div>
   </section>
 
-  <Booking />
+  <Booking
+    segment="b2c"
+    title="Overte termín oslavy"
+    lead="Označte voľný deň svadby, stužkovej, narodenín, jubilea, krstín alebo plesu. Kliknutie deň nerezervuje. Pošlete nezáväzný dopyt a termín potvrdíme my."
+  />
   <Location />
 </Base>

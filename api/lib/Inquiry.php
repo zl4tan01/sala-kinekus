@@ -11,7 +11,7 @@ function sala_kind_labels(): array
         'firemna-akcia' => 'Firemná akcia',
         'svadba' => 'Svadba',
         'stuzkova' => 'Stužková',
-        'oslava' => 'Oslava',
+        'oslava' => 'Oslava — narodeniny, jubileum, krstiny',
         'ples' => 'Ples',
         'ine' => 'Iné',
     ];
@@ -146,7 +146,7 @@ function sala_parse_dates(string $raw): array
 function sala_inquiry_body(array $data): string
 {
     $labels = sala_kind_labels();
-    $segment = $data['segment'] === 'b2b' ? 'Firemná akcia' : 'Súkromná akcia';
+    $segment = $data['segment'] === 'b2b' ? 'Firemná akcia' : 'Súkromná oslava';
     $kind = $labels[$data['kind']] ?? $data['kind'];
     $dates = array_map('sala_format_sk_date', $data['dates']);
     $lines = [
