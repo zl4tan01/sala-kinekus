@@ -36,8 +36,8 @@ const selected = kinds.find((item) => item.id === kind) ?? kinds.find((item) => 
         <div class="thanks" data-thanks tabindex="-1" hidden>
           <h3>Ďakujeme, dopyt máme.</h3>
           <p>
-            Termín zatiaľ nie je rezervovaný. Ozveme sa do 1 pracovného dňa a potvrdíme, či vybraný deň platí.
-            Ak sa neozveme, zavolajte na {site.phone}.
+            Termín zatiaľ nie je rezervovaný. Ozveme sa vám a potvrdíme, či vybraný deň platí.
+            Ak sa vám neozveme, zavolajte na {site.phone}.
           </p>
         </div>
         <form class="form" data-form action="/api/inquiry.php" method="post" data-segment={selected.segment} data-kind={selected.id} novalidate>
@@ -96,7 +96,7 @@ const selected = kinds.find((item) => item.id === kind) ?? kinds.find((item) => 
           </label>
           <p class="field-error" data-error-for="gdpr" hidden></p>
           <button class="btn btn-dark" type="submit">Odoslať nezáväzný dopyt</button>
-          <p class="note">Ozveme sa do 1 pracovného dňa. Dopyt sa nezapíše do kalendára, kým termín nepotvrdíme.</p>
+          <p class="note">Ozveme sa vám. Dopyt sa nezapíše do kalendára, kým termín nepotvrdíme.</p>
         </form>
       </div>
     </div>

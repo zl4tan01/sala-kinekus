@@ -6,13 +6,13 @@ Nový web sály na Rosinskej ceste 13 v Žiline. Nahrádza [salazilina.sk](https
 
 Doplňte, keď budete mať podklady. Kým polia ostanú prázdne, web číslo ani mená dodávateľov nevymýšľa.
 
-- **Ceny.** V `content/pricing.json` pri svadbe, stužkovej, firmách a cateringu vyplňte `from`, napríklad `od 800 €`. Prázdny reťazec znamená, že blok „Koľko to stojí“ ukáže len vysvetlenie, čo cenu ovplyvňuje, a vetu, že ponuku pošleme do 1 pracovného dňa.
+- **Ceny.** V `content/pricing.json` pri svadbe, stužkovej, firmách a cateringu vyplňte `from`, napríklad `od 800 €`. Prázdny reťazec znamená, že blok „Koľko to stojí“ ukáže len vysvetlenie, čo cenu ovplyvňuje, a vetu „Cenovú ponuku vám pošleme“.
 - **Fotky stužkovej a konferencie.** Hero týchto stránok berie zábery z galérie (`stuz-01`, `konf-01`), nie stock. Ak máte krajší záber celej sály z reálnej stužkovej alebo konferencie, nahraďte ním tieto fotky.
 - **Ďalšie Google recenzie.** Postup je nižšie v časti Recenzie z Google. Pridávajte len doslovný text z profilu.
 
 ## Čo je na webe z kontaktov
 
-Primárny kontakt je `+421 908 761 253` a `marketing@salazilina.sk`. Telefón `041 555 55 10` je vedľajší. `info@salazilina.sk` je len v pätičke. WhatsApp je v pätičke, lebo mobilné číslo existuje. Pracovné hodiny sú na Kontakte a v pätičke. Sľub reakcie je „Ozveme sa do 1 pracovného dňa“.
+Primárny kontakt je `+421 908 761 253` a `marketing@salazilina.sk`. Telefón `041 555 55 10` je vedľajší. `info@salazilina.sk` je len v pätičke. WhatsApp je v pätičke, lebo mobilné číslo existuje. Pracovné hodiny sú na Kontakte a v pätičke. Lehota odpovede na webe nie je. Text je „Ozveme sa vám“. Po odoslaní formulára je veta „Ak sa vám neozveme, zavolajte na +421 908 761 253.“
 
 Texty sú po slovensky. Fotografie pochádzajú z pôvodného webu a v repozitári sú už zmenšené do WebP a AVIF.
 
