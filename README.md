@@ -7,7 +7,8 @@ Nový web sály na Rosinskej ceste 13 v Žiline. Nahrádza [salazilina.sk](https
 Doplňte, keď budete mať podklady. Kým polia ostanú prázdne, web číslo ani mená dodávateľov nevymýšľa.
 
 - **Ceny.** V `content/pricing.json` pri svadbe, stužkovej, firmách a cateringu vyplňte `from`, napríklad `od 800 €`. Prázdny reťazec znamená, že blok „Koľko to stojí“ ukáže len vysvetlenie, čo cenu ovplyvňuje, a vetu „Cenovú ponuku vám pošleme“.
-- **Fotky stužkovej a konferencie.** Hero týchto stránok berie zábery z galérie (`stuz-01`, `konf-01`), nie stock. Ak máte krajší záber celej sály z reálnej stužkovej alebo konferencie, nahraďte ním tieto fotky.
+- **Fotky.** Karta Svadby na úvode je `svadba-23`, karta Stužkové `stuz-03`. Hlavný obrázok stránky svadieb je `svadba-20`, stužkovej `stuz-07`, firiem `konf-01`. Náhľad 360° je `tour-poster`, záber z virtuálnej prehliadky hlavnej sály. Stock `svadba-hero` a `stuzkova-hero` sa na webe nepoužívajú.
+- **Podmienky stužkovej.** Pravidlá a škody sa na web nepíšu. Majiteľ ich rieši osobne pri obhliadke.
 - **Ďalšie Google recenzie.** Postup je nižšie v časti Recenzie z Google. Pridávajte len doslovný text z profilu.
 
 ## Čo je na webe z kontaktov

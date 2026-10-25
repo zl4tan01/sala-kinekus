@@ -109,8 +109,8 @@ export const faqs = [
     a: "Nie. Kalendár ukazuje dni, na ktoré už siaha celodenná akcia. Kliknutím posielate nezáväzný dopyt. Termín svadby, stužkovej alebo firemnej akcie potvrdí tím sály a až potom platí.",
   },
   {
-    q: "Ako sa pri stužkovej dohodnú pravidlá?",
-    a: "Dohodneme vopred jasné pravidlá. Študentom, rodičom aj triednym povieme, ako večer prebehne, skôr než termín potvrdíme. Chceme, aby stužková bola pokojná a pod dohľadom.",
+    q: "Ako prebieha príprava stužkovej?",
+    a: "Pred potvrdením termínu si spolu prejdeme program večera a organizačné detaily, aby ste vy aj my vedeli, čo očakávať. Cieľom je pokojná a príjemná stužková.",
   },
   {
     q: "Pomôžete s prípravou, alebo si všetko riešime sami?",

@@ -447,7 +447,7 @@ a:hover { color: var(--ink); }
   display: block;
   width: 100%;
   aspect-ratio: 16 / 9;
-  min-height: 56vw;
+  height: auto;
   object-fit: cover;
 }
 
@@ -1208,7 +1208,7 @@ textarea { min-height: 7rem; resize: vertical; }
   .dock { display: none; }
   .tour-poster picture,
   .tour-poster img,
-  .tour iframe { min-height: 18rem; }
+  .tour iframe { min-height: 0; }
   .consent {
     left: 1rem;
     right: auto;
