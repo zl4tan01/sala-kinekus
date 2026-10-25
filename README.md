@@ -11,6 +11,28 @@ Doplňte, keď budete mať podklady. Kým polia ostanú prázdne, web číslo an
 - **Podmienky stužkovej.** Pravidlá a škody sa na web nepíšu. Majiteľ ich rieši osobne pri obhliadke.
 - **Ďalšie Google recenzie.** Postup je nižšie v časti Recenzie z Google. Pridávajte len doslovný text z profilu.
 
+## Rady
+
+Články sú súbory `content/rady/*.md`. Nový článok je nový súbor. Komponenty, menu ani sitemap sa kvôli nemu needitujú. Po uložení znova spustite `npm run build`. Adresa článku je `/rady/` plus názov súboru bez `.md`, napríklad `content/rady/moj-text.md` je `https://www.salazilina.sk/rady/moj-text/`.
+
+Vo hlavičke súboru vyplňte:
+
+- `title` — nadpis H1 na stránke
+- `seoTitle` — `<title>`, najviac 60 znakov
+- `description` — perex na karte a meta popis, 40 až 155 znakov
+- `published` a `updated` — dátum `RRRR-MM-DD`, na webe sa ukáže ako `25. 10. 2026`
+- `author` — predvolene `Tím Sály Kinekus`
+- `image` — id fotky z `src/data/media.json` (galéria alebo pomenovaný záber, napríklad `svadba-20`)
+- `order` — poradie na `/rady/`
+- `featured` — `true` zaradí článok medzi tri na úvode. Ak sú označené menej ako tri, doplnia sa ďalšie podľa `order`
+- `related` — zoznam existujúcich slugov. Preklep build zastaví
+- `summary` — dve až štyri vety do bloku „V skratke“
+- `faq` — tri až päť otázok a odpovedí. Tie isté texty idú do JSON-LD
+
+Telo článku je Markdown pod hlavičkou. Nadpis H1 do tela nedávajte, vykreslí ho šablóna. Podnadpisy H2 formulujte ako otázky a hneď pod ne dajte krátku odpoveď. Čas čítania sa počíta sám. `/llms.txt` aj sitemap sa pri builde doplnia.
+
+Podmienky stužkovej, škody a dohľad sa do článkov nepíšu. Majiteľ ich rieši osobne pri obhliadke.
+
 ## Čo je na webe z kontaktov
 
 Primárny kontakt je `+421 908 761 253` a `marketing@salazilina.sk`. Telefón `041 555 55 10` je vedľajší. `info@salazilina.sk` je len v pätičke. WhatsApp je v pätičke, lebo mobilné číslo existuje. Pracovné hodiny sú na Kontakte a v pätičke. Lehota odpovede na webe nie je. Text je „Ozveme sa vám“. Po odoslaní formulára je veta „Ak sa vám neozveme, zavolajte na +421 908 761 253.“
@@ -103,7 +125,7 @@ Sekcia „Kde nás nájdete“ je na úvode aj na kontakte. Náhľad nie je obr�
 
 ## Testy
 
-`npm test` spustí `tests/run.php` na vzorovom `tests/sample.ics`. Overí celodennú udalosť, viacdňovú udalosť (koniec je výlučný), že časované udalosti deň neobsadia, a že sa do JSON nedostane názov, opis ani účastník. Samostatne prejde aj tvar odpovede Google Calendar API a validácia formulára.
+`npm test` spustí `tests/run.php` na vzorovom `tests/sample.ics` a potom `tests/rady.mjs`. PHP overí celodennú udalosť, viacdňovú udalosť (koniec je výlučný), že časované udalosti deň neobsadia, a že sa do JSON nedostane názov, opis ani účastník. Samostatne prejde aj tvar odpovede Google Calendar API a validácia formulára. Kontrola HTML rád (H1, JSON-LD, sitemap, odkazy) beží, keď existuje `dist/rady/`. Po úprave článkov teda `npm run build && npm test`.
 
 ## Obrázky znova
 
@@ -117,7 +139,8 @@ Skript zapíše `public/media/` a `src/data/media.json`.
 
 ## Štruktúra po nahratí
 
-- `index.html` a podstránky (svadby, stužková, konferencie, catering, galéria, referencie, kontakt). Adresa `/oslavy/` presmeruje na úvod.
+- `index.html` a podstránky (svadby, stužková, konferencie, catering, galéria, referencie, rady, kontakt). Adresa `/oslavy/` presmeruje na úvod.
+- `llms.txt` — krátky prehľad webu a odkazy na rady. `robots.txt` ostáva ako je (`Allow: /`, `Disallow: /api/`).
 - `api/availability.php`, `api/inquiry.php`, `api/reviews.php`, `api/config.php`
 - `content/google-reviews.json` a `content/pricing.json` (zvonku zakázané)
 - `sitemap-index.xml`, `robots.txt`

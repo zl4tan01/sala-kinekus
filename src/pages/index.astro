@@ -2,11 +2,13 @@
 import Base from "../layouts/Base.astro";
 import Picture from "../components/Picture.astro";
 import Booking from "../components/Booking.astro";
+import AdviceCards from "../components/AdviceCards.astro";
 import Gallery from "../components/Gallery.astro";
 import Location from "../components/Location.astro";
 import Logos from "../components/Logos.astro";
 import Tour from "../components/Tour.astro";
 import media from "../data/media.json";
+import { allAdvice, featuredAdvice } from "../lib/advice";
 import { faqs, gridColumns, isPublicQuote, layouts, proof, quotes, site, steps } from "../data/site";
 
 const description = "Svadobná sála a stužkové v Žiline. Parket, pódium 12×6 m, balkón a parkovanie pred budovou. Aj konferencie a firemné akcie.";
@@ -26,6 +28,7 @@ function excerpt(text: string, max = 280): string {
 }
 const cateringPhoto = media.gallery.find((item) => item.id === "svadba-22");
 if (!cateringPhoto) throw new Error("Chýba fotografia svadba-22");
+const advicePreview = featuredAdvice(await allAdvice());
 ---
 
 <Base
@@ -255,6 +258,18 @@ if (!cateringPhoto) throw new Error("Chýba fotografia svadba-22");
           <p>Okraj Žiliny, Rosinská cesta, parkovanie priamo pred budovou.</p>
         </article>
       </div>
+    </div>
+  </section>
+
+  <section class="section" id="rady" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Rady</p>
+        <h2>Než si vyberiete sálu a deň.</h2>
+        <p class="lead">Tri praktické texty k obhliadke, termínu a stužkovej. Ďalšie rady sú na samostatnej stránke.</p>
+      </div>
+      <AdviceCards articles={advicePreview} />
+      <p class="advice-more"><a class="btn-line" href="/rady/">Všetky rady</a></p>
     </div>
   </section>
 

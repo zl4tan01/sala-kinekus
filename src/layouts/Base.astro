@@ -12,17 +12,21 @@ interface Props {
   title: string;
   description: string;
   bookingHref?: string;
+  image?: string;
+  ogType?: string;
+  jsonLd?: unknown[];
 }
-const { title, description, bookingHref = "/#termin" } = Astro.props;
+const { title, description, bookingHref = "/#termin", image, ogType = "website", jsonLd = [] } = Astro.props;
 const canonical = new URL(Astro.url.pathname, site.url).toString();
-const jsonLd = {
+const imageUrl = new URL(image ?? "/og.jpg", site.url).toString();
+const venueLd = {
   "@context": "https://schema.org",
   "@type": ["EventVenue", "LocalBusiness"],
   name: site.name,
   alternateName: "Sála Žilina",
   description,
   url: site.url,
-  image: new URL("/og.jpg", site.url).toString(),
+  image: imageUrl,
   telephone: "+421908761253",
   email: site.email,
   address: {
@@ -45,7 +49,7 @@ const jsonLd = {
     url: "https://www.kinekus.sk",
   },
 };
-const json = JSON.stringify(jsonLd).replace(/</g, "\\u003c");
+const json = JSON.stringify(venueLd).replace(/</g, "\\u003c");
 ---
 
 <!doctype html>
@@ -57,20 +61,23 @@ const json = JSON.stringify(jsonLd).replace(/</g, "\\u003c");
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <meta name="theme-color" content="#14110e" />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={ogType} />
     <meta property="og:locale" content="sk_SK" />
     <meta property="og:site_name" content={site.name} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={new URL("/og.jpg", site.url).toString()} />
+    <meta property="og:image" content={imageUrl} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={new URL("/og.jpg", site.url).toString()} />
+    <meta name="twitter:image" content={imageUrl} />
     <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <script type="application/ld+json" set:html={json} />
+    {jsonLd.map((block) => (
+      <script type="application/ld+json" set:html={JSON.stringify(block).replace(/</g, "\\u003c")} />
+    ))}
   </head>
   <body>
     <a class="skip" href="#obsah">Preskočiť na obsah</a>

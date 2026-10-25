@@ -29,6 +29,7 @@ export const nav = [
   { href: "/konferencie/", label: "Pre firmy" },
   { href: "/galeria/", label: "Galéria" },
   { href: "/referencie/", label: "Referencie" },
+  { href: "/rady/", label: "Rady" },
   { href: "/kontakt/", label: "Kontakt" },
 ];
 

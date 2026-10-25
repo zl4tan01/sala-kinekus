@@ -1,0 +1,61 @@
+---
+import Base from "../../layouts/Base.astro";
+import AdviceCards from "../../components/AdviceCards.astro";
+import { adviceHref, allAdvice, findMedia } from "../../lib/advice";
+import { site } from "../../data/site";
+
+const articles = await allAdvice();
+const title = "Rady pred akciou | Sála Kinekus";
+const description = "Praktické rady pred svadbou, stužkovou a firemnou akciou: obhliadka sály, termín, rozloženie, harmonogram, catering a technika.";
+const canonical = new URL("/rady/", site.url).toString();
+const jsonLd = [
+  {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Rady pred akciou",
+    description,
+    url: canonical,
+    isPartOf: site.url,
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: articles.map((article, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        name: article.data.title,
+        url: new URL(adviceHref(article.id), site.url).toString(),
+        image: new URL(findMedia(article.data.image).webp.at(-1)?.src ?? "/og.jpg", site.url).toString(),
+      })),
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Úvod", item: site.url },
+      { "@type": "ListItem", position: 2, name: "Rady", item: canonical },
+    ],
+  },
+];
+---
+
+<Base title={title} description={description} jsonLd={jsonLd}>
+  <header class="sub-hero page-rady">
+    <div class="wrap">
+      <nav class="crumbs" aria-label="Drobečková navigácia">
+        <a href="/">Úvod</a>
+        <span aria-hidden="true">/</span>
+        <span>Rady</span>
+      </nav>
+      <p class="eyebrow">Rady</p>
+      <h1>Rady pred svadbou, stužkovou aj firemnou akciou.</h1>
+      <p class="lead" style="margin-top:1rem">
+        Krátke návody pre nevestu, ženícha, rodičov, študentov a firmy. Sú to orientačné rady, nie cenník ani sľub termínu.
+      </p>
+    </div>
+  </header>
+  <section class="section">
+    <div class="wrap">
+      <AdviceCards articles={articles} />
+    </div>
+  </section>
+</Base>
