@@ -537,7 +537,6 @@ function setupReviews(): void {
       if (!response.ok) return;
       const data = (await response.json()) as {
         available?: boolean;
-        proofLabel?: string;
         listingUrl?: string;
         writeUrl?: string;
         hero?: PublicReview;
@@ -551,15 +550,8 @@ function setupReviews(): void {
 
       const listing = httpsUrl(data.listingUrl);
       const write = httpsUrl(data.writeUrl);
-      const proof = typeof data.proofLabel === "string" ? data.proofLabel : "";
 
       if (hero && data.hero) fillQuoteFigure(hero, data.hero);
-      const proofLink = hero?.querySelector<HTMLAnchorElement>("[data-review-proof]");
-      if (proofLink && proof && listing) {
-        proofLink.textContent = proof;
-        proofLink.href = listing;
-        proofLink.hidden = false;
-      }
 
       formQuotes.forEach((formQuote) => {
         const key = formQuote.dataset.quoteSection || "";
@@ -567,13 +559,7 @@ function setupReviews(): void {
         if (source) fillQuoteFigure(formQuote, source);
       });
 
-      const showProof = (root: ParentNode) => {
-        const countLink = root.querySelector<HTMLAnchorElement>("[data-review-count]");
-        if (countLink && proof && listing) {
-          countLink.textContent = proof;
-          countLink.href = listing;
-          countLink.hidden = false;
-        }
+      const showWrite = (root: ParentNode) => {
         const writeLink = root.querySelector<HTMLAnchorElement>("[data-write-review]");
         if (writeLink && write) writeLink.href = write;
       };
@@ -595,7 +581,7 @@ function setupReviews(): void {
           themeList.style.setProperty("--cols", String(themes >= 5 ? 5 : gridColumns(themes)));
         }
         if (shown > 0) {
-          showProof(section);
+          showWrite(section);
           section.hidden = false;
         }
       }
@@ -607,7 +593,7 @@ function setupReviews(): void {
         const shown = list ? fillReviewList(list, reviews, listing) : 0;
         if (list) list.style.setProperty("--cols", String(gridColumns(shown)));
         if (shown > 0) {
-          showProof(block);
+          showWrite(block);
           block.hidden = false;
         }
       });
@@ -638,12 +624,14 @@ function setupTour(root: HTMLElement): void {
 function setupMap(root: HTMLElement): void {
   const button = root.querySelector<HTMLButtonElement>("[data-map-open]");
   const frame = root.querySelector<HTMLIFrameElement>("[data-map-frame]");
-  button?.addEventListener("click", () => {
+  const poster = root.querySelector<HTMLElement>("[data-map-poster]");
+  if (!button) return;
+  button.addEventListener("click", () => {
+    const src = frame?.dataset.src || "";
+    if (!src.startsWith("https://www.google.com/maps?")) return;
     if (!activateFrame(frame)) return;
+    if (poster) poster.hidden = true;
     button.hidden = true;
-    root.querySelectorAll<HTMLElement>(".note").forEach((note) => {
-      note.hidden = true;
-    });
   });
 }
 

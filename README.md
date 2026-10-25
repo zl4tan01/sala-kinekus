@@ -90,11 +90,15 @@ Do `api/config.php` doplňte kľúč:
 'google_places_api_key' => 'váš kľúč Places API (New)',
 ```
 
-Kľúč patrí len do `config.php` na serveri. Do verejného JSON sa nedostane. Kým kľúč nie je, endpoint číta `content/google-reviews.json`. V tom súbore je päť recenzií z profilu, doslovne. Na úvod idú Aneta, Tatiana a Jaroslav. Emilka a Erika sú na stránke stužkovej. Vedľa citácie je malý odkaz „4,4 ★ · 36 recenzií na Google“. Rozpis hviezdičiek sa nezobrazuje. Vety s menom zamestnanca sa vynechajú. Na stránke je len veta „Recenzie z Google profilu Sála Žilina“ s odkazom na profil.
+Kľúč patrí len do `config.php` na serveri. Do verejného JSON sa nedostane. Kým kľúč nie je, endpoint číta `content/google-reviews.json`. V tom súbore je päť recenzií z profilu, doslovne. Na úvod idú Aneta, Tatiana a Jaroslav. Emilka a Erika sú na stránke stužkovej. Priemer profilu ani celkový počet recenzií sa na webe nezobrazujú, ani keď ich Google vráti. Pri mene konkrétnej recenzie môže zostať jej vlastný počet hviezdičiek. Vety s menom zamestnanca sa vynechajú. V hero je odkaz „Recenzie na Google“, v sekcii veta „Recenzie z Google profilu Sála Žilina“.
 
-Ďalšiu recenziu pridáte do poľa `reviews`. Nový objekt má `author` (krstné meno), `rating` (4 alebo 5), `text` (doslovne z Google, bez prepisovania), `url` (nechajte `listingUrl`) a `section`: `general` na úvod, `stuzkova` na stránku stužkovej. Ak má byť v hero, pri formulári alebo medzi dlaždicami, úryvok v `hero`, `formQuote`, `sectionQuotes` alebo `themes` musí byť doslovná časť niektorej recenzie. `rating` a `userRatingCount` meňte len podľa aktuálneho súčtu na profile. Postup je aj v poli `instructions` v tom istom súbore. Priečinok `dist/content/` má `.htaccess`, ktorý súbor zvonku zakáže; číta ho len PHP.
+Ďalšiu recenziu pridáte do poľa `reviews`. Nový objekt má `author` (krstné meno), `rating` (4 alebo 5 pri tej recenzii), `text` (doslovne z Google, bez prepisovania), `url` (nechajte `listingUrl`) a `section`: `general` na úvod, `stuzkova` na stránku stužkovej. Ak má byť v hero, pri formulári alebo medzi dlaždicami, úryvok v `hero`, `formQuote`, `sectionQuotes` alebo `themes` musí byť doslovná časť niektorej recenzie. Postup je aj v poli `instructions` v tom istom súbore. Priečinok `dist/content/` má `.htaccess`, ktorý súbor zvonku zakáže; číta ho len PHP.
 
-Keď doplníte `google_places_api_key`, tento súbor sa obíde a recenzie sa načítajú z Places API. Na stránku nepridávame `aggregateRating`. Odkaz v adrese profilu `0x471459e6058978c9:0x68ac7bf5a132ae59` je to isté miesto ako Place ID `ChIJyXiJBeZZFEcRWa4yofV7rGg`.
+Keď doplníte `google_places_api_key`, tento súbor sa obíde a recenzie sa načítajú z Places API. Na stránku nepridávame `aggregateRating` ani priemer a celkový počet z profilu. Odkaz v adrese profilu `0x471459e6058978c9:0x68ac7bf5a132ae59` je to isté miesto ako Place ID `ChIJyXiJBeZZFEcRWa4yofV7rGg`.
+
+## Mapa
+
+Sekcia „Kde nás nájdete“ je na úvode aj na kontakte. Náhľad nie je obrázok zvonku. Je to lokálna karta s adresou a tlačidlom „Zobraziť mapu“. Vložená Google mapa (`output=embed`) sa načíta až po tomto kliknutí. Dovtedy prehliadač Google nevolá. „Navigovať“ ostáva a ide na `https://maps.app.goo.gl/nT8hn4QGFAZ5ZP8K8`. Na serveri nie je Content-Security-Policy; keby ste ju doplnili, `frame-src` musí povoliť `https://www.google.com/maps` a tiež `https://tourmkr.com` pre prehliadku.
 
 ## Testy
 

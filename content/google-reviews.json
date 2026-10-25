@@ -1,10 +1,8 @@
 {
-  "instructions": "Toto sú recenzie z profilu Sála Žilina na Google. Text nechajte doslovný, neprepisujte ho a nedoplňujte rozpis hviezdičiek. Ďalšiu recenziu pridáte ako objekt do reviews: author je krstné meno, rating je 4 alebo 5, text je celá veta z Google, url nechajte rovnaké ako listingUrl, section je general (úvod) alebo stuzkova (stránka stužkovej). Vetu, v ktorej je meno zamestnanca, vynechajte. rating a userRatingCount sú súčty z profilu. hero, formQuote, sectionQuotes a themes musia byť doslovné úryvky z niektorej recenzie. Keď do api/config.php doplníte google_places_api_key, tento súbor sa prestane používať a recenzie pôjdu priamo z Google.",
+  "instructions": "Toto sú recenzie z profilu Sála Žilina na Google. Text nechajte doslovný, neprepisujte ho. Ďalšiu recenziu pridáte ako objekt do reviews: author je krstné meno, rating je 4 alebo 5 pri konkrétnej recenzii, text je celá veta z Google, url nechajte rovnaké ako listingUrl, section je general (úvod) alebo stuzkova (stránka stužkovej). Vetu, v ktorej je meno zamestnanca, vynechajte. Priemer profilu a celkový počet recenzií na web nepatria. hero, formQuote, sectionQuotes a themes musia byť doslovné úryvky z niektorej recenzie. Keď do api/config.php doplníte google_places_api_key, tento súbor sa prestane používať a recenzie pôjdu priamo z Google.",
   "sample": false,
   "listingUrl": "https://www.google.com/maps/place/S%C3%A1la+%C5%BDilina/@49.2010185,18.7673104,17z/data=!4m8!3m7!1s0x471459e6058978c9:0x68ac7bf5a132ae59!8m2!3d49.2013982!4d18.7699948!9m1!1b1!16s%2Fg%2F11g0lbzfrx?hl=sk",
   "writeReviewUrl": "https://search.google.com/local/writereview?placeid=ChIJyXiJBeZZFEcRWa4yofV7rGg",
-  "rating": 4.4,
-  "userRatingCount": 36,
   "hero": {
     "author": "Aneta",
     "text": "Najkrajšia sála v Žiline. Všetko bolo pripravené podľa našich predstáv."

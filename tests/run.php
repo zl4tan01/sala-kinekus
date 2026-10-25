@@ -160,15 +160,6 @@ $payload = sala_occupied_from_ics($ics, sala_today(), sala_add_months(sala_today
 $encoded = json_encode(['occupied' => $payload, 'updated' => date('c')]);
 check(is_string($encoded) && !str_contains($encoded, 'ATTENDEE') && !str_contains($encoded, 'example.com'), 'výstup z iCal okna nemá kontakty');
 
-check(sala_review_count_label(1) === '1 recenzia', '1 recenzia');
-check(sala_review_count_label(2) === '2 recenzie', '2 recenzie');
-check(sala_review_count_label(4) === '4 recenzie', '4 recenzie');
-check(sala_review_count_label(5) === '5 recenzií', '5 recenzií');
-check(sala_review_count_label(11) === '11 recenzií', '11 recenzií');
-check(sala_review_count_label(12) === '12 recenzií', '12 recenzií');
-check(sala_review_count_label(22) === '22 recenzie', '22 recenzie');
-check(sala_review_count_label(36) === '36 recenzií', '36 recenzií');
-check(sala_rating_label(4.4) === '4,4', 'hodnotenie s čiarkou');
 check(sala_review_first_name('Jana Nováková') === 'Jana', 'krstné meno');
 check(sala_review_first_name('A') === '', 'jedno písmeno sa nepoužije');
 $long = 'Krásna sála ' . str_repeat('s parketom ', 40);
@@ -195,10 +186,12 @@ check(
     && str_starts_with($places['hero']['text'], 'Krásna sála')
     && !str_contains($placesJson, 'Translated')
     && !str_contains($placesJson, 'TAJNY-KLUC')
-    && !isset($places['ratingLabel'])
-    && $places['proofLabel'] === '4,4 ★ · 36 recenzií na Google'
+    && !isset($places['proofLabel'], $places['count'], $places['countLabel'], $places['ratingLabel'])
+    && !str_contains($placesJson, '4,4')
+    && !str_contains($placesJson, '4.4')
+    && !str_contains($placesJson, '36')
     && $places['themes'] === [],
-    'Places berie pôvodný text a priemer len ako malý odkaz'
+    'Places berie pôvodný text a priemer profilu sa do odpovede nedostane'
 );
 
 $hiddenSample = sala_reviews_from_manual(['sample' => true, 'reviews' => [['author' => 'Eva', 'rating' => 5, 'text' => 'Veľké parkovisko pred sálou na svadbu.']]]);
@@ -277,8 +270,9 @@ check(
     && count($curated['reviews']) === 3
     && count($curated['themes']) === 2
     && $themesOk
-    && $curated['proofLabel'] === '4,4 ★ · 36 recenzií na Google'
-    && !isset($curated['ratingLabel'])
+    && !isset($curated['proofLabel'], $curated['count'], $curated['countLabel'], $curated['ratingLabel'])
+    && !str_contains($curatedJson, '4,4')
+    && !str_contains($curatedJson, '36')
     && !str_contains($curatedJson, 'Odporúčam')
     && !str_contains($curatedJson, 'Mia'),
     'najkratšie konkrétne citácie idú prvé a témy sú doslovné'
@@ -309,7 +303,10 @@ check(
     && array_column($public['reviews'], 'author') === ['Aneta', 'Tatiana', 'Jaroslav']
     && array_column($public['sections']['stuzkova'], 'author') === ['Emilka', 'Erika']
     && $public['sectionQuotes']['stuzkova']['author'] === 'Erika'
-    && $public['proofLabel'] === '4,4 ★ · 36 recenzií na Google'
+    && !isset($public['proofLabel'], $public['count'], $public['countLabel'], $public['userRatingCount'])
+    && !str_contains($publicJson, '4,4')
+    && !str_contains($publicJson, '4.4')
+    && !str_contains($publicJson, '36')
     && $liveThemes
     && !str_contains($publicJson, 'Mack')
     && !str_contains($publicJson, 'Video DJ')

@@ -1,6 +1,6 @@
 ---
 import { site } from "../data/site";
-const preview = `https://staticmap.openstreetmap.de/staticmap.php?center=${site.geo.lat},${site.geo.lng}&zoom=15&size=800x450&maptype=mapnik&markers=${site.geo.lat},${site.geo.lng},lightblue1`;
+const mapEmbed = `https://www.google.com/maps?q=${site.geo.lat},${site.geo.lng}&hl=sk&z=16&output=embed`;
 ---
 
 <section class="section" id="miesto">
@@ -23,9 +23,26 @@ const preview = `https://staticmap.openstreetmap.de/staticmap.php?center=${site.
       <p>Ozveme sa do 1 pracovného dňa.</p>
       <p style="margin-top:0.8rem"><a href={site.maps} rel="noopener noreferrer">Profil na Google</a></p>
     </div>
-    <a class="map-preview" href={site.directions} rel="noopener noreferrer">
-      <img src={preview} alt="Náhľad mapy, Rosinská cesta 13, Žilina" width="800" height="450" loading="lazy" decoding="async" />
-      <span class="btn btn-dark">Navigovať</span>
-    </a>
+    <div class="map-stage" data-map>
+      <div class="map-poster" data-map-poster>
+        <svg class="map-pin" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor" d="M12 2.2a7.2 7.2 0 0 0-7.2 7.2c0 5.4 7.2 12.4 7.2 12.4s7.2-7 7.2-12.4A7.2 7.2 0 0 0 12 2.2zm0 9.7a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"></path>
+        </svg>
+        <p>{site.street}, {site.city}</p>
+      </div>
+      <iframe
+        data-map-frame
+        hidden
+        tabindex="-1"
+        title="Mapa, Rosinská cesta 13, Žilina"
+        loading="lazy"
+        referrerpolicy="strict-origin-when-cross-origin"
+        data-src={mapEmbed}
+      ></iframe>
+      <div class="map-actions">
+        <button class="btn" type="button" data-map-open>Zobraziť mapu</button>
+        <a class="btn btn-dark" href={site.directions} rel="noopener noreferrer">Navigovať</a>
+      </div>
+    </div>
   </div>
 </section>

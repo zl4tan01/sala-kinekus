@@ -6,26 +6,6 @@ function sala_reviews_default_file(): string
     return dirname(__DIR__, 2) . '/content/google-reviews.json';
 }
 
-function sala_review_count_label(int $count): string
-{
-    $mod100 = $count % 100;
-    $mod10 = $count % 10;
-    if ($mod100 < 10 || $mod100 > 20) {
-        if ($mod10 === 1) {
-            return $count . ' recenzia';
-        }
-        if ($mod10 >= 2 && $mod10 <= 4) {
-            return $count . ' recenzie';
-        }
-    }
-    return $count . ' recenzií';
-}
-
-function sala_rating_label(float $rating): string
-{
-    return number_format(round($rating, 1), 1, ',', '');
-}
-
 function sala_review_first_name(string $name): string
 {
     $name = trim((string) preg_replace('/\s+/u', ' ', $name));
@@ -70,13 +50,7 @@ function sala_reviews_from_places(array $body, string $placeId, string $fallback
             $reviews[] = $normalized;
         }
     }
-    return sala_reviews_payload(
-        isset($body['rating']) ? (float) $body['rating'] : null,
-        isset($body['userRatingCount']) ? (int) $body['userRatingCount'] : null,
-        $listing,
-        $write,
-        $reviews
-    );
+    return sala_reviews_payload($listing, $write, $reviews);
 }
 
 /**
@@ -141,7 +115,7 @@ function sala_review_specified(array $spec, array $reviews): ?array
  * @param list<array{author:string,rating:int,text:string,url:string,section?:string}> $reviews
  * @return array<string,mixed>
  */
-function sala_reviews_guided(array $file, array $reviews, ?float $rating, ?int $count, string $listing, string $write): array
+function sala_reviews_guided(array $file, array $reviews, string $listing, string $write): array
 {
     $general = [];
     $sections = [];
@@ -211,7 +185,7 @@ function sala_reviews_guided(array $file, array $reviews, ?float $rating, ?int $
         return ['available' => false];
     }
 
-    return sala_reviews_with_proof([
+    return [
         'available' => true,
         'listingUrl' => $listing,
         'writeUrl' => $write,
@@ -221,7 +195,7 @@ function sala_reviews_guided(array $file, array $reviews, ?float $rating, ?int $
         'themes' => $themes,
         'reviews' => $general,
         'sections' => $sections,
-    ], $rating, $count);
+    ];
 }
 
 function sala_reviews_from_manual(array $file): array
@@ -248,12 +222,10 @@ function sala_reviews_from_manual(array $file): array
         }
         $reviews[] = $normalized;
     }
-    $rating = is_numeric($file['rating'] ?? null) ? (float) $file['rating'] : null;
-    $count = is_numeric($file['userRatingCount'] ?? null) ? (int) $file['userRatingCount'] : null;
     if ($guided) {
-        return sala_reviews_guided($file, $reviews, $rating, $count, $listing, $write);
+        return sala_reviews_guided($file, $reviews, $listing, $write);
     }
-    return sala_reviews_payload($rating, $count, $listing, $write, $reviews);
+    return sala_reviews_payload($listing, $write, $reviews);
 }
 
 /**
@@ -460,21 +432,22 @@ function sala_reviews_curate(array $reviews): array
 }
 
 /**
- * @param list<array{author:string,rating:int,text:string,url:string}> $reviews
+ * Priemer a počet recenzií z profilu sa na web nedostanú, ani keď ich Google vráti.
+ *
+ * @param array<string,mixed> $payload
  * @return array<string,mixed>
  */
-/** @param array<string,mixed> $payload */
-function sala_reviews_with_proof(array $payload, ?float $rating, ?int $count): array
+function sala_reviews_without_aggregate(array $payload): array
 {
-    if ($count === null || $count < 1) {
-        return $payload;
-    }
-    $payload['count'] = $count;
-    $payload['countLabel'] = sala_review_count_label($count);
-    if ($rating !== null && $rating >= 1 && $rating <= 5) {
-        $payload['proofLabel'] = sala_rating_label($rating) . ' ★ · ' . $payload['countLabel'] . ' na Google';
-    } else {
-        $payload['proofLabel'] = '★ ' . $payload['countLabel'] . ' na Google';
+    unset(
+        $payload['proofLabel'],
+        $payload['count'],
+        $payload['countLabel'],
+        $payload['ratingLabel'],
+        $payload['userRatingCount']
+    );
+    if (array_key_exists('rating', $payload) && !is_array($payload['rating'])) {
+        unset($payload['rating']);
     }
     return $payload;
 }
@@ -483,13 +456,13 @@ function sala_reviews_with_proof(array $payload, ?float $rating, ?int $count): a
  * @param list<array{author:string,rating:int,text:string,url:string}> $reviews
  * @return array<string,mixed>
  */
-function sala_reviews_payload(?float $rating, ?int $count, string $listing, string $write, array $reviews): array
+function sala_reviews_payload(string $listing, string $write, array $reviews): array
 {
     $curated = sala_reviews_curate($reviews);
     if ($curated['reviews'] === []) {
         return ['available' => false];
     }
-    return sala_reviews_with_proof([
+    return [
         'available' => true,
         'listingUrl' => $listing,
         'writeUrl' => $write,
@@ -497,7 +470,7 @@ function sala_reviews_payload(?float $rating, ?int $count, string $listing, stri
         'formQuote' => $curated['formQuote'],
         'themes' => $curated['themes'],
         'reviews' => $curated['reviews'],
-    ], $rating, $count);
+    ];
 }
 
 /** @return array<string,mixed> */
@@ -518,16 +491,16 @@ function sala_reviews_public(array $config): array
     if ($key !== '' && $placeId !== '') {
         $cached = sala_reviews_cache_read($cacheFile, $ttl);
         if ($cached !== null) {
-            return $cached;
+            return sala_reviews_without_aggregate($cached);
         }
         try {
-            $fresh = sala_reviews_fetch_places($key, $placeId, $listing);
+            $fresh = sala_reviews_without_aggregate(sala_reviews_fetch_places($key, $placeId, $listing));
             sala_reviews_cache_write($cacheFile, $fresh);
             return $fresh;
         } catch (Throwable $e) {
             $stale = sala_reviews_cache_read($cacheFile, 86400 * 14);
             if ($stale !== null) {
-                return $stale;
+                return sala_reviews_without_aggregate($stale);
             }
         }
     }
@@ -536,7 +509,7 @@ function sala_reviews_public(array $config): array
     if ($path === '') {
         $path = sala_reviews_default_file();
     }
-    return sala_reviews_read_manual($path);
+    return sala_reviews_without_aggregate(sala_reviews_read_manual($path));
 }
 
 /** @return array<string,mixed> */
@@ -545,7 +518,7 @@ function sala_reviews_fetch_places(string $key, string $placeId, string $listing
     $url = 'https://places.googleapis.com/v1/places/' . rawurlencode($placeId) . '?languageCode=sk';
     $raw = sala_http_request('GET', $url, [
         'X-Goog-Api-Key: ' . $key,
-        'X-Goog-FieldMask: rating,userRatingCount,googleMapsUri,reviews.rating,reviews.text,reviews.originalText,reviews.authorAttribution.displayName,reviews.googleMapsUri',
+        'X-Goog-FieldMask: googleMapsUri,reviews.rating,reviews.text,reviews.originalText,reviews.authorAttribution.displayName,reviews.googleMapsUri',
         'Accept: application/json',
     ]);
     $decoded = json_decode($raw, true);
