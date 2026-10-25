@@ -15,7 +15,7 @@ export const site = {
   hours: "v pracovných dňoch od 7:00 do 15:30",
   instagram: "https://www.instagram.com/sala_zilina_kinekus/",
   facebook: "https://www.facebook.com/salazilina",
-  tour: "https://tourmkr.com/F1bNk2eajH/31139046p&58.92h&89.39t",
+  tour: "https://tourmkr.com/F1bNk2eajH/31139087p&101.61h&89.65t",
   maps: "https://www.google.com/maps/place/S%C3%A1la+%C5%BDilina/@49.2010185,18.7673104,17z/data=!4m8!3m7!1s0x471459e6058978c9:0x68ac7bf5a132ae59!8m2!3d49.2013982!4d18.7699948!9m1!1b1!16s%2Fg%2F11g0lbzfrx?hl=sk",
   placeId: "ChIJyXiJBeZZFEcRWa4yofV7rGg",
   writeReview: "https://search.google.com/local/writereview?placeid=ChIJyXiJBeZZFEcRWa4yofV7rGg",
