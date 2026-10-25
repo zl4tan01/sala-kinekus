@@ -12,7 +12,7 @@ export const GET: APIRoute = async () => {
     `E-mail: ${site.email}`,
     `Web: ${site.url}`,
     "",
-    "Kapacita je 50 až 250 osôb. V sále je parket, pódium 12×6 m, balkón a terasa. Parkovanie je pred budovou. Ozvučenie má mixážny pult Yamaha a mikrofóny. Na projekciu je Full HD projektor so svietivosťou 5 400 lumenov a SMART zatemnenie okien. Vlastnú kuchyňu sála neprevádzkuje, cateringovú firmu vie odporučiť.",
+    "Kapacita je 50 až 250 osôb. V sále je parket, pódium 12×6 m, balkón a terasa. Parkovanie je pred budovou. Ozvučenie má mixážny pult Yamaha a mikrofóny. Na projekciu je Full HD projektor so svietivosťou 5 400 lumenov, SMART osvetlenie a možnosť zastrieť okná. Vlastnú kuchyňu neprevádzkujeme, cateringovú firmu vieme odporučiť.",
     "",
     "Dopyt cez web termín nerezervuje. Deň platí až po potvrdení tímom sály. Na webe nie sú ceny ani lehota odpovede.",
     "",

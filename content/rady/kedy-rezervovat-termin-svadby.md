@@ -30,7 +30,7 @@ faq:
 
 Orientačne si páry vyberajú deň niekoľko mesiacov až zhruba rok dopredu. Nie je to lehota Sály Kinekus a kratší čas neznamená, že deň nie je voľný.
 
-Najprv si povedzte, koho voláte a v akom ročnom období chcete svadbu mať. Potom sa pozrite do kalendára na webe. Farba dňa ukazuje, či naň už siaha celodenná akcia. Až potom posielate dopyt. Obrad v kostole, na úrade alebo v sále na termín nadväzuje, preto deň porovnajte aj s miestom obradu, nie len so sálou.
+Najprv si povedzte, koho voláte a v akom ročnom období chcete svadbu mať. Potom sa pozrite do kalendára na webe. Farba dňa ukazuje, či naň už siaha celodenná akcia. Až potom posielate dopyt. Obrad v kostole alebo na úrade na termín nadväzuje, preto deň porovnajte aj s miestom obradu, nie len so sálou.
 
 Ak máte hostí z väčšej diaľky, dajte im vedieť až keď deň potvrdí tím sály. Skoršie oznámenie potom ťažko beriete späť. Ako si sálu pozrieť, je v texte [dvanástich otázok na obhliadku](/rady/ako-vybrat-svadobnu-salu/). Priestor svadieb je na stránke [svadieb](/svadby/).
 
@@ -52,7 +52,7 @@ Sála má balkón a terasu priamo zo sály. Na obhliadke uvidíte, či vám vonk
 
 Sobota je pre hostí jednoduchšia, lebo väčšina nepracuje. Piatok a nedeľa bývajú kompromis. Všedný deň šetrí termín, ale žiada od hostí voľno.
 
-Piatok znamená, že časť ľudí odchádza z práce skôr alebo si berie celý deň. Nedeľa býva pokojnejšia na príjazd, v pondelok však hostia znova vstávajú do práce, preto sa program zvyčajne neťahá tak dlho ako v sobotu. To nie je pokyn sály, len ohľad na hostí. Koniec večera ani hudbu sála dopredu nelimituje. Hodiny si dohodnete vy podľa obradu a cateringu.
+Piatok znamená, že časť ľudí odchádza z práce skôr alebo si berie celý deň. Nedeľa býva pokojnejšia na príjazd, v pondelok však hostia znova vstávajú do práce, preto sa program zvyčajne neťahá tak dlho ako v sobotu. To nie je pokyn sály, len ohľad na hostí. Hodiny akcie si dohodnete so sálou pri potvrdení termínu.
 
 Všedný deň sa hodí, keď je hostí menej a sú to ľudia, ktorí si vedia zobrať voľno. Opýtajte sa najbližšej rodiny skôr, než deň odošlete ako dopyt. Ak väčšina povie, že v utorok nepríde, voľný termín vám nepomôže.
 

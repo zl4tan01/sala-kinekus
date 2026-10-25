@@ -14,16 +14,16 @@ related:
 summary:
   - "Menu na stôl a švédsky stôl menia tempo večera, počet čašníkov aj miesto v sále."
   - "Ponuky porovnávajte pri rovnakom počte hostí, chodov, nápojov, obsluhy a riadu."
-  - "Sála vlastnú kuchyňu neprevádzkuje. Cateringovú firmu vieme odporučiť, mená na webe neuverejňujeme."
+  - "Vlastnú kuchyňu neprevádzkujeme. Cateringovú firmu vieme odporučiť."
 faq:
   - q: "Varí Sála Kinekus vlastné jedlo?"
-    a: "Nie. Vlastnú kuchyňu v sále neprevádzkujeme. Odporučíme cateringovú firmu a ak už máte vlastnú, povieme, ako sa u nás zariadi dovoz a výdaj."
+    a: "Nie. Vlastnú kuchyňu neprevádzkujeme. Cateringovú firmu vieme odporučiť. Ak už máte vlastného dodávateľa, radi vám povieme, ako to pri vašej akcii vieme zariadiť."
   - q: "Čo je pri svadbe praktickejšie, menu alebo švédsky stôl?"
     a: "Menu drží hostí pri stole a chody idú v rovnakom čase. Švédsky stôl je voľnejší a potrebuje miesto na výdaj. Voľba patrí vám a firme, nie je to pokyn sály."
   - q: "Ako majú byť v ponuke vidieť alergie?"
     a: "Každá ponuka má povedať, ako označí jedlo bez lepku, laktózy alebo mäsa a či sa tieto jedlá pripravujú osobitne. Porovnávajte len firmy, ktoré vám to napíšu rovnako konkrétne."
   - q: "Treba catering riešiť so sálou?"
-    a: "Áno, kvôli miestu výdaja a hodine, kedy obsluha príde. Zmluva o jedle je medzi vami a firmou. Sála kuchyňu neprenajíma ako reštauráciu."
+    a: "Áno, kvôli miestu výdaja a hodine, kedy obsluha príde. Zmluva o jedle je medzi vami a firmou."
 ---
 
 ## Čím sa líši servírované menu od švédskeho stola?
@@ -55,7 +55,7 @@ Detský tanier, ak ho chcete, je ďalšia položka v tej istej ponuke. Nie je to
 
 Obsluha, riad a hodina výdaja menia cenu aj priebeh. V ponuke majú byť napísané, nie len naznačené v úvode.
 
-Opýtajte sa, koľko ľudí príde obsluhovať a či sú v cene. Opýtajte sa, či riad, taniere a príbory vezie firma, alebo ich máte zabezpečiť vy. Opýtajte sa, kto odnesie odpad a kto umyje, čo sa použije na výdaji. Sála nie je reštaurácia s vlastnou kuchyňou, preto tieto vety patria do ponuky cateringu.
+Opýtajte sa, koľko ľudí príde obsluhovať a či sú v cene. Opýtajte sa, či riad, taniere a príbory vezie firma, alebo ich máte zabezpečiť vy. Opýtajte sa, kto odnesie odpad a kto umyje, čo sa použije na výdaji. Vlastnú kuchyňu neprevádzkujeme, preto tieto vety patria do ponuky cateringu.
 
 Hodinu prvého chodu alebo otvorenia stola dajte do programu až potom, čo ju firma potvrdí. Medzi príchodom hostí a jedlom nechajte privítanie. Ak firma povie, že výdaj mešká, keď hostia meškajú, napíšte to do pozvánky ako prosbu o včasný príchod. Orientačne počítajte s tým, že švédsky stôl potrebuje frontu. Pri väčšom počte hostí sa opýtajte, či budú dva výdajné body, aby ľudia nestáli cez celý parket.
 
@@ -73,6 +73,6 @@ Potom položte ponuky vedľa seba po riadkoch, nie podľa poslednej sumy. Chýba
 
 Sála jedlo nevarí. Vie odporučiť cateringovú firmu a povedať, ako sa u nás zariadi dovoz, ak už dodávateľa máte.
 
-Mená firiem tu zámerne nie sú. Odporúčanie dostanete od nás priamo, spolu s tým, ako u nás prebieha výdaj. Viaceré firmy vedia pomôcť aj s výzdobou. To si overte u nich, nie z tohto textu. Stránka [cateringu](/catering/) hovorí to isté kratšie.
+Cateringovú firmu vieme odporučiť. Viaceré firmy vedia pomôcť aj s výzdobou. To si overte u nich, nie z tohto textu. Stránka [cateringu](/catering/) hovorí to isté kratšie.
 
 Ak chystáte stužkovú, jedlo nadviažte na program triedy. Postup je v texte [stužková krok za krokom](/rady/stuzkova-krok-za-krokom/). Pri svadbe ho nadviažte na hostinu a tortu. Torta často nie je súčasť cateringu. Opýtajte sa na to zvlášť, nech v deň svadby nestojí bez stola.

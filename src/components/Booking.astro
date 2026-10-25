@@ -40,28 +40,28 @@ const selected = kinds.find((item) => item.id === kind) ?? kinds.find((item) => 
             Ak sa vám neozveme, zavolajte na {site.phone}.
           </p>
         </div>
-        <form class="form" data-form action="/api/inquiry.php" method="post" data-segment={selected.segment} data-kind={selected.id} novalidate>
-          <p class="form-error" data-form-error hidden></p>
+        <form class="form" data-form action="/api/inquiry.php" method="post" data-segment={selected.segment} data-kind={selected.id} novalidate aria-describedby="error-form">
+          <p class="form-error" id="error-form" data-form-error hidden></p>
           <div class="hp" aria-hidden="true">
             <label>Webová stránka firmy
               <input name="company_url" tabindex="-1" autocomplete="off" />
             </label>
           </div>
           <input type="hidden" name="segment" value={selected.segment} />
-          <label>Druh podujatia
-            <select name="kind" required>
+          <label for="field-kind">Druh podujatia
+            <select id="field-kind" name="kind" required aria-describedby="error-kind">
               {kinds.map((item) => (
                 <option value={item.id} data-segment={item.segment} selected={item.id === selected.id}>{item.label}</option>
               ))}
             </select>
           </label>
-          <p class="field-error" data-error-for="kind" hidden></p>
-          <label>Dátumy
-            <input name="dates" required autocomplete="off" placeholder="Vyberte deň v kalendári alebo napíšte dátum" />
+          <p class="field-error" id="error-kind" data-error-for="kind" hidden></p>
+          <label for="field-dates">Dátumy
+            <input id="field-dates" name="dates" required autocomplete="off" placeholder="Vyberte deň v kalendári alebo napíšte dátum" aria-describedby="error-dates" />
           </label>
-          <p class="field-error" data-error-for="dates" hidden></p>
-          <label>Počet hostí <span class="optional">(nepovinné)</span>
-            <select name="guests">
+          <p class="field-error" id="error-dates" data-error-for="dates" hidden></p>
+          <label for="field-guests">Počet hostí <span class="optional">(nepovinné)</span>
+            <select id="field-guests" name="guests" aria-describedby="error-guests">
               <option value="">Nechcem uviesť</option>
               <option value="do-50">do 50</option>
               <option value="50-100">50–100</option>
@@ -71,30 +71,31 @@ const selected = kinds.find((item) => item.id === kind) ?? kinds.find((item) => 
               <option value="250-plus">viac ako 250</option>
             </select>
           </label>
-          <p class="field-error" data-error-for="guests" hidden></p>
-          <label>Meno a priezvisko
-            <input name="name" autocomplete="name" required maxlength="120" />
+          <p class="field-error" id="error-guests" data-error-for="guests" hidden></p>
+          <label for="field-name">Meno a priezvisko
+            <input id="field-name" name="name" autocomplete="name" required maxlength="120" aria-describedby="error-name" />
           </label>
-          <p class="field-error" data-error-for="name" hidden></p>
-          <label>E-mail
-            <input name="email" type="email" autocomplete="email" required maxlength="160" />
+          <p class="field-error" id="error-name" data-error-for="name" hidden></p>
+          <label for="field-email">E-mail
+            <input id="field-email" name="email" type="email" autocomplete="email" required maxlength="160" aria-describedby="error-email" />
           </label>
-          <p class="field-error" data-error-for="email" hidden></p>
-          <label>Telefón
-            <input name="phone" type="tel" autocomplete="tel" required maxlength="40" />
+          <p class="field-error" id="error-email" data-error-for="email" hidden></p>
+          <label for="field-phone">Telefón
+            <input id="field-phone" name="phone" type="tel" autocomplete="tel" required maxlength="40" aria-describedby="error-phone" />
           </label>
-          <p class="field-error" data-error-for="phone" hidden></p>
-          <label>Správa
-            <textarea name="message" maxlength="4000" placeholder="Program, čas, catering, čo potrebujete od nás."></textarea>
+          <p class="field-error" id="error-phone" data-error-for="phone" hidden></p>
+          <label for="field-message">Správa
+            <textarea id="field-message" name="message" maxlength="4000" placeholder="Program, čas, catering, čo potrebujete od nás." aria-describedby="error-message"></textarea>
           </label>
-          <label class="check">
-            <input type="checkbox" name="gdpr" value="1" required />
+          <p class="field-error" id="error-message" data-error-for="message" hidden></p>
+          <label class="check" for="field-gdpr">
+            <input id="field-gdpr" type="checkbox" name="gdpr" value="1" required aria-describedby="error-gdpr" />
             <span>
               Súhlasím so spracovaním údajov z tohto formulára, aby ma Sála Kinekus mohla kontaktovať k nezáväznému dopytu.
               Viac v <a href="/ochrana-udajov/">ochrane údajov</a>.
             </span>
           </label>
-          <p class="field-error" data-error-for="gdpr" hidden></p>
+          <p class="field-error" id="error-gdpr" data-error-for="gdpr" hidden></p>
           <button class="btn btn-dark" type="submit">Odoslať nezáväzný dopyt</button>
           <p class="note">Ozveme sa vám. Dopyt sa nezapíše do kalendára, kým termín nepotvrdíme.</p>
         </form>

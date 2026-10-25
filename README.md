@@ -6,7 +6,7 @@ Nový web sály na Rosinskej ceste 13 v Žiline. Nahrádza [salazilina.sk](https
 
 Doplňte, keď budete mať podklady. Kým polia ostanú prázdne, web číslo ani mená dodávateľov nevymýšľa.
 
-- **Ceny.** V `content/pricing.json` pri svadbe, stužkovej, firmách a cateringu vyplňte `from`, napríklad `od 800 €`. Prázdny reťazec znamená, že blok „Koľko to stojí“ ukáže len vysvetlenie, čo cenu ovplyvňuje, a vetu „Cenovú ponuku vám pošleme“.
+- **Ceny.** V `content/pricing.json` pri svadbe, stužkovej, firmách a cateringu vyplňte `from`, napríklad `od 800 €`. Prázdny reťazec znamená, že blok „Koľko to stojí“ ukáže vetu „Cenu pošleme v ponuke podľa vašej akcie.“
 - **Fotky.** Karta Svadby na úvode je `svadba-23`, karta Stužkové `stuz-03`. Hlavný obrázok stránky svadieb je `svadba-20`, stužkovej `stuz-07`, firiem `konf-01`. Náhľad 360° je `tour-poster`, záber z virtuálnej prehliadky hlavnej sály. Stock `svadba-hero` a `stuzkova-hero` sa na webe nepoužívajú.
 - **Podmienky stužkovej.** Pravidlá a škody sa na web nepíšu. Majiteľ ich rieši osobne pri obhliadke.
 - **Ďalšie Google recenzie.** Postup je nižšie v časti Recenzie z Google. Pridávajte len doslovný text z profilu.
@@ -35,7 +35,7 @@ Podmienky stužkovej, škody a dohľad sa do článkov nepíšu. Majiteľ ich ri
 
 ## Čo je na webe z kontaktov
 
-Primárny kontakt je `+421 908 761 253` a `marketing@salazilina.sk`. Telefón `041 555 55 10` je vedľajší. `info@salazilina.sk` je len v pätičke. WhatsApp je v pätičke, lebo mobilné číslo existuje. Pracovné hodiny sú na Kontakte a v pätičke. Lehota odpovede na webe nie je. Text je „Ozveme sa vám“. Po odoslaní formulára je veta „Ak sa vám neozveme, zavolajte na +421 908 761 253.“
+Primárny kontakt je `+421 908 761 253` a `marketing@salazilina.sk`. Telefón `041 555 55 10` je vedľajší. `info@salazilina.sk` je len v pätičke. WhatsApp odkaz na webe nie je. Pracovné hodiny sú na Kontakte a v pätičke. Lehota odpovede na webe nie je. Text je „Ozveme sa vám“. Po odoslaní formulára je veta „Ak sa vám neozveme, zavolajte na +421 908 761 253.“
 
 Texty sú po slovensky. Fotografie pochádzajú z pôvodného webu a v repozitári sú už zmenšené do WebP a AVIF.
 
@@ -51,7 +51,7 @@ npm run build
 
 Príkaz `npm run build` zloží HTML, CSS, obrázky aj `dist/api/` (PHP). Potom obsah `dist/` nahrajte cez FTP.
 
-Po nahratí na serveri **vytvorte** `api/config.php` podľa `api/config.example.php`. Súbor `config.php` sa do gitu nedáva a build ho do `dist/` nekopíruje. Priečinok `api/cache/` musí byť zapisovateľný (PHP si tam ukladá dostupnosť na 15 minút a počítadlo odoslaní formulára).
+Po nahratí na serveri **vytvorte** `api/config.php` podľa `api/config.example.php`. Súbor `config.php` sa do gitu nedáva a build ho do `dist/` nekopíruje. Priečinok `api/cache/` musí byť pre PHP zapisovateľný. PHP si tam ukladá dostupnosť na 15 minút a počítadlo odoslaní formulára. Ak priečinok zapisovateľný nie je, formulár dopyt neodošle a vráti „Dopyt sa teraz nepodarilo prijať. Zavolajte na +421 908 761 253.“ Limit sa v tom prípade nevypne potichu. Kalendár dostupnosti sa len nezapíše do cache a do logu servera pribudne správa. Stránka kalendár stále načíta.
 
 Lokálny náhľad hotového buildu:
 
@@ -99,7 +99,20 @@ Táto adresa je heslo ku kalendáru. Patrí len do `api/config.php` na serveri.
 
 Na Websupporte musí byť `mail_from` existujúca schránka na doméne, inak `mail()` poštu odmietne. Rozumná voľba je `marketing@salazilina.sk`.
 
-Formulár má skryté pole proti robotom (honeypot) a limit odoslaní z jednej IP. Povinný je súhlas so spracovaním údajov.
+Formulár má skryté pole proti robotom (honeypot) a limit odoslaní z jednej IP. Povinný je súhlas so spracovaním údajov. Pošta ide cez `mail()` s odosielateľom obálky `-f` z `mail_from`. Keď prehliadač nemá JavaScript a odoslanie zlyhá, vráti sa stránka s textom chyby a s poliami, ktoré návštevník vyplnil. Úspešný dopyt bez JavaScriptu presmeruje na `/?odoslane=1#termin`.
+
+## Pred ostrým spustením
+
+Tieto kroky build nerobí. Canonical adresy ostávajú `https://www.salazilina.sk`.
+
+- **Presmerovanie.** Starý web je indexovaný bez `www`. Pri spustení nastavte 301 z `http://` na `https://` a z `https://salazilina.sk` na `https://www.salazilina.sk`.
+- **iCal.** Režim `ical` neberie výnimky `RECURRENCE-ID` a týždenné opakovanie `BYDAY` rozbalí najviac 160 týždňov od začiatku série. Režim `google` (`singleEvents=true`) tieto výnimky berie. Ak v kalendári sú opakované celodenné rezervácie, použite `mode=google`, alebo ich zadávajte ako samostatné dni.
+- **Právne údaje, ktoré musí doplniť majiteľ.** Na web ich nedávajte odhadom. Chýba:
+  - IČO a zápis v registri (zákon č. 22/2004 Z. z. o elektronickom obchode)
+  - právny základ spracúvania údajov z formulára
+  - doba uchovávania
+  - práva dotknutých osôb (prístup, výmaz, námietka)
+  - možnosť sťažnosti na Úrad na ochranu osobných údajov SR
 
 Kým `config.php` nie je, `mode` je `mock`. Na skúšku odoslania bez pošty dajte `'mail_transport' => 'file'` a `'mail_file' => '/tmp/sala-dopyt.txt'`. Na ostrom webe nechajte `mail`.
 

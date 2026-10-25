@@ -14,12 +14,12 @@ related:
 summary:
   - "Prípravu stužkovej si trieda zvyčajne rozloží na 6 až 12 mesiacov. Nie je to lehota, ktorú by sála vyžadovala."
   - "Študenti držia program a hudbu, rodičia pomáhajú s cateringom a tombolou, triedni držia pokojný kontakt so školou."
-  - "Pred potvrdením termínu si s organizátorom sály prejdete priebeh večera, aby všetci vedeli, čo ich čaká."
+  - "Pred akciou si s tímom sály prejdete priebeh večera, aby všetci vedeli, čo ich čaká."
 faq:
   - q: "Kedy má trieda začať vyberať sálu?"
     a: "Orientačne pol roka až rok vopred, skôr ak chcete konkrétnu sobotu v hlavnom termíne stužkových. Deň aj tak platí až po potvrdení, nie po prvom e-maile."
   - q: "Kto má držať kontakt so sálou?"
-    a: "Jeden študent a jeden dospelý, nie celá trieda naraz. Mení sa tak menej odkazov a organizátor sály vie, s kým prechádza detaily večera."
+    a: "Jeden študent a jeden dospelý, nie celá trieda naraz. Mení sa tak menej odkazov a tím sály vie, s kým prechádza detaily večera."
   - q: "Čo si máme so sálou prejsť vopred?"
     a: "Program, hodinu príchodu, rozloženie, hudbu, catering a tombolu. Cieľom je pokojný a príjemný večer, na ktorý ste pripravení vy aj my."
   - q: "Varí sála na stužkovú?"
@@ -35,7 +35,7 @@ Orientačne sa príprava rozloží na 6 až 12 mesiacov. Nie je to termín, ktor
 | 6 až 12 mesiacov | Termín, sála, hrubý rozpočet triedy a rodičov |
 | 4 až 6 mesiacov | Program, hudba, catering, počet hostí |
 | 2 až 3 mesiace | Tombola, výzdoba, mená na stoloch |
-| Posledný mesiac | Prejsť celý večer s organizátorom sály |
+| Posledný mesiac | Prejsť celý večer s tímom sály |
 | Posledný týždeň | Skúška programu a konečný počet porcií |
 
 Soboty v období, keď majú stužkové aj iné školy, sa míňajú skôr. Preto termín overte medzi prvými krokmi, spolu s miestnosťou na skúšku programu v škole. Dopyt deň nerezervuje. Kým tím sály termín nepotvrdí, neobjednávajte potlač s dátumom. Priestor a ozvučenie sú na stránke [stužkovej](/stuzkova/).
@@ -62,13 +62,13 @@ Harmonogram napíšte po blokoch. Príchod a otvorenie. Predstavenie triedy. Blo
 
 Tombola potrebuje zoznam cien, človeka, ktorý ju moderuje, a stôl, ktorý nezavadzia v uličke. Ceny zozbierajte s menom darcu. V deň večera už nové ceny nehľadajte. Ak tombola trvá dlho, rozdeľte ju na dve kratšie časti, jednu pred jedlom a jednu neskôr.
 
-## Ako na catering a čo si prejsť s organizátorom sály?
+## Ako na catering a čo si prejsť s tímom sály?
 
 Jedlo riešite s cateringovou firmou. So sálou riešite, kam sa jedlo postaví a kedy príde obsluha, aby ste sa v deň večera nehľadali.
 
-Vlastnú kuchyňu neprevádzkujeme. Firmu vieme odporučiť, mená na webe nepíšeme. Výber menu, švédskeho stola a diét je v texte [o cateringu](/catering/) a v rade [ako firmu vybrať](/rady/catering-ako-vybrat-firmu/). Triede stačí vedieť počet jediacich a hodinu, kedy má byť jedlo na stole. Alergie zbiera jeden študent alebo rodič, nie náhodný oznam v skupine, ktorý nikto nečíta.
+Vlastnú kuchyňu neprevádzkujeme. Cateringovú firmu vieme odporučiť. Výber menu, švédskeho stola a diét je v texte [o cateringu](/catering/) a v rade [ako firmu vybrať](/rady/catering-ako-vybrat-firmu/). Triede stačí vedieť počet jediacich a hodinu, kedy má byť jedlo na stole. Alergie zbiera jeden študent alebo rodič, nie náhodný oznam v skupine, ktorý nikto nečíta.
 
-S organizátorom sály si pred potvrdením termínu prejdite priebeh večera. Zoberte so sebou návrh programu, orientačný počet hostí a vetu, či budete chcieť skôr tancovať alebo skôr sedieť pri stoloch. Rozloženie párty necháva parket voľný. Ako sa typy usporiadania líšia, je v texte o [rozložení sály](/rady/rozlozenie-saly/).
+Pred akciou si s tímom sály prejdete priebeh večera. Zoberte so sebou návrh programu, orientačný počet hostí a vetu, či budete chcieť skôr tancovať alebo skôr sedieť pri stoloch. Rozloženie párty necháva parket voľný. Ako sa typy usporiadania líšia, je v texte o [rozložení sály](/rady/rozlozenie-saly/).
 
 Na tej istej schôdzke si povedzte, odkedy môžete veci nosiť dnu, kde bude tombola a kadiaľ pôjde catering. Prejdite aj balkón a terasu, ak ich chcete medzi blokmi použiť na vzduch. Parkovanie je pred budovou na Rosinskej ceste. Povedzte to rodičom v pozvánke, nech nehľadajú miesto v centre.
 

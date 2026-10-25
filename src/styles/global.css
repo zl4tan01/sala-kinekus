@@ -117,6 +117,8 @@ a:hover { color: var(--ink); }
   max-width: 44rem;
 }
 
+.section-head h1 { font-size: clamp(2rem, 5vw, 3.2rem); max-width: 16em; }
+
 .btn, .btn-line {
   display: inline-flex;
   align-items: center;
@@ -689,7 +691,7 @@ body:has([data-consent]:not([hidden])) .dock { display: none; }
 
 .viz { width: 100%; height: auto; display: block; margin-bottom: 0.8rem; }
 
-.layout-card h3, .fact h3 { font-size: 1.45rem; margin-bottom: 0.4rem; }
+.layout-card h3, .fact h2, .fact h3 { font-size: 1.45rem; margin-bottom: 0.4rem; }
 
 .layout-card p, .fact p, .quote p { color: var(--ink-soft); }
 

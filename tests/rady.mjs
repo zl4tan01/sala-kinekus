@@ -219,4 +219,40 @@ check(robots.includes("Disallow: /api/") && !/Disallow:\s*\/\s*$/m.test(robots),
 const oslavy = fs.readFileSync(path.join(root, "public/oslavy/index.html"), "utf8");
 check(oslavy.includes('name="robots" content="noindex"'), "presmerovanie /oslavy/ ostáva noindex");
 
+function walk(dir, acc = []) {
+  for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+    const full = path.join(dir, entry.name);
+    if (entry.isDirectory()) walk(full, acc);
+    else if (/\.(html|txt)$/.test(entry.name)) acc.push(full);
+  }
+  return acc;
+}
+const banned = ["bezbariér", "nelimituje", "wa.me", "Mená dodávateľov", "zámerne nie sú", "Vlastnú kuchyňu v sále nemáme", "overené cateringové", "Cenu ovplyvňuje"];
+const built = walk(dist).map((file) => ({ file, text: fs.readFileSync(file, "utf8") }));
+for (const phrase of banned) {
+  const hits = built.filter((item) => item.text.includes(phrase)).map((item) => path.relative(dist, item.file));
+  check(hits.length === 0, `výstup neobsahuje „${phrase}“${hits.length ? ` (${hits.join(", ")})` : ""}`);
+}
+const notFound = fs.readFileSync(path.join(dist, "404.html"), "utf8");
+check(notFound.includes('name="robots" content="noindex"'), "404 je noindex");
+check(!notFound.includes('rel="canonical"'), "404 nemá canonical");
+const htaccess = fs.readFileSync(path.join(dist, ".htaccess"), "utf8");
+check(htaccess.includes("ErrorDocument 404 /404.html"), ".htaccess má ErrorDocument 404");
+check(htaccess.includes('X-Content-Type-Options "nosniff"'), ".htaccess má nosniff");
+check(htaccess.includes('Referrer-Policy "strict-origin-when-cross-origin"'), ".htaccess má Referrer-Policy");
+check(htaccess.includes('X-Frame-Options "SAMEORIGIN"'), ".htaccess má X-Frame-Options");
+check(!/Content-Security-Policy/i.test(htaccess), ".htaccess nemá CSP");
+function headingsOk(html) {
+  const levels = [...html.matchAll(/<h([1-6])\b/g)].map((match) => Number(match[1]));
+  if (levels[0] !== 1) return false;
+  return levels.every((level, index) => index === 0 || level <= levels[index - 1] + 1);
+}
+for (const href of ["/galeria/", "/svadby/", "/konferencie/"]) {
+  const file = pageFile(href);
+  const html = file ? fs.readFileSync(file, "utf8") : "";
+  check(Boolean(file) && headingsOk(html), `${href} má H1 a nadpisy bez preskoku`);
+}
+check(home.includes("väčšiu kapacitu ľudí.") && !home.includes("Veľká vďaka patrí p."), "citát Ďuricovej končí celou vetou");
+check(home.includes('id="field-message"') && home.includes('aria-describedby="error-message"') && home.includes('aria-describedby="error-form"'), "formulár má prepojené chybové hlásenia");
+
 if (failed) process.exit(1);

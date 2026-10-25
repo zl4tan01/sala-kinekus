@@ -273,6 +273,11 @@ function sala_cache_write(string $file, array $payload): void
 {
     $dir = dirname($file);
     if (!is_dir($dir) || !is_writable($dir)) {
+        static $logged = false;
+        if (!$logged) {
+            $logged = true;
+            error_log('Sála Kinekus: api/cache nie je zapisovateľná, dostupnosť sa neukladá do cache.');
+        }
         return;
     }
     @file_put_contents($file, json_encode([

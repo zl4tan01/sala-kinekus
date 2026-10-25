@@ -66,6 +66,7 @@ function setupNav(): void {
   };
 
   paint(false);
+  let lastWidth = window.innerWidth;
 
   toggle.addEventListener("click", () => {
     paint(toggle.getAttribute("aria-expanded") !== "true");
@@ -88,7 +89,12 @@ function setupNav(): void {
       toggle.focus();
     }
   });
-  window.addEventListener("resize", () => paint(false));
+  window.addEventListener("resize", () => {
+    const width = window.innerWidth;
+    if (width === lastWidth) return;
+    lastWidth = width;
+    paint(false);
+  });
 }
 
 function setupHeader(): void {
@@ -400,6 +406,7 @@ function setupBooking(root: HTMLElement): void {
       node.textContent = "";
     });
     form.querySelectorAll<HTMLElement>("[aria-invalid]").forEach((node) => node.removeAttribute("aria-invalid"));
+    form.removeAttribute("aria-invalid");
     if (box) box.hidden = true;
     if (button) button.disabled = true;
     try {
@@ -418,6 +425,7 @@ function setupBooking(root: HTMLElement): void {
       const errors = data.errors || {};
       Object.entries(errors).forEach(([key, message]) => {
         if (key === "form") {
+          form.setAttribute("aria-invalid", "true");
           if (box) {
             box.hidden = false;
             box.textContent = message;

@@ -186,7 +186,7 @@ function sala_send_inquiry(array $config, array $data): bool
     $to = sala_clean_header((string) $config['mail_to']);
     $from = sala_clean_header((string) $config['mail_from']);
     $fromName = sala_clean_header((string) $config['mail_from_name']);
-    if ($to === '' || $from === '') {
+    if ($to === '' || $from === '' || filter_var($from, FILTER_VALIDATE_EMAIL) === false) {
         return false;
     }
 
@@ -213,13 +213,18 @@ function sala_send_inquiry(array $config, array $data): bool
         return file_put_contents($file, $record, FILE_APPEND | LOCK_EX) !== false;
     }
 
-    return mail($to, sala_mime_subject($subject), $body, implode("\r\n", $headers));
+    return mail($to, sala_mime_subject($subject), $body, implode("\r\n", $headers), '-f' . $from);
 }
 
-function sala_rate_limit_allows(string $dir, string $ip, int $max, int $window): bool
+function sala_rate_limit_allows(string $dir, string $ip, int $max, int $window): ?bool
 {
     if (!is_dir($dir) || !is_writable($dir)) {
-        return true;
+        static $logged = false;
+        if (!$logged) {
+            $logged = true;
+            error_log('Sála Kinekus: api/cache nie je zapisovateľná, formulár dopyt neprijal.');
+        }
+        return null;
     }
     $file = $dir . '/rl-' . hash('sha256', $ip) . '.json';
     $now = time();
@@ -296,4 +301,125 @@ function sala_mime_subject(string $subject): string
 function sala_len(string $value): int
 {
     return function_exists('mb_strlen') ? mb_strlen($value) : strlen($value);
+}
+
+function sala_h(string $value): string
+{
+    return htmlspecialchars($value, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+}
+
+/**
+ * Stránka pre odoslanie bez JavaScriptu. Polia ostanú vyplnené, súhlas nie.
+ *
+ * @param array<string,mixed> $post
+ * @param array<string,string> $errors
+ */
+function sala_inquiry_error_html(array $post, array $errors): string
+{
+    $kind = (string) ($post['kind'] ?? '');
+    $guests = (string) ($post['guests'] ?? '');
+    $values = [
+        'dates' => (string) ($post['dates'] ?? ''),
+        'name' => (string) ($post['name'] ?? ''),
+        'email' => (string) ($post['email'] ?? ''),
+        'phone' => (string) ($post['phone'] ?? ''),
+        'message' => (string) ($post['message'] ?? ''),
+    ];
+    $formError = $errors['form'] ?? '';
+    $field = static function (string $key) use ($errors): string {
+        $message = $errors[$key] ?? '';
+        $invalid = $message !== '' ? ' aria-invalid="true"' : '';
+        $hidden = $message === '' ? ' hidden' : '';
+        return $invalid . '|' . $hidden . '|' . $message;
+    };
+    $parts = [];
+    foreach (['kind', 'dates', 'guests', 'name', 'email', 'phone', 'message', 'gdpr'] as $key) {
+        $bits = explode('|', $field($key), 3);
+        $parts[$key] = ['invalid' => $bits[0], 'hidden' => $bits[1], 'message' => $bits[2] ?? ''];
+    }
+    $option = static function (string $value, string $label, string $current): string {
+        $selected = $value === $current ? ' selected' : '';
+        return '<option value="' . sala_h($value) . '"' . $selected . '>' . sala_h($label) . '</option>';
+    };
+    $kindOptions = $option('', 'Vyberte', $kind === '' ? '' : '—');
+    foreach (sala_kind_labels() as $id => $label) {
+        $kindOptions .= $option($id, $label, $kind);
+    }
+    $guestOptions = $option('', 'Nechcem uviesť', $guests);
+    foreach (sala_guest_ranges() as $id => $label) {
+        $guestOptions .= $option($id, $label, $guests);
+    }
+    $errorLine = static function (string $key) use ($parts): string {
+        return '<p class="field-error" id="error-' . $key . '"' . $parts[$key]['hidden'] . '>' . sala_h($parts[$key]['message']) . '</p>';
+    };
+    $formHidden = $formError === '' ? ' hidden' : '';
+
+    return '<!doctype html>
+<html lang="sk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Dopyt sa neodoslal | Sála Kinekus</title>
+<style>
+body{margin:0;background:#f3eee6;color:#1b1612;font-family:"Segoe UI","Noto Sans",sans-serif;line-height:1.5}
+main{max-width:36rem;margin:0 auto;padding:2rem 1.25rem 3rem}
+h1{font-size:1.8rem;line-height:1.15;font-weight:500}
+label{display:block;margin:0.9rem 0 0.25rem}
+input,select,textarea{width:100%;box-sizing:border-box;padding:0.65rem 0.7rem;border:1px solid #ddd2c2;border-radius:0.6rem;background:#fff;font:inherit}
+textarea{min-height:7rem}
+.check{display:flex;gap:0.6rem;align-items:flex-start}
+.check input{width:auto;margin-top:0.3rem}
+button{margin-top:1rem;background:#14110e;color:#f7f3ec;border:0;border-radius:999px;padding:0.75rem 1.1rem;font:inherit;cursor:pointer}
+.form-error,.field-error{color:#7a2e2a}
+a{color:#7a5424}
+</style>
+</head>
+<body>
+<main>
+<p>Nezáväzný dopyt</p>
+<h1>Dopyt sa neodoslal.</h1>
+<p>Text, ktorý ste napísali, ostal vo formulári. Súhlas treba znova označiť. <a href="/#termin">Späť na kalendár</a></p>
+<form action="/api/inquiry.php" method="post" aria-describedby="error-form"' . ($formError !== '' ? ' aria-invalid="true"' : '') . '>
+<p class="form-error" id="error-form"' . $formHidden . '>' . sala_h($formError) . '</p>
+<p class="hp" hidden><label>Webová stránka firmy <input name="company_url" tabindex="-1" autocomplete="off"></label></p>
+<label for="field-kind">Druh podujatia
+<select id="field-kind" name="kind" required aria-describedby="error-kind"' . $parts['kind']['invalid'] . '>' . $kindOptions . '</select>
+</label>
+' . $errorLine('kind') . '
+<label for="field-dates">Dátumy
+<input id="field-dates" name="dates" required autocomplete="off" value="' . sala_h($values['dates']) . '" aria-describedby="error-dates"' . $parts['dates']['invalid'] . '>
+</label>
+' . $errorLine('dates') . '
+<label for="field-guests">Počet hostí
+<select id="field-guests" name="guests" aria-describedby="error-guests"' . $parts['guests']['invalid'] . '>' . $guestOptions . '</select>
+</label>
+' . $errorLine('guests') . '
+<label for="field-name">Meno a priezvisko
+<input id="field-name" name="name" autocomplete="name" required maxlength="120" value="' . sala_h($values['name']) . '" aria-describedby="error-name"' . $parts['name']['invalid'] . '>
+</label>
+' . $errorLine('name') . '
+<label for="field-email">E-mail
+<input id="field-email" name="email" type="email" autocomplete="email" required maxlength="160" value="' . sala_h($values['email']) . '" aria-describedby="error-email"' . $parts['email']['invalid'] . '>
+</label>
+' . $errorLine('email') . '
+<label for="field-phone">Telefón
+<input id="field-phone" name="phone" type="tel" autocomplete="tel" required maxlength="40" value="' . sala_h($values['phone']) . '" aria-describedby="error-phone"' . $parts['phone']['invalid'] . '>
+</label>
+' . $errorLine('phone') . '
+<label for="field-message">Správa
+<textarea id="field-message" name="message" maxlength="4000" aria-describedby="error-message"' . $parts['message']['invalid'] . '>' . sala_h($values['message']) . '</textarea>
+</label>
+' . $errorLine('message') . '
+<label class="check" for="field-gdpr">
+<input id="field-gdpr" type="checkbox" name="gdpr" value="1" required aria-describedby="error-gdpr"' . $parts['gdpr']['invalid'] . '>
+<span>Súhlasím so spracovaním údajov z tohto formulára, aby ma Sála Kinekus mohla kontaktovať k nezáväznému dopytu.</span>
+</label>
+' . $errorLine('gdpr') . '
+<button type="submit">Odoslať nezáväzný dopyt</button>
+</form>
+</main>
+</body>
+</html>
+';
 }

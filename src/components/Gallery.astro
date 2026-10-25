@@ -6,12 +6,14 @@ interface Props {
   ids?: string[];
   filters?: boolean;
   heading?: string;
+  headingLevel?: "h1" | "h2";
   lead?: string;
 }
 const {
   ids,
   filters = true,
   heading = "Ako sála vyzerá, keď je obsadená",
+  headingLevel = "h2",
   lead = "Fotografie z akcií, ktoré sa v sále už konali: svadby, stužkové, večierky, konferencie aj slávnostné otvorenie.",
 } = Astro.props;
 const source = ids
@@ -24,7 +26,7 @@ const countFor = (id: string) => (id === "all" ? source.length : source.filter((
   <div class="wrap">
     <div class="section-head">
       <p class="eyebrow">Galéria</p>
-      <h2>{heading}</h2>
+      {headingLevel === "h1" ? <h1>{heading}</h1> : <h2>{heading}</h2>}
       <p class="lead">{lead}</p>
     </div>
     {filters && (

@@ -138,6 +138,31 @@ mkdir($dir);
 check(sala_rate_limit_allows($dir, '1.2.3.4', 2, 60), 'prvý pokus prejde');
 check(sala_rate_limit_allows($dir, '1.2.3.4', 2, 60), 'druhý pokus prejde');
 check(!sala_rate_limit_allows($dir, '1.2.3.4', 2, 60), 'tretí pokus zastaví limit');
+check(sala_rate_limit_allows($dir . '/chybajuci', '9.9.9.9', 2, 60) === null, 'nezapisovateľná cache vráti null');
+$errorHtml = sala_inquiry_error_html([
+    'name' => 'Jana <script>',
+    'email' => 'jana@example.com',
+    'phone' => '0908761253',
+    'dates' => '28. 10. 2026',
+    'guests' => '50-100',
+    'kind' => 'svadba',
+    'message' => "Ahoj\n<b>svadba</b>",
+    'gdpr' => '1',
+], ['name' => 'Napíšte meno a priezvisko.', 'form' => 'Skúste znova.']);
+check(
+    str_contains($errorHtml, 'Jana &lt;script&gt;')
+    && !str_contains($errorHtml, '<script>')
+    && str_contains($errorHtml, '28. 10. 2026')
+    && str_contains($errorHtml, 'Ahoj')
+    && str_contains($errorHtml, '&lt;b&gt;svadba&lt;/b&gt;')
+    && str_contains($errorHtml, 'value="svadba" selected')
+    && str_contains($errorHtml, 'aria-invalid="true"')
+    && str_contains($errorHtml, 'aria-describedby="error-name"')
+    && str_contains($errorHtml, 'aria-describedby="error-message"')
+    && str_contains($errorHtml, 'Skúste znova.')
+    && !preg_match('/name="gdpr"[^>]*checked/', $errorHtml),
+    'chybová stránka formulára drží text a escapuje ho'
+);
 
 $mailFile = $dir . '/mail.txt';
 $sent = sala_send_inquiry([
@@ -299,7 +324,8 @@ check(
     && ($public['available'] ?? null) === true
     && $public['hero']['author'] === 'Aneta'
     && $public['hero']['text'] === 'Najkrajšia sála v Žiline. Všetko bolo pripravené podľa našich predstáv.'
-    && $public['formQuote']['author'] === 'Tatiana'
+    && $public['formQuote']['author'] === 'Jaroslav'
+    && $public['formQuote']['text'] === 'Veľmi pekná sála na spoločenské akcie, sbadba, ples, oslava, stužková. Odporúčam, pre väčšie akcie nad 70 ľudí.'
     && array_column($public['reviews'], 'author') === ['Aneta', 'Tatiana', 'Jaroslav']
     && array_column($public['sections']['stuzkova'], 'author') === ['Emilka', 'Erika']
     && $public['sectionQuotes']['stuzkova']['author'] === 'Erika'

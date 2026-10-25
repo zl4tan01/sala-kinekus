@@ -17,12 +17,19 @@ if (trim((string) ($post['company_url'] ?? '')) !== '') {
 }
 
 $ip = (string) ($_SERVER['REMOTE_ADDR'] ?? '0.0.0.0');
-if (!sala_rate_limit_allows(
+$allowed = sala_rate_limit_allows(
     sala_cache_dir(),
     $ip,
     (int) $config['rate_limit_max'],
     (int) $config['rate_limit_window']
-)) {
+);
+if ($allowed === null) {
+    sala_respond([
+        'ok' => false,
+        'errors' => ['form' => 'Dopyt sa teraz nepodarilo prijať. Zavolajte na +421 908 761 253.'],
+    ], 503);
+}
+if ($allowed === false) {
     sala_respond([
         'ok' => false,
         'errors' => ['form' => 'Z tejto adresy prišlo veľa správ naraz. Skúste o chvíľu, alebo nám zavolajte.'],
@@ -61,7 +68,21 @@ function sala_respond(array $payload, int $code = 200): void
         exit;
     }
 
-    $target = !empty($payload['ok']) ? '/?odoslane=1#termin' : '/?chyba=1#termin';
-    header('Location: ' . $target, true, 303);
+    if (!empty($payload['ok'])) {
+        header('Location: /?odoslane=1#termin', true, 303);
+        exit;
+    }
+
+    $errors = [];
+    foreach ($payload['errors'] ?? [] as $key => $message) {
+        if (is_string($key) && is_string($message)) {
+            $errors[$key] = $message;
+        }
+    }
+    http_response_code($code);
+    header('Content-Type: text/html; charset=utf-8');
+    header('X-Content-Type-Options: nosniff');
+    header('X-Robots-Tag: noindex');
+    echo sala_inquiry_error_html($_POST, $errors);
     exit;
 }

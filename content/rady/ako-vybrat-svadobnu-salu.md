@@ -21,7 +21,7 @@ faq:
   - q: "Koľko hostí sála uvádza?"
     a: "Kapacita je 50 až 250 osôb. Presné usadenie závisí od stolov, pódia a cateringu. Číslo pre vašu svadbu povieme na obhliadke."
   - q: "Môžeme si priniesť vlastný catering?"
-    a: "Áno. Vlastnú kuchyňu neprevádzkujeme. Firmu vieme odporučiť a vlastného dodávateľa viete použiť tiež. Na obhliadke si povieme, kadiaľ pôjde výdaj jedla."
+    a: "Vlastnú kuchyňu neprevádzkujeme. Cateringovú firmu vieme odporučiť. Ak už máte vlastného dodávateľa, radi vám povieme, ako to pri vašej akcii vieme zariadiť."
   - q: "Rezervuje obhliadka termín?"
     a: "Nie. Ani obhliadka, ani dopyt vo formulári deň nerezervujú. Termín platí, až keď ho tím sály potvrdí."
 ---
@@ -61,7 +61,7 @@ Parkovanie má byť také, aby hostia v šatách nehľadali miesto po meste.
 
 Pri sále sa parkuje pred budovou. Adresa je Rosinská cesta 13, 010 08 Žilina, na okraji mesta, s prístupom autom. Na obhliadke si prejdite cestu od áut ku vchodu. Opýtajte sa, kde môže svadobné auto na chvíľu zastaviť a kadiaľ pôjde dodávka s jedlom. Ak príde veľa hostí naraz, overte si, či sa autá zmestia pred budovu aj pri plnejšej sále.
 
-Vstup do sály je bezbariérový. Ocení to starší hosť, človek s barlami aj kočík. Otvorte si dvere tak, ako pôjdu hostia, a prejdite cestu od vchodu k miestu, kde budú stoly. Podrobnosti k toaletám vám pred obhliadkou povieme. Na mieste si ich prejdite, nie len vchod.
+Opýtajte sa, či je vstup bez schodov a či ním prejde kočík. Ocení to starší hosť, človek s barlami aj rodič s kočíkom. Otvorte si dvere tak, ako pôjdu hostia, a prejdite cestu od vchodu k miestu, kde budú stoly. Na mieste si prejdite aj toalety, nie len vchod.
 
 ## Ako overiť zvuk a svetlo?
 
@@ -69,13 +69,13 @@ Zvuk a svetlo skúšajte v sále nahlas. Podľa fotky sa nedajú posúdiť.
 
 Ozvučenie má mixážny pult Yamaha, náhlavné aj ručné mikrofóny a reproduktory. Na obhliadke si pýtajte mikrofón a povedzte pár viet z miesta príhovoru. Potom prejdite k najvzdialenejšiemu stolu. Ak budete mať kapelu alebo DJ-a, opýtajte sa, kam sa postavia. Pódium má 12×6 m, takže program aj moderátor majú miesto. Parket ostáva na tanec.
 
-Svetlo sa dá prepínať do scén. SMART zatemnenie okien stlmí denné svetlo, keď ho večer netreba. Nechajte si ukázať svetlo na hostinu aj na tanec. Pozrite, či pri stole vidno na tváre a či parket nie je v tme pri prvom tanci. Full HD projektor so svietivosťou 5 400 lumenov je v sále tiež. Na svadbe ho väčšina párov nepotrebuje. Firmám slúži na prezentáciu a je opísaný na stránke [pre firmy](/konferencie/).
+Svetlo sa dá prepínať do scén. V sále je SMART osvetlenie a možnosť zastrieť okná. Nechajte si ukázať svetlo na hostinu aj na tanec. Pozrite, či pri stole vidno na tváre a či parket nie je v tme pri prvom tanci. Full HD projektor so svietivosťou 5 400 lumenov je v sále tiež. Na svadbe ho väčšina párov nepotrebuje. Firmám slúži na prezentáciu a je opísaný na stránke [pre firmy](/konferencie/).
 
 ## Kto varí a kde je hygienické zázemie?
 
 Jedlo nevarí sála. Toalety a miesto na výdaj jedla si pozrite rovnako dôkladne ako stoly.
 
-Vlastnú kuchyňu neprevádzkujeme. Cateringovú firmu vieme odporučiť. Mená dodávateľov na webe neuvádzame. Ak už máte vlastného, povieme, ako sa u nás zariadi dovoz a výdaj. Viac je na stránke [cateringu](/catering/). Na obhliadke sa opýtajte, kadiaľ pôjde obsluha od prípravného miesta k stolom a či švédsky stôl nezablokuje parket.
+Vlastnú kuchyňu neprevádzkujeme. Cateringovú firmu vieme odporučiť. Ak už máte vlastného dodávateľa, radi vám povieme, ako to pri vašej akcii vieme zariadiť. Viac je na stránke [cateringu](/catering/). Na obhliadke sa opýtajte, kadiaľ pôjde obsluha od prípravného miesta k stolom a či švédsky stôl nezablokuje parket.
 
 Spočítajte, či toalety stíhajú hosťom v prestávke medzi chodmi a či je k nim krátka cesta. Opýtajte sa, kam sa uchýli hosť, keď mu prišlo nevoľno. Z sály sa prechádza na balkón a terasu. Medzi chodmi tam hostia vyjdú na vzduch. Overte si, či je východ priamo zo sály.
 

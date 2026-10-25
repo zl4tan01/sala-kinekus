@@ -22,7 +22,15 @@ function excerpt(text: string, max = 280): string {
   const clean = text.replace(/\s+/g, " ").trim();
   if (clean.length <= max) return clean;
   const slice = clean.slice(0, max + 1);
-  const end = Math.max(slice.lastIndexOf(". "), slice.lastIndexOf("! "), slice.lastIndexOf("? "));
+  let end = -1;
+  const marks = /[.!?](?=\s)/g;
+  for (const match of slice.matchAll(marks)) {
+    const at = match.index ?? -1;
+    if (at < 80) continue;
+    const before = slice.slice(Math.max(0, at - 2), at);
+    if (/(^|\s)p$/i.test(before)) continue;
+    end = at;
+  }
   if (end >= 80) return slice.slice(0, end + 1).trim();
   return clean;
 }
@@ -43,7 +51,7 @@ const advicePreview = featuredAdvice(await allAdvice());
       <p class="eyebrow">Sála Kinekus · Rosinská cesta, Žilina</p>
       <h1>Svadba aj stužková v sále, ktorá sa prispôsobí vám.</h1>
       <p class="lead">
-        Veľký parket a pódium 12×6 m, balkón s terasou a parkovanie pred budovou na Rosinskej ceste sú súčasťou priestoru. Svetlo a ozvučenie nastavíme podľa programu večera.
+        Veľký parket a pódium 12×6 m, balkón s terasou a parkovanie pred budovou na Rosinskej ceste sú súčasťou priestoru. Svetlo a ozvučenie sú v sále.
       </p>
       <div class="hero-actions">
         <a class="btn" href="#termin">Overiť voľný termín</a>
@@ -101,10 +109,10 @@ const advicePreview = featuredAdvice(await allAdvice());
           <div class="path-body">
             <p class="eyebrow">Stužkové</p>
             <h3>Stužková podľa vašich predstáv</h3>
-            <p>Pre študentov, rodičov aj triednych. Program a tanec sa zmestia na parket a pódium. Pred potvrdením termínu si spolu pokojne prejdeme program a organizáciu večera, aby všetko prebehlo hladko.</p>
+            <p>Pre študentov, rodičov aj triednych. Program a tanec sa zmestia na parket a pódium. Pred akciou si s tímom sály prejdete priebeh večera.</p>
             <ul>
-              <li>Detaily večera si prejdeme spolu vopred</li>
-              <li>Pomôžeme s technikou, svetlom a rozložením</li>
+              <li>Detaily večera si viete prejsť s tímom sály vopred</li>
+              <li>Rozloženie sály prispôsobíme vašej akcii</li>
               <li>Pódium 12×6 m, ozvučenie Yamaha, parkovanie pred budovou</li>
               <li>Kapacita 50 až 250 osôb</li>
             </ul>
@@ -134,7 +142,7 @@ const advicePreview = featuredAdvice(await allAdvice());
           <p>Konferencia, školenie, prezentácia aj firemná akcia pre vlastných ľudí. Technika je v priestore, rozloženie prispôsobíme programu.</p>
           <ul>
             <li>Full HD projektor so svietivosťou 5 400 lumenov</li>
-            <li>SMART zatemnenie okien a svetelné scény</li>
+            <li>SMART osvetlenie a možnosť zastrieť okná</li>
             <li>Ozvučenie s mixážnym pultom Yamaha, náhlavné a ručné mikrofóny</li>
             <li>Parkovanie pred budovou</li>
           </ul>
@@ -177,7 +185,7 @@ const advicePreview = featuredAdvice(await allAdvice());
         <p class="eyebrow">Rozloženie</p>
         <h2>Sála nie je jedna pevná schéma.</h2>
         <p class="lead">
-          Stoly a parket preskladáme podľa toho, či hostia sedia, počúvajú alebo tancujú. Presné počty miest pri jednotlivých usporiadaniach vám povieme pri obhliadke — závisia od výzdoby, pódia a chodu cateringu.
+          Rozloženie sály prispôsobíme vašej akcii. Presné počty miest pri jednotlivých usporiadaniach závisia od výzdoby, pódia a chodu cateringu. Na obhliadke ich prejdete.
         </p>
       </div>
       <div class="layout-grid">
@@ -331,7 +339,7 @@ const advicePreview = featuredAdvice(await allAdvice());
         <p class="eyebrow">Catering</p>
         <h2>Jedlo a výzdobu vieme odporučiť.</h2>
         <div class="prose" style="margin-top:1rem">
-          <p>Vlastnú kuchyňu v sále neprevádzkujeme. Odporučíme overené cateringové firmy, ktoré pripravia ponuku na mieru. Viaceré vedia zabezpečiť aj výzdobu.</p>
+          <p>Vlastnú kuchyňu neprevádzkujeme. Odporučíme kvalitné cateringové firmy, ktoré pripravia ponuku na mieru. Viaceré vedia zabezpečiť aj výzdobu.</p>
           <p>Výber zostáva na vás. Ak už máte vlastného dodávateľa, radi vám povieme, ako to pri vašej akcii vieme zariadiť.</p>
         </div>
         <p style="margin-top:1rem"><a class="btn btn-dark" href="/catering/">Viac o cateringu</a></p>

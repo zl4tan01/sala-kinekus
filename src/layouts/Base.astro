@@ -15,8 +15,9 @@ interface Props {
   image?: string;
   ogType?: string;
   jsonLd?: unknown[];
+  noindex?: boolean;
 }
-const { title, description, bookingHref = "/#termin", image, ogType = "website", jsonLd = [] } = Astro.props;
+const { title, description, bookingHref = "/#termin", image, ogType = "website", jsonLd = [], noindex = false } = Astro.props;
 const canonical = new URL(Astro.url.pathname, site.url).toString();
 const imageUrl = new URL(image ?? "/og.jpg", site.url).toString();
 const venueLd = {
@@ -59,14 +60,18 @@ const json = JSON.stringify(venueLd).replace(/</g, "\\u003c");
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{title}</title>
     <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
+    {noindex ? (
+      <meta name="robots" content="noindex" />
+    ) : (
+      <link rel="canonical" href={canonical} />
+    )}
     <meta name="theme-color" content="#14110e" />
     <meta property="og:type" content={ogType} />
     <meta property="og:locale" content="sk_SK" />
     <meta property="og:site_name" content={site.name} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonical} />
+    {noindex ? null : <meta property="og:url" content={canonical} />}
     <meta property="og:image" content={imageUrl} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />

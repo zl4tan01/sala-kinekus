@@ -19,7 +19,6 @@ export const site = {
   maps: "https://www.google.com/maps/place/S%C3%A1la+%C5%BDilina/@49.2010185,18.7673104,17z/data=!4m8!3m7!1s0x471459e6058978c9:0x68ac7bf5a132ae59!8m2!3d49.2013982!4d18.7699948!9m1!1b1!16s%2Fg%2F11g0lbzfrx?hl=sk",
   placeId: "ChIJyXiJBeZZFEcRWa4yofV7rGg",
   writeReview: "https://search.google.com/local/writereview?placeid=ChIJyXiJBeZZFEcRWa4yofV7rGg",
-  whatsapp: "https://wa.me/421908761253",
   geo: { lat: 49.2013982, lng: 18.7699948 },
 };
 
@@ -68,7 +67,7 @@ export const steps = [
   {
     n: "03",
     title: "Príprava",
-    text: "Rozloženie navrhneme podľa počtu hostí, programu a rozpočtu. Pomôžeme s technikou a odporučíme catering aj výzdobu.",
+    text: "Rozloženie sály prispôsobíme vašej akcii. Catering a výzdobu vieme odporučiť, vyberiete si vy.",
   },
   {
     n: "04",
@@ -81,7 +80,7 @@ export const layouts = [
   {
     id: "banket",
     title: "Banket",
-    text: "Okrúhle alebo spoločné stoly. Svadobná hostina a slávnostná večera.",
+    text: "Stoly na hostinu a slávnostnú večeru.",
   },
   {
     id: "party",
@@ -91,7 +90,7 @@ export const layouts = [
   {
     id: "divadlo",
     title: "Divadlo",
-    text: "Stoličky v radoch k pódiu. Program, príhovor alebo prednáška.",
+    text: "Stoličky v radoch k pódiu. Príhovor, prednáška alebo prezentácia.",
   },
   {
     id: "skola",
@@ -103,7 +102,7 @@ export const layouts = [
 export const faqs = [
   {
     q: "Koľko hostí sa do sály zmestí?",
-    a: "Kapacita je 50 až 250 osôb. Presné usadenie závisí od stolov, pódia a cateringu — navrhneme ho podľa svadby, stužkovej alebo firemnej akcie.",
+    a: "Kapacita je 50 až 250 osôb. Presné usadenie závisí od stolov, pódia a cateringu.",
   },
   {
     q: "Keď je deň v kalendári voľný, mám ho rezervovaný?",
@@ -111,15 +110,15 @@ export const faqs = [
   },
   {
     q: "Ako prebieha príprava stužkovej?",
-    a: "Pred potvrdením termínu si spolu prejdeme program večera a organizačné detaily, aby ste vy aj my vedeli, čo očakávať. Cieľom je pokojná a príjemná stužková.",
+    a: "Pred akciou si s tímom sály prejdete priebeh večera, aby ste vy aj my vedeli, čo očakávať. Cieľom je pokojná a príjemná stužková.",
   },
   {
     q: "Pomôžete s prípravou, alebo si všetko riešime sami?",
-    a: "Od dopytu po večer máte na druhej strane človeka. Na obhliadke prejdeme priestor, potom doladíme rozloženie, svetlo a zvuk. Catering a výzdobu odporučíme, vyberiete si vy.",
+    a: "Od dopytu po večer máte na druhej strane človeka. Na obhliadke prejdete priestor. Rozloženie sály prispôsobíme vašej akcii. Catering a výzdobu odporučíme, vyberiete si vy.",
   },
   {
     q: "Ako je to s jedlom a výzdobou?",
-    a: "Vlastnú kuchyňu v sále neprevádzkujeme. Odporučíme overené cateringové firmy, mnohé vedia zabezpečiť aj výzdobu. Ak už máte vlastného dodávateľa, radi vám povieme, ako to u nás zariadiť.",
+    a: "Vlastnú kuchyňu neprevádzkujeme. Odporučíme kvalitné cateringové firmy, mnohé vedia zabezpečiť aj výzdobu. Ak už máte vlastného dodávateľa, radi vám povieme, ako to pri vašej akcii vieme zariadiť.",
   },
   {
     q: "Kde zaparkujú hostia?",
@@ -135,15 +134,11 @@ export const faqs = [
   },
   {
     q: "Dá sa sála prenajať aj na firmu?",
-    a: "Áno. Aj pre firmy: konferencie, školenia, prezentácie a firemné akcie. V priestore je Full HD projektor so svietivosťou 5 400 lumenov a SMART zatemnenie okien. Viac je na stránke pre firmy.",
+    a: "Áno. Aj pre firmy: konferencie, školenia, prezentácie a firemné akcie. V priestore je Full HD projektor so svietivosťou 5 400 lumenov, SMART osvetlenie a možnosť zastrieť okná. Viac je na stránke pre firmy.",
   },
   {
     q: "Kedy vás zastihneme?",
     a: "Administratíva je v pracovných dňoch od 7:00 do 15:30. Samotné akcie sa konajú podľa dohodnutého programu, nie len v týchto hodinách.",
-  },
-  {
-    q: "Sú priestory bezbariérové?",
-    a: "Áno, vstup do sály je bezbariérový. Podrobnosti k toaletám a parkovaniu vám radi povieme pred obhliadkou.",
   },
 ];
 

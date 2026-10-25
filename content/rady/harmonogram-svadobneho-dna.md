@@ -44,15 +44,15 @@ Toto je jeden možný sled. Nie je to poriadok Sály Kinekus a časy si posuniet
 | 00:00 | Polnočné prekvapenie |
 | Po polnoci | Voľný tanec |
 
-Ak je obrad dopoludnia, celý stĺpec sa posunie skôr a medzi fotením a hostinou vznikne dlhšia pauza. Tú pauzu treba naplánovať: hostia potrebujú tieň, vodu a vedieť, kedy sa sála otvára. Ak je obrad v sále, fotenie vonku na balkóne a terase nadviaže hneď a príjazd hostí odpadá. Oba varianty sú bežné. Ani jeden nie je povinný.
+Ak je obrad dopoludnia, celý stĺpec sa posunie skôr a medzi fotením a hostinou vznikne dlhšia pauza. Tú pauzu treba naplánovať: hostia potrebujú tieň, vodu a vedieť, kedy sa sála otvára. Obrad v tomto vzore patrí k organizácii dňa mimo sály. Fotenie a presun si dopočítajte podľa miesta, ktoré si vyberiete.
 
-Do dopytu napíšte hodinu obradu a či bude v sále. Podľa toho sa dá hovoriť o prístupe na prípravu stolov. Stránka [svadieb](/svadby/) popisuje priestor. Deň samotný drží až potvrdenie, nie tento vzor. Ako si termín overiť, je v texte [kedy rezervovať](/rady/kedy-rezervovat-termin-svadby/).
+Do dopytu napíšte hodinu obradu. Podľa toho sa dá hovoriť o prístupe na prípravu stolov. Stránka [svadieb](/svadby/) popisuje priestor. Deň samotný drží až potvrdenie, nie tento vzor. Ako si termín overiť, je v texte [kedy rezervovať](/rady/kedy-rezervovat-termin-svadby/).
 
 ## Kam zaradiť obrad, fotenie a príchod hostí?
 
 Obrad otvára deň hostí. Fotenie a presun do sály sú medzera, ktorú treba pomenovať, inak hostia stoja pred zavretými dverami.
 
-Keď je obrad inde, rátajte cestu. Orientačne nechajte medzi koncom obradu a otvorením sály toľko, koľko reálne zaberie presun a spoločná fotografia, nie len želanie v pozvánke. Hostí v pozvánke poproste, aby prišli na hodinu, keď sála naozaj prijíma, nie na hodinu obradu, ak obrad nie je u nás.
+Keď je obrad inde, rátajte cestu. Orientačne nechajte medzi koncom obradu a otvorením sály toľko, koľko reálne zaberie presun a spoločná fotografia, nie len želanie v pozvánke. Hostí v pozvánke poproste, aby prišli na hodinu, keď sála naozaj prijíma, nie na hodinu obradu, ktorý je inde.
 
 Prvý kontakt so sálou je vstup, nie tanec. Nechajte si na obhliadke ukázať, kadiaľ hostia prídu od parkovania pred budovou. Krátke privítanie pri dverách alebo pri hlavnom stole zabráni tomu, že si ľudia sadnú skôr, než chcete povedať úvod. Prípitok patrí sem, kým sú ešte spolu a kým nezačne prvý chod.
 
@@ -74,6 +74,6 @@ Polnočné prekvapenie je váš bod programu okolo polnoci. Môže to byť malé
 
 Ak má byť teplé jedlo, musí o ňom vedieť catering vopred, vrátane hodiny a miesta výdaja. Ak je to len hudba, stačí veta DJ-ovi. V oboch prípadoch si overte, či výdaj nezablokuje parket. Hodinu v tabuľke berte ako príklad. Posuňte ju, ak hostina mešká. Naháňať polnoc kvôli tabuľke nemá zmysel.
 
-Pred potvrdením dňa si so sálou zhrňte tri veci. Od koľkej môžete chystať výzdobu. Ktoré rozloženie stolov platí na začiatku. Kto prináša jedlo a tortu. S cateringom si zvlášť napíšte hodiny výdaja, počet hostí a alergie. Vlastnú kuchyňu sála neprevádzkuje, preto tieto vety patria dodávateľovi jedla, nie do nášho vzoru ako hotový sľub.
+Pred potvrdením dňa si so sálou zhrňte tri veci. Od koľkej môžete chystať výzdobu. Ktoré rozloženie stolov platí na začiatku. Kto prináša jedlo a tortu. S cateringom si zvlášť napíšte hodiny výdaja, počet hostí a alergie. Vlastnú kuchyňu neprevádzkujeme. Vety o jedle patria dodávateľovi, nie do vzoru dňa.
 
 Keď sa plán zmení týždeň pred svadbou, pošlite nový sled aj nám, aj cateringu. Stačí krátky zoznam hodín. Nemusí vyzerať ako táto tabuľka.
