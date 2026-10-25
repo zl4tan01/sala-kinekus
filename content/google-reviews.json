@@ -1,0 +1,64 @@
+{
+  "instructions": "Toto sú recenzie z profilu Sála Žilina na Google. Text nechajte doslovný, neprepisujte ho. Ďalšiu recenziu pridáte ako objekt do reviews: author je krstné meno, rating je 4 alebo 5 pri konkrétnej recenzii, text je celá veta z Google, url nechajte rovnaké ako listingUrl, section je general (úvod) alebo stuzkova (stránka stužkovej). Vetu, v ktorej je meno zamestnanca, vynechajte. Priemer profilu a celkový počet recenzií na web nepatria. hero, formQuote, sectionQuotes a themes musia byť doslovné úryvky z niektorej recenzie. Keď do api/config.php doplníte google_places_api_key, tento súbor sa prestane používať a recenzie pôjdu priamo z Google.",
+  "sample": false,
+  "listingUrl": "https://www.google.com/maps/place/S%C3%A1la+%C5%BDilina/@49.2010185,18.7673104,17z/data=!4m8!3m7!1s0x471459e6058978c9:0x68ac7bf5a132ae59!8m2!3d49.2013982!4d18.7699948!9m1!1b1!16s%2Fg%2F11g0lbzfrx?hl=sk",
+  "writeReviewUrl": "https://search.google.com/local/writereview?placeid=ChIJyXiJBeZZFEcRWa4yofV7rGg",
+  "hero": {
+    "author": "Aneta",
+    "text": "Najkrajšia sála v Žiline. Všetko bolo pripravené podľa našich predstáv."
+  },
+  "formQuote": {
+    "author": "Jaroslav",
+    "text": "Veľmi pekná sála na spoločenské akcie, sbadba, ples, oslava, stužková. Odporúčam, pre väčšie akcie nad 70 ľudí."
+  },
+  "sectionQuotes": {
+    "stuzkova": {
+      "author": "Erika",
+      "text": "Vašu sálu sme si vybrali na stužkovú a rada konštatujem, že všetko prebehlo na vysokej úrovni."
+    }
+  },
+  "themes": [
+    "Najkrajšia sála v Žiline",
+    "krásne a veľké priestory",
+    "veľké parkovisko",
+    "komunikácia výborná",
+    "všetko prebehlo na vysokej úrovni"
+  ],
+  "reviews": [
+    {
+      "author": "Aneta",
+      "rating": 5,
+      "section": "general",
+      "text": "Najkrajšia sála v Žiline. Všetko bolo pripravené podľa našich predstáv. Priestory boli čisté.",
+      "url": "https://www.google.com/maps/place/S%C3%A1la+%C5%BDilina/@49.2010185,18.7673104,17z/data=!4m8!3m7!1s0x471459e6058978c9:0x68ac7bf5a132ae59!8m2!3d49.2013982!4d18.7699948!9m1!1b1!16s%2Fg%2F11g0lbzfrx?hl=sk"
+    },
+    {
+      "author": "Tatiana",
+      "rating": 5,
+      "section": "general",
+      "text": "Krásna sála na svadbu alebo inú akciu s vyšším počtom ľudí 😊…",
+      "url": "https://www.google.com/maps/place/S%C3%A1la+%C5%BDilina/@49.2010185,18.7673104,17z/data=!4m8!3m7!1s0x471459e6058978c9:0x68ac7bf5a132ae59!8m2!3d49.2013982!4d18.7699948!9m1!1b1!16s%2Fg%2F11g0lbzfrx?hl=sk"
+    },
+    {
+      "author": "Jaroslav",
+      "rating": 5,
+      "section": "general",
+      "text": "Veľmi pekná sála na spoločenské akcie, sbadba, ples, oslava, stužková. Odporúčam, pre väčšie akcie nad 70 ľudí.",
+      "url": "https://www.google.com/maps/place/S%C3%A1la+%C5%BDilina/@49.2010185,18.7673104,17z/data=!4m8!3m7!1s0x471459e6058978c9:0x68ac7bf5a132ae59!8m2!3d49.2013982!4d18.7699948!9m1!1b1!16s%2Fg%2F11g0lbzfrx?hl=sk"
+    },
+    {
+      "author": "Emilka",
+      "rating": 5,
+      "section": "stuzkova",
+      "text": "Sálu Žilina sme si zvolili na zorganizovanie stužkovej slávnosti. Hodnotenie môžem dať iba kladné, nádherná sála, krásne a veľké priestory so všetkým, čo patrí k organizovaniu akejkoľvek akcie, k tomu perfektná komunikácia, profesionálny prístup k zákazníkovi, super dostupnosť a zároveň veľké parkovisko... Naozaj skvelé miesto, ďakujeme a vrele doporučujeme :)",
+      "url": "https://www.google.com/maps/place/S%C3%A1la+%C5%BDilina/@49.2010185,18.7673104,17z/data=!4m8!3m7!1s0x471459e6058978c9:0x68ac7bf5a132ae59!8m2!3d49.2013982!4d18.7699948!9m1!1b1!16s%2Fg%2F11g0lbzfrx?hl=sk"
+    },
+    {
+      "author": "Erika",
+      "rating": 5,
+      "section": "stuzkova",
+      "text": "Vašu sálu sme si vybrali na stužkovú a rada konštatujem, že všetko prebehlo na vysokej úrovni. Sála aj ostatné priestory krásne, veľké, všetko čisté, na parkovisku dostatok miesta, komunikácia výborná. Ďakujem a s radosťou odporúčam :-)",
+      "url": "https://www.google.com/maps/place/S%C3%A1la+%C5%BDilina/@49.2010185,18.7673104,17z/data=!4m8!3m7!1s0x471459e6058978c9:0x68ac7bf5a132ae59!8m2!3d49.2013982!4d18.7699948!9m1!1b1!16s%2Fg%2F11g0lbzfrx?hl=sk"
+    }
+  ]
+}

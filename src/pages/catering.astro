@@ -1,0 +1,36 @@
+---
+import Base from "../layouts/Base.astro";
+import Picture from "../components/Picture.astro";
+import Booking from "../components/Booking.astro";
+import Pricing from "../components/Pricing.astro";
+import media from "../data/media.json";
+
+const description = "Catering v Sále Kinekus v Žiline nevaríme. Vlastnú kuchyňu neprevádzkujeme. Cateringovú firmu vieme odporučiť.";
+---
+
+<Base title="Catering | Sála Kinekus Žilina" description={description} bookingHref="#termin">
+  <article>
+    <header class="sub-hero">
+      <div class="wrap">
+        <p class="eyebrow">Catering</p>
+        <h1>Jedlo pripraví catering, ktorý si vyberiete.</h1>
+        <p class="lead" style="margin-top:1rem">
+          Vlastnú kuchyňu neprevádzkujeme. Cateringovú firmu vieme odporučiť. Viaceré vedia zabezpečiť aj výzdobu.
+        </p>
+      </div>
+    </header>
+    <div class="section">
+      <div class="wrap path-grid">
+        <div class="prose">
+          <p>Jedlo, obsluhu a výzdobu riešite s dodávateľom, ktorého si vyberiete. Cateringovú firmu vieme odporučiť.</p>
+          <p>Ak už máte vlastného dodávateľa, radi vám povieme, ako to pri vašej akcii vieme zariadiť.</p>
+        </div>
+        <div class="frame">
+          <Picture image={media.party} sizes="(min-width: 720px) 46vw, 100vw" priority />
+        </div>
+      </div>
+    </div>
+  </article>
+  <Pricing id="catering" />
+  <Booking title="Overiť voľný termín" />
+</Base>

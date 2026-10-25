@@ -1,0 +1,55 @@
+---
+import Base from "../layouts/Base.astro";
+import Picture from "../components/Picture.astro";
+import Booking from "../components/Booking.astro";
+import Pricing from "../components/Pricing.astro";
+import media from "../data/media.json";
+
+const description = "Svadobná sála v Žiline s veľkým parketom a pódiom 12×6 m. Ozvučenie pre kapelu aj DJ-a, balkón a terasa, parkovanie pred budovou. Nezáväzne overte termín.";
+const hall = media.gallery.find((item) => item.id === "svadba-20");
+if (!hall) throw new Error("Chýba fotografia svadba-20");
+---
+
+<Base title="Svadobná sála Žilina | Sála Kinekus" description={description} bookingHref="#termin">
+  <article>
+    <header class="sub-hero">
+      <div class="wrap">
+        <p class="eyebrow">Svadby</p>
+        <h1>Svadobná sála v Žiline s parketom a pódiom.</h1>
+        <p class="lead" style="margin-top:1rem">
+          Veľký parket, pódium 12×6 m pre kapelu alebo DJ-a a ozvučenie, ktoré unesie program aj zábavu. Výzdobu si vyberiete vy. Cateringovú firmu vieme odporučiť.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-dark" href="#termin">Overiť voľný termín</a>
+        </div>
+      </div>
+    </header>
+    <div class="section">
+      <div class="wrap">
+        <div class="frame" style="margin-bottom:1.5rem">
+          <Picture image={hall} sizes="(min-width: 980px) 74rem, 100vw" priority />
+        </div>
+        <div class="fact-grid">
+          <article class="fact">
+            <h2>Kapacita</h2>
+            <p>Kapacita sály je 50 až 250 osôb. Usadenie závisí od stolov, pódia a programu.</p>
+          </article>
+          <article class="fact">
+            <h2>Pódium</h2>
+            <p>12×6 m. Hodí sa na sprievodný program, svadobnú kapelu aj DJ-a.</p>
+          </article>
+          <article class="fact">
+            <h2>Zázemie</h2>
+            <p>Nové sociálne zariadenia, balkón a terasa priamo zo sály, parkovanie pred budovou.</p>
+          </article>
+        </div>
+        <div class="prose" style="margin-top:1.5rem">
+          <p>Sála má kvalitné ozvučenie: náhlavné aj ručné mikrofóny, mixážny pult Yamaha a sústavu reproduktorov. Svetlo a ozvučenie sú v sále.</p>
+          <p>Termín v kalendári je voľný na dopyt. Rezerváciu potvrdíme až my, po dohode.</p>
+        </div>
+      </div>
+    </div>
+  </article>
+  <Pricing id="svadba" />
+  <Booking segment="b2c" kind="svadba" title="Termín svadby" />
+</Base>

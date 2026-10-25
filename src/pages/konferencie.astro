@@ -1,0 +1,56 @@
+---
+import Base from "../layouts/Base.astro";
+import Picture from "../components/Picture.astro";
+import Booking from "../components/Booking.astro";
+import Pricing from "../components/Pricing.astro";
+import media from "../data/media.json";
+
+const description = "Sála v Žiline pre firmy: školenia, prezentácie a firemné akcie. Projektor Full HD, SMART osvetlenie, ozvučenie Yamaha a parkovanie pred budovou.";
+const hall = media.gallery.find((item) => item.id === "konf-01");
+if (!hall) throw new Error("Chýba fotografia konf-01");
+---
+
+<Base title="Pre firmy | Sála Kinekus Žilina" description={description} bookingHref="#termin">
+  <article>
+    <header class="sub-hero">
+      <div class="wrap">
+        <p class="eyebrow">Pre firmy</p>
+        <h1>Pre firmy: konferencie, školenia a prezentácie.</h1>
+        <p class="lead" style="margin-top:1rem">
+          Firemná akcia tu nerieši, či bude vidieť na plátno a kde hostia zaparkujú. Projektor, možnosť zastrieť okná, zvuk aj parkovanie pred budovou sú súčasťou sály.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-dark" href="#termin">Overiť voľný termín</a>
+        </div>
+      </div>
+    </header>
+    <div class="section">
+      <div class="wrap">
+        <div class="frame" style="margin-bottom:1.5rem">
+          <Picture image={hall} sizes="(min-width: 980px) 74rem, 100vw" priority />
+        </div>
+        <div class="fact-grid">
+          <article class="fact">
+            <h2>Projekcia</h2>
+            <p>V sále je profesionálny Full HD projektor so svietivosťou 5 400 lumenov.</p>
+          </article>
+          <article class="fact">
+            <h2>SMART osvetlenie</h2>
+            <p>V sále je SMART osvetlenie a možnosť zastrieť okná. Svetlo a ozvučenie sú v sále.</p>
+          </article>
+          <article class="fact">
+            <h2>Ozvučenie</h2>
+            <p>Mixážny pult Yamaha, náhlavné aj ručné mikrofóny a sústava reproduktorov.</p>
+          </article>
+        </div>
+        <div class="prose" style="margin-top:1.5rem">
+          <p>Sála sa hodí na konferenciu, školenie, prezentáciu aj firemnú akciu. Rozloženie sály prispôsobíme vašej akcii. Divadlo alebo škola sa hodí podľa toho, či hostia počúvajú, alebo si píšu.</p>
+          <p>Kapacita priestoru je 50 až 250 osôb. Koľko miest dá konkrétne usporiadanie, závisí od programu.</p>
+          <p>Sála je na Rosinskej ceste, na okraji Žiliny, s parkovaním priamo pred budovou.</p>
+        </div>
+      </div>
+    </div>
+  </article>
+  <Pricing id="firemna" />
+  <Booking segment="b2b" kind="firemna" title="Termín pre firemnú akciu" />
+</Base>

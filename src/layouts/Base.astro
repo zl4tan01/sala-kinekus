@@ -1,0 +1,107 @@
+---
+import "@fontsource/manrope/400.css";
+import "@fontsource/manrope/600.css";
+import "@fontsource/fraunces/500.css";
+import "@fontsource/fraunces/600.css";
+import "../styles/global.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { site } from "../data/site";
+
+interface Props {
+  title: string;
+  description: string;
+  bookingHref?: string;
+  image?: string;
+  ogType?: string;
+  jsonLd?: unknown[];
+  noindex?: boolean;
+}
+const { title, description, bookingHref = "/#termin", image, ogType = "website", jsonLd = [], noindex = false } = Astro.props;
+const canonical = new URL(Astro.url.pathname, site.url).toString();
+const imageUrl = new URL(image ?? "/og.jpg", site.url).toString();
+const venueLd = {
+  "@context": "https://schema.org",
+  "@type": ["EventVenue", "LocalBusiness"],
+  name: site.name,
+  alternateName: "Sála Žilina",
+  description,
+  url: site.url,
+  image: imageUrl,
+  telephone: "+421908761253",
+  email: site.email,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: site.street,
+    addressLocality: site.city,
+    postalCode: site.postal,
+    addressCountry: "SK",
+  },
+  geo: {
+    "@type": "GeoCoordinates",
+    latitude: site.geo.lat,
+    longitude: site.geo.lng,
+  },
+  maximumAttendeeCapacity: 250,
+  sameAs: [site.facebook, site.instagram, site.maps],
+  parentOrganization: {
+    "@type": "Organization",
+    name: site.legalName,
+    url: "https://www.kinekus.sk",
+  },
+};
+const json = JSON.stringify(venueLd).replace(/</g, "\\u003c");
+---
+
+<!doctype html>
+<html lang="sk">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {noindex ? (
+      <meta name="robots" content="noindex" />
+    ) : (
+      <link rel="canonical" href={canonical} />
+    )}
+    <meta name="theme-color" content="#14110e" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:locale" content="sk_SK" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {noindex ? null : <meta property="og:url" content={canonical} />}
+    <meta property="og:image" content={imageUrl} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={imageUrl} />
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <script type="application/ld+json" set:html={json} />
+    {jsonLd.map((block) => (
+      <script type="application/ld+json" set:html={JSON.stringify(block).replace(/</g, "\\u003c")} />
+    ))}
+  </head>
+  <body>
+    <a class="skip" href="#obsah">Preskočiť na obsah</a>
+    <Header bookingHref={bookingHref} />
+    <main id="obsah">
+      <slot />
+    </main>
+    <Footer />
+    <div class="consent" data-consent hidden>
+      <p>Analytické cookies nepoužívame.</p>
+      <a href="/ochrana-udajov/">Ochrana údajov</a>
+      <button type="button" data-consent-ok>Rozumiem</button>
+    </div>
+    <div class="dock">
+      <a class="btn btn-dark" href={site.phoneHref}>Zavolať</a>
+      <a class="btn" href={bookingHref}>Overiť termín</a>
+    </div>
+    <script>
+      import "../scripts/site.ts";
+    </script>
+  </body>
+</html>

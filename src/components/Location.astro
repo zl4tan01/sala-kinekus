@@ -1,0 +1,48 @@
+---
+import { site } from "../data/site";
+const mapEmbed = `https://www.google.com/maps?q=${site.geo.lat},${site.geo.lng}&hl=sk&z=16&output=embed`;
+---
+
+<section class="section" id="miesto">
+  <div class="wrap map-grid">
+    <div class="contact-card">
+      <p class="eyebrow">Kde nás nájdete</p>
+      <h2>Na okraji Žiliny, parkovanie pred dverami</h2>
+      <p class="lead" style="margin-top:0.8rem">
+        Sála je na Rosinskej ceste, pri distribučnom centre Kinekus. Prístup autom je priamy a zaparkujete pred budovou.
+      </p>
+      <p style="margin-top:1rem">
+        {site.legalName}<br />
+        {site.street}, {site.postal} {site.city}
+      </p>
+      <p>
+        <a href={site.phoneHref}>{site.phone}</a><br />
+        <a href={`mailto:${site.email}`}>{site.email}</a>
+      </p>
+      <p class="contact-secondary"><a href={site.landlineHref}>{site.landline}</a></p>
+      <p>Ozveme sa vám.</p>
+      <p style="margin-top:0.8rem"><a href={site.maps} rel="noopener noreferrer">Profil na Google</a></p>
+    </div>
+    <div class="map-stage" data-map>
+      <div class="map-poster" data-map-poster>
+        <svg class="map-pin" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor" d="M12 2.2a7.2 7.2 0 0 0-7.2 7.2c0 5.4 7.2 12.4 7.2 12.4s7.2-7 7.2-12.4A7.2 7.2 0 0 0 12 2.2zm0 9.7a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"></path>
+        </svg>
+        <p>{site.street}, {site.city}</p>
+      </div>
+      <iframe
+        data-map-frame
+        hidden
+        tabindex="-1"
+        title="Mapa, Rosinská cesta 13, Žilina"
+        loading="lazy"
+        referrerpolicy="strict-origin-when-cross-origin"
+        data-src={mapEmbed}
+      ></iframe>
+      <div class="map-actions">
+        <button class="btn" type="button" data-map-open>Zobraziť mapu</button>
+        <a class="btn btn-dark" href={site.directions} rel="noopener noreferrer">Navigovať</a>
+      </div>
+    </div>
+  </div>
+</section>

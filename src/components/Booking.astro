@@ -1,0 +1,105 @@
+---
+import { kinds, site } from "../data/site";
+interface Props {
+  segment?: string;
+  kind?: string;
+  title?: string;
+  lead?: string;
+}
+const {
+  segment = "b2c",
+  kind = "svadba",
+  title = "Overte voľný termín",
+  lead = "Obsadené sú dni, na ktoré už siaha celodenná akcia. Kliknutie deň nerezervuje. Pošlete nezáväzný dopyt na svadbu, stužkovú alebo firemnú akciu a termín potvrdíme my.",
+} = Astro.props;
+const selected = kinds.find((item) => item.id === kind) ?? kinds.find((item) => item.segment === segment) ?? kinds[0];
+---
+
+<section class="section" id="termin" data-booking>
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Nezáväzný dopyt</p>
+      <h2>{title}</h2>
+      <p class="lead">{lead}</p>
+    </div>
+    <div class="booking-grid">
+      <div>
+        <div class="calendar" data-calendar data-endpoint="/api/availability.php" aria-live="polite"></div>
+        <p class="note" data-cal-note hidden></p>
+        <p class="form-error" data-cal-error hidden>
+          Dostupnosť sa nepodarilo načítať, napíšte nám. Formulár môžete vyplniť aj tak.
+        </p>
+        <p class="next-free" data-next-free hidden></p>
+        <ul class="chips" data-selected></ul>
+      </div>
+      <div>
+        <div class="thanks" data-thanks tabindex="-1" hidden>
+          <h3>Ďakujeme, dopyt máme.</h3>
+          <p>
+            Termín zatiaľ nie je rezervovaný. Ozveme sa vám a potvrdíme, či vybraný deň platí.
+            Ak sa vám neozveme, zavolajte na {site.phone}.
+          </p>
+        </div>
+        <form class="form" data-form action="/api/inquiry.php" method="post" data-segment={selected.segment} data-kind={selected.id} novalidate aria-describedby="error-form">
+          <p class="form-error" id="error-form" data-form-error hidden></p>
+          <div class="hp" aria-hidden="true">
+            <label>Webová stránka firmy
+              <input name="company_url" tabindex="-1" autocomplete="off" />
+            </label>
+          </div>
+          <input type="hidden" name="segment" value={selected.segment} />
+          <label for="field-kind">Druh podujatia
+            <select id="field-kind" name="kind" required aria-describedby="error-kind">
+              {kinds.map((item) => (
+                <option value={item.id} data-segment={item.segment} selected={item.id === selected.id}>{item.label}</option>
+              ))}
+            </select>
+          </label>
+          <p class="field-error" id="error-kind" data-error-for="kind" hidden></p>
+          <label for="field-dates">Dátumy
+            <input id="field-dates" name="dates" required autocomplete="off" placeholder="Vyberte deň v kalendári alebo napíšte dátum" aria-describedby="error-dates" />
+          </label>
+          <p class="field-error" id="error-dates" data-error-for="dates" hidden></p>
+          <label for="field-guests">Počet hostí <span class="optional">(nepovinné)</span>
+            <select id="field-guests" name="guests" aria-describedby="error-guests">
+              <option value="">Nechcem uviesť</option>
+              <option value="do-50">do 50</option>
+              <option value="50-100">50–100</option>
+              <option value="100-150">100–150</option>
+              <option value="150-200">150–200</option>
+              <option value="200-250">200–250</option>
+              <option value="250-plus">viac ako 250</option>
+            </select>
+          </label>
+          <p class="field-error" id="error-guests" data-error-for="guests" hidden></p>
+          <label for="field-name">Meno a priezvisko
+            <input id="field-name" name="name" autocomplete="name" required maxlength="120" aria-describedby="error-name" />
+          </label>
+          <p class="field-error" id="error-name" data-error-for="name" hidden></p>
+          <label for="field-email">E-mail
+            <input id="field-email" name="email" type="email" autocomplete="email" required maxlength="160" aria-describedby="error-email" />
+          </label>
+          <p class="field-error" id="error-email" data-error-for="email" hidden></p>
+          <label for="field-phone">Telefón
+            <input id="field-phone" name="phone" type="tel" autocomplete="tel" required maxlength="40" aria-describedby="error-phone" />
+          </label>
+          <p class="field-error" id="error-phone" data-error-for="phone" hidden></p>
+          <label for="field-message">Správa
+            <textarea id="field-message" name="message" maxlength="4000" placeholder="Program, čas, catering, čo potrebujete od nás." aria-describedby="error-message"></textarea>
+          </label>
+          <p class="field-error" id="error-message" data-error-for="message" hidden></p>
+          <label class="check" for="field-gdpr">
+            <input id="field-gdpr" type="checkbox" name="gdpr" value="1" required aria-describedby="error-gdpr" />
+            <span>
+              Súhlasím so spracovaním údajov z tohto formulára, aby ma Sála Kinekus mohla kontaktovať k nezáväznému dopytu.
+              Viac v <a href="/ochrana-udajov/">ochrane údajov</a>.
+            </span>
+          </label>
+          <p class="field-error" id="error-gdpr" data-error-for="gdpr" hidden></p>
+          <button class="btn btn-dark" type="submit">Odoslať nezáväzný dopyt</button>
+          <p class="note">Ozveme sa vám. Dopyt sa nezapíše do kalendára, kým termín nepotvrdíme.</p>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

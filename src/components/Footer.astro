@@ -1,0 +1,49 @@
+---
+import { kinekusLinks, nav, site } from "../data/site";
+const year = 2026;
+---
+
+<footer class="footer">
+  <div class="wrap footer-grid">
+    <div>
+      <h2>Sála Kinekus</h2>
+      <p>
+        {site.legalName}<br />
+        {site.street}<br />
+        {site.postal} {site.city}
+      </p>
+      <p style="margin-top:0.8rem">
+        <a href={site.phoneHref}>{site.phone}</a><br />
+        <a href={`mailto:${site.email}`}>{site.email}</a>
+      </p>
+      <p class="contact-secondary">
+        <a href={site.landlineHref}>{site.landline}</a><br />
+        <a href={`mailto:${site.infoEmail}`}>{site.infoEmail}</a>
+      </p>
+    </div>
+    <div>
+      <h2>Na webe</h2>
+      <ul>
+        <li><a href="/">Úvod</a></li>
+        {nav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+        <li><a href="/catering/">Catering</a></li>
+        <li><a href="/ochrana-udajov/">Ochrana údajov</a></li>
+      </ul>
+    </div>
+    <div>
+      <h2>Kinekus</h2>
+      <ul>
+        {kinekusLinks.map((item) => (
+          <li><a href={item.href}>{item.label}</a></li>
+        ))}
+        <li><a href={site.instagram}>Instagram</a></li>
+        <li><a href={site.facebook}>Facebook</a></li>
+        <li><a href={site.maps} rel="noopener noreferrer">Profil na Google</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="wrap footer-base">
+    <span>© {year} {site.legalName}, Sála Kinekus, Žilina.</span>
+    <span>Administratíva {site.hours}.</span>
+  </div>
+</footer>

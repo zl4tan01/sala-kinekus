@@ -1,0 +1,13 @@
+---
+import Base from "../layouts/Base.astro";
+import Gallery from "../components/Gallery.astro";
+
+const description = "Galéria sály Kinekus v Žiline: svadby, stužkové, večierky, konferencie a slávnostné otvorenie.";
+---
+
+<Base title="Galéria | Sála Kinekus Žilina" description={description}>
+  <Gallery headingLevel="h1" />
+  <div class="wrap" style="padding-bottom:3rem">
+    <a class="btn btn-dark" href="/#termin">Overiť voľný termín</a>
+  </div>
+</Base>

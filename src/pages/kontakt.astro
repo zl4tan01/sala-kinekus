@@ -1,0 +1,30 @@
+---
+import Base from "../layouts/Base.astro";
+import Booking from "../components/Booking.astro";
+import Location from "../components/Location.astro";
+import { site } from "../data/site";
+
+const description = "Kontakt na Sálu Kinekus v Žiline: Rosinská cesta 13, +421 908 761 253, marketing@salazilina.sk. Administratíva v pracovných dňoch 7:00–15:30.";
+---
+
+<Base title="Kontakt | Sála Kinekus Žilina" description={description} bookingHref="#termin">
+  <header class="sub-hero">
+    <div class="wrap">
+      <p class="eyebrow">Kontakt</p>
+      <h1>Napíšte, zavolajte, alebo si overte deň.</h1>
+      <p class="lead" style="margin-top:1rem">
+        {site.legalName} Administratíva je {site.hours}. Ozveme sa vám.
+      </p>
+      <p style="margin-top:1rem">
+        <a href={site.phoneHref}>{site.phone}</a><br />
+        <a href={`mailto:${site.email}`}>{site.email}</a>
+      </p>
+      <p class="contact-secondary"><a href={site.landlineHref}>{site.landline}</a></p>
+      <p style="margin-top:0.8rem">
+        <a href={site.instagram}>Instagram</a> · <a href={site.facebook}>Facebook</a> · <a href="/#prehliadka">Virtuálna prehliadka</a>
+      </p>
+    </div>
+  </header>
+  <Booking />
+  <Location />
+</Base>
