@@ -2,9 +2,12 @@
 import Base from "../layouts/Base.astro";
 import Picture from "../components/Picture.astro";
 import Booking from "../components/Booking.astro";
+import Pricing from "../components/Pricing.astro";
 import media from "../data/media.json";
 
 const description = "Svadobná sála v Žiline s veľkým parketom a pódiom 12×6 m. Ozvučenie pre kapelu aj DJ-a, balkón a terasa, parkovanie pred budovou. Nezáväzne overte termín.";
+const hall = media.gallery.find((item) => item.id === "svadba-01");
+if (!hall) throw new Error("Chýba fotografia svadba-01");
 ---
 
 <Base title="Svadobná sála Žilina | Sála Kinekus" description={description} bookingHref="#termin">
@@ -24,7 +27,7 @@ const description = "Svadobná sála v Žiline s veľkým parketom a pódiom 12�
     <div class="section">
       <div class="wrap">
         <div class="frame" style="margin-bottom:1.5rem">
-          <Picture image={media.b2c} sizes="(min-width: 980px) 74rem, 100vw" priority />
+          <Picture image={hall} sizes="(min-width: 980px) 74rem, 100vw" priority />
         </div>
         <div class="fact-grid">
           <article class="fact">
@@ -47,5 +50,6 @@ const description = "Svadobná sála v Žiline s veľkým parketom a pódiom 12�
       </div>
     </div>
   </article>
+  <Pricing id="svadba" />
   <Booking segment="b2c" kind="svadba" title="Termín svadby" />
 </Base>

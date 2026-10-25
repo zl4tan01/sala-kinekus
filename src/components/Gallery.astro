@@ -17,6 +17,7 @@ const {
 const source = ids
   ? ids.flatMap((id) => media.gallery.filter((item) => item.id === id))
   : media.gallery;
+const countFor = (id: string) => (id === "all" ? source.length : source.filter((item) => item.cat === id).length);
 ---
 
 <section class="section" id="galeria" data-gallery>
@@ -30,7 +31,7 @@ const source = ids
       <div class="gallery-tools" role="group" aria-label="Filtrovať galériu">
         {galleryFilters.map((filter, index) => (
           <button type="button" class="filter" data-filter={filter.id} aria-pressed={index === 0 ? "true" : "false"}>
-            {filter.label}
+            {filter.label} ({countFor(filter.id)})
           </button>
         ))}
       </div>

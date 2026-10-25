@@ -11,6 +11,19 @@ function sala_kind_labels(): array
     ];
 }
 
+/** @return array<string,string> */
+function sala_guest_ranges(): array
+{
+    return [
+        'do-50' => 'do 50',
+        '50-100' => '50–100',
+        '100-150' => '100–150',
+        '150-200' => '150–200',
+        '200-250' => '200–250',
+        '250-plus' => 'viac ako 250',
+    ];
+}
+
 function sala_segment_for_kind(string $kind): ?string
 {
     $map = [
@@ -53,30 +66,36 @@ function sala_validate_inquiry(array $post, ?array $occupied, string $today): ar
     }
 
     $guests = null;
-    if ($guestsRaw === '' || !preg_match('/^\d{1,4}$/', $guestsRaw)) {
-        $errors['guests'] = 'Odhadnite počet hostí.';
-    } else {
-        $guests = (int) $guestsRaw;
-        if ($guests < 1 || $guests > 5000) {
-            $errors['guests'] = 'Počet hostí vyzerá nesprávne.';
+    if ($guestsRaw !== '') {
+        if (isset(sala_guest_ranges()[$guestsRaw])) {
+            $guests = $guestsRaw;
+        } elseif (preg_match('/^\d{1,4}$/', $guestsRaw)) {
+            $count = (int) $guestsRaw;
+            if ($count < 1 || $count > 5000) {
+                $errors['guests'] = 'Počet hostí vyzerá nesprávne.';
+            } else {
+                $guests = (string) $count;
+            }
+        } else {
+            $errors['guests'] = 'Počet hostí vyberte z ponuky.';
         }
     }
 
     $dates = sala_parse_dates((string) ($post['dates'] ?? ''));
     if ($dates === []) {
-        $errors['dates'] = 'Vyberte aspoň jeden deň, alebo ho napíšte vo formáte RRRR-MM-DD.';
+        $errors['dates'] = 'Vyberte deň v kalendári alebo napíšte dátum, napríklad 28. 10. 2026.';
     } else {
         $past = [];
         $blocked = [];
         foreach ($dates as $date) {
-            if ($date < $today) {
+            if ($date <= $today) {
                 $past[] = $date;
             } elseif (is_array($occupied) && in_array($date, $occupied, true)) {
                 $blocked[] = $date;
             }
         }
         if ($past !== []) {
-            $errors['dates'] = 'Dátum v minulosti sa rezervovať nedá.';
+            $errors['dates'] = 'Dnešný deň a dni v minulosti sa vybrať nedajú.';
         } elseif ($blocked !== []) {
             $errors['dates'] = 'Niektorý z vybraných dní je už obsadený. Vyberte iný, alebo nám napíšte.';
         } elseif (count($dates) > 14) {
@@ -141,13 +160,17 @@ function sala_inquiry_body(array $data): string
     $segment = $data['segment'] === 'b2b' ? 'Pre firmy' : 'Svadba alebo stužková';
     $kind = $labels[$data['kind']] ?? $data['kind'];
     $dates = array_map('sala_format_sk_date', $data['dates']);
+    $ranges = sala_guest_ranges();
+    $guestLabel = $data['guests'] === null || $data['guests'] === ''
+        ? 'neuvádza'
+        : ($ranges[$data['guests']] ?? (string) $data['guests']);
     $lines = [
         'Nezáväzný dopyt z webu Sála Kinekus.',
         'Termín NIE JE rezervovaný. Potvrďte ho klientovi, až keď ho overíte.',
         '',
         'Dátumy: ' . implode(', ', $dates),
         'Typ: ' . $segment . ' — ' . $kind,
-        'Odhad hostí: ' . $data['guests'],
+        'Odhad hostí: ' . $guestLabel,
         'Meno: ' . $data['name'],
         'E-mail: ' . $data['email'],
         'Telefón: ' . $data['phone'],

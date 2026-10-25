@@ -2,6 +2,7 @@
 import Base from "../layouts/Base.astro";
 import Picture from "../components/Picture.astro";
 import Booking from "../components/Booking.astro";
+import Pricing from "../components/Pricing.astro";
 import media from "../data/media.json";
 
 const description = "Catering v sále Kinekus v Žiline nezabezpečujeme vlastnou kuchyňou. Odporučíme overené firmy, ktoré pripravia ponuku na mieru a často aj výzdobu.";
@@ -12,17 +13,16 @@ const description = "Catering v sále Kinekus v Žiline nezabezpečujeme vlastno
     <header class="sub-hero">
       <div class="wrap">
         <p class="eyebrow">Catering</p>
-        <h1>Chutné jedlo necháme na tých, ktorí ho varia.</h1>
+        <h1>Jedlo pripraví catering, ktorý si vyberiete.</h1>
         <p class="lead" style="margin-top:1rem">
-          Vieme odporučiť niekoľko overených cateringových spoločností. Pripravia ponuku na mieru a mnohé z nich vedia zabezpečiť aj výzdobu.
+          Vlastnú kuchyňu v sále nemáme. Odporúčania cateringových partnerov vám pošleme s ponukou. Viacerí vedia zabezpečiť aj výzdobu.
         </p>
       </div>
     </header>
     <div class="section">
       <div class="wrap path-grid">
         <div class="prose">
-          <p>Sála nemá vlastnú kuchyňu. Jedlo, obsluhu a výzdobu riešite s dodávateľom, ktorého si vyberiete. Ak dodávateľa nemáte, povieme vám, s kým tu už akcie prebehli hladko.</p>
-          <p>V referenciách hostia spomínajú konkrétne firmy, s ktorými tu mali svadbu alebo inú akciu. Nie sú to naši zamestnanci — sú to ich skúsenosti.</p>
+          <p>Jedlo, obsluhu a výzdobu riešite s dodávateľom, ktorého si vyberiete. Ak dodávateľa nemáte, odporúčania cateringových partnerov vám pošleme s ponukou.</p>
           <p>Ak už máte vlastný catering, radi vám povieme, ako sa u nás zariadi zázemie a časovanie.</p>
         </div>
         <div class="frame">
@@ -31,5 +31,6 @@ const description = "Catering v sále Kinekus v Žiline nezabezpečujeme vlastno
       </div>
     </div>
   </article>
-  <Booking title="Opýtať sa na termín a catering" />
+  <Pricing id="catering" />
+  <Booking title="Overiť voľný termín" />
 </Base>

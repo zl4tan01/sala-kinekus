@@ -12,5 +12,6 @@ cpSync(path.join(root, "api"), target, {
 const contentDir = path.join(root, "dist/content");
 mkdirSync(contentDir, { recursive: true });
 cpSync(path.join(root, "content/google-reviews.json"), path.join(contentDir, "google-reviews.json"));
+cpSync(path.join(root, "content/pricing.json"), path.join(contentDir, "pricing.json"));
 writeFileSync(path.join(contentDir, ".htaccess"), "Require all denied\n");
 console.log("PHP endpoint je v dist/api");

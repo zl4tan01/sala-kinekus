@@ -33,44 +33,90 @@ function formatSk(date: string): string {
   return `${Number(d)}. ${Number(m)}. ${y}`;
 }
 
+function parseDateToken(part: string): string | null {
+  const isoMatch = part.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (isoMatch) return `${isoMatch[1]}-${isoMatch[2]}-${isoMatch[3]}`;
+  const skMatch = part.match(/^(\d{1,2})\.\s*(\d{1,2})\.\s*(\d{4})$/);
+  if (!skMatch) return null;
+  return `${skMatch[3]}-${skMatch[2].padStart(2, "0")}-${skMatch[1].padStart(2, "0")}`;
+}
+
+function gridColumns(count: number): number {
+  if (count <= 1) return 1;
+  const options = [3, 2, 4, 5];
+  const exact = options.find((cols) => count % cols === 0);
+  if (exact) return exact;
+  const safe = options.find((cols) => count % cols !== 1);
+  return safe ?? 3;
+}
+
 function setupNav(): void {
   const toggle = document.querySelector<HTMLButtonElement>("[data-nav-toggle]");
   const panel = document.querySelector<HTMLElement>("#site-nav");
+  const label = toggle?.querySelector<HTMLElement>("[data-nav-label]");
+  const backdrop = document.querySelector<HTMLElement>("[data-nav-backdrop]");
   if (!toggle || !panel) return;
 
-  const close = () => {
-    panel.hidden = window.innerWidth < 980;
-    toggle.setAttribute("aria-expanded", "false");
-  };
-  const open = () => {
-    panel.hidden = false;
-    toggle.setAttribute("aria-expanded", "true");
-    panel.querySelector<HTMLElement>("a")?.focus();
+  const paint = (open: boolean) => {
+    const desktop = window.innerWidth >= 980;
+    panel.hidden = desktop ? false : !open;
+    toggle.setAttribute("aria-expanded", !desktop && open ? "true" : "false");
+    if (label) label.textContent = !desktop && open ? "Zavrieť" : "Menu";
+    if (backdrop) backdrop.hidden = desktop || !open;
   };
 
-  if (window.innerWidth < 980) panel.hidden = true;
+  paint(false);
 
   toggle.addEventListener("click", () => {
-    if (toggle.getAttribute("aria-expanded") === "true") close();
-    else open();
+    paint(toggle.getAttribute("aria-expanded") !== "true");
+    if (toggle.getAttribute("aria-expanded") === "true") {
+      panel.querySelector<HTMLElement>("a")?.focus();
+    }
+  });
+  backdrop?.addEventListener("click", () => {
+    paint(false);
+    toggle.focus();
   });
   panel.querySelectorAll("a").forEach((link) => {
     link.addEventListener("click", () => {
-      if (window.innerWidth < 980) close();
+      if (window.innerWidth < 980) paint(false);
     });
   });
   document.addEventListener("keydown", (event) => {
     if (event.key === "Escape" && toggle.getAttribute("aria-expanded") === "true") {
-      close();
+      paint(false);
       toggle.focus();
     }
   });
-  window.addEventListener("resize", () => {
-    if (window.innerWidth >= 980) {
-      panel.hidden = false;
-      toggle.setAttribute("aria-expanded", "false");
-    }
-  });
+  window.addEventListener("resize", () => paint(false));
+}
+
+function setupHeader(): void {
+  const header = document.querySelector<HTMLElement>(".header");
+  if (!header) return;
+  const paint = () => header.classList.toggle("is-stuck", window.scrollY > 8);
+  paint();
+  window.addEventListener("scroll", paint, { passive: true });
+}
+
+function setupDock(): void {
+  const dock = document.querySelector<HTMLElement>(".dock");
+  if (!dock) return;
+  const targets = [...document.querySelectorAll<HTMLElement>("#termin, .footer")];
+  if (targets.length === 0 || !("IntersectionObserver" in window)) return;
+  const visible = new Set<Element>();
+  const paint = () => dock.classList.toggle("is-hidden", visible.size > 0);
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) visible.add(entry.target);
+        else visible.delete(entry.target);
+      });
+      paint();
+    },
+    { rootMargin: "0px 0px -72px 0px", threshold: 0.01 },
+  );
+  targets.forEach((target) => observer.observe(target));
 }
 
 type Availability = {
@@ -118,7 +164,7 @@ function setupBooking(root: HTMLElement): void {
 
   function syncDates(): void {
     const values = [...selected].sort();
-    if (datesInput) datesInput.value = values.join(", ");
+    if (datesInput) datesInput.value = values.map(formatSk).join(", ");
     const list = root.querySelector<HTMLElement>("[data-selected]");
     if (!list) return;
     list.replaceChildren();
@@ -199,11 +245,13 @@ function setupBooking(root: HTMLElement): void {
       button.className = "day";
       button.textContent = String(day);
       button.dataset.date = date;
-      let state: "past" | "occupied" | "free" = "free";
+      let state: "past" | "today" | "occupied" | "free" = "free";
       if (date < today) state = "past";
+      else if (date === today) state = "today";
       else if (occupied.has(date)) state = "occupied";
       button.dataset.state = state;
-      const label = `${formatSk(date)}, ${state === "past" ? "minulosť" : state === "occupied" ? "obsadené" : "voľné"}`;
+      const stateLabel = state === "past" ? "minulosť" : state === "today" ? "dnes, nedostupné" : state === "occupied" ? "obsadené" : "voľné";
+      const label = `${formatSk(date)}, ${stateLabel}`;
       button.setAttribute("aria-label", label);
       button.setAttribute("aria-pressed", selected.has(date) ? "true" : "false");
       if (state !== "free") button.setAttribute("aria-disabled", "true");
@@ -242,10 +290,54 @@ function setupBooking(root: HTMLElement): void {
     `;
 
     calendar.replaceChildren(head, week, grid, legend);
+    paintNextFree(year, month, daysInMonth);
+  }
+
+  function paintNextFree(year: number, month: number, daysInMonth: number): void {
+    const slot = root.querySelector<HTMLElement>("[data-next-free]");
+    if (!slot) return;
+    let freeInMonth = 0;
+    for (let day = 1; day <= daysInMonth; day += 1) {
+      const date = iso(year, month, day);
+      if (date > today && !occupied.has(date)) freeInMonth += 1;
+    }
+    const next = nextFreeDate();
+    if (freeInMonth >= 5 || !next) {
+      slot.hidden = true;
+      slot.replaceChildren();
+      return;
+    }
+    const button = document.createElement("button");
+    button.type = "button";
+    button.textContent = `Ďalší voľný termín: ${formatSk(next)}`;
+    button.addEventListener("click", () => {
+      const [ny, nm] = next.split("-").map(Number);
+      cursor = { year: ny, month: nm };
+      render();
+    });
+    slot.replaceChildren(button);
+    slot.hidden = false;
+  }
+
+  function nextFreeDate(): string | null {
+    let year = ty;
+    let month = tm;
+    const end = horizon;
+    while (year < end.year || (year === end.year && month <= end.month)) {
+      const days = new Date(Date.UTC(year, month, 0)).getUTCDate();
+      for (let day = 1; day <= days; day += 1) {
+        const date = iso(year, month, day);
+        if (date > today && !occupied.has(date)) return date;
+      }
+      const step = addMonths(year, month, 1);
+      year = step.year;
+      month = step.month;
+    }
+    return null;
   }
 
   function toggle(date: string): void {
-    if (date < today || occupied.has(date)) return;
+    if (date <= today || occupied.has(date)) return;
     if (selected.has(date)) selected.delete(date);
     else selected.add(date);
     syncDates();
@@ -273,7 +365,7 @@ function setupBooking(root: HTMLElement): void {
     .then((data) => {
       occupied = new Set(data.occupied || []);
       [...selected].forEach((date) => {
-        if (occupied.has(date) || date < today) selected.delete(date);
+        if (occupied.has(date) || date <= today) selected.delete(date);
       });
       syncDates();
       render();
@@ -290,8 +382,9 @@ function setupBooking(root: HTMLElement): void {
   if (datesInput) {
     datesInput.addEventListener("change", () => {
       selected.clear();
-      datesInput.value.split(/[,;\s]+/).forEach((part) => {
-        if (/^\d{4}-\d{2}-\d{2}$/.test(part)) selected.add(part);
+      datesInput.value.split(/[,;]+/).forEach((part) => {
+        const date = parseDateToken(part.trim());
+        if (date) selected.add(date);
       });
       syncDates();
       render();
@@ -496,6 +589,11 @@ function setupReviews(): void {
         });
         const list = section.querySelector<HTMLElement>("[data-review-list]");
         const shown = list ? fillReviewList(list, data.reviews || [], listing) : 0;
+        if (list) list.style.setProperty("--cols", String(gridColumns(shown)));
+        if (themeList instanceof HTMLElement) {
+          const themes = themeList.children.length;
+          themeList.style.setProperty("--cols", String(themes >= 5 ? 5 : gridColumns(themes)));
+        }
         if (shown > 0) {
           showProof(section);
           section.hidden = false;
@@ -507,6 +605,7 @@ function setupReviews(): void {
         const reviews = key && data.sections?.[key] ? data.sections[key] : [];
         const list = block.querySelector<HTMLElement>("[data-review-list]");
         const shown = list ? fillReviewList(list, reviews, listing) : 0;
+        if (list) list.style.setProperty("--cols", String(gridColumns(shown)));
         if (shown > 0) {
           showProof(block);
           block.hidden = false;
@@ -580,6 +679,8 @@ function setupViewing(): void {
 }
 
 setupNav();
+setupHeader();
+setupDock();
 document.querySelectorAll<HTMLElement>("[data-booking]").forEach(setupBooking);
 document.querySelectorAll<HTMLElement>("[data-gallery]").forEach(setupGallery);
 setupReviews();

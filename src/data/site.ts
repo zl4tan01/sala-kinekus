@@ -6,8 +6,9 @@ export const site = {
   infoEmail: "info@salazilina.sk",
   phone: "+421 908 761 253",
   phoneHref: "tel:+421908761253",
-  landline: "041 / 555 55 10",
+  landline: "041 555 55 10",
   landlineHref: "tel:+421415555510",
+  directions: "https://maps.app.goo.gl/nT8hn4QGFAZ5ZP8K8",
   street: "Rosinská cesta 13",
   city: "Žilina",
   postal: "010 08",
@@ -133,7 +134,7 @@ export const faqs = [
   },
   {
     q: "Dá sa sála prenajať aj na firmu?",
-    a: "Áno. Konferencie, školenia, prezentácie a firemné akcie sú druhý pilier sály. V priestore je Full HD projektor so svietivosťou 5 400 lumenov a SMART zatemnenie okien. Viac je na stránke pre firmy.",
+    a: "Áno. Aj pre firmy: konferencie, školenia, prezentácie a firemné akcie. V priestore je Full HD projektor so svietivosťou 5 400 lumenov a SMART zatemnenie okien. Viac je na stránke pre firmy.",
   },
   {
     q: "Kedy vás zastihneme?",
@@ -141,7 +142,7 @@ export const faqs = [
   },
   {
     q: "Sú priestory bezbariérové?",
-    a: "Na stránke to uvedené nie je. Radi vám povieme, ako je u nás vyriešený prístup, ešte pred obhliadkou.",
+    a: "Áno, vstup do sály je bezbariérový. Podrobnosti k toaletám a parkovaniu vám radi povieme pred obhliadkou.",
   },
 ];
 
@@ -161,23 +162,23 @@ export const quotes: Quote[] = [
   },
   {
     name: "Veronika Sedliakova",
-    meta: "Svadba, 1. 8. 2020",
+    meta: "2020",
     text: "Veľké ďakujeme pani prevádzkárke aj ostatným zainteresovaným osobám, pani upratovačke, pánom sbs-karom i všetkým, ktorí nám pomohli v náš veľký deň (1. 8. 2020). Všetci boli spokojní, ale najmä my. Využitie vašich služieb bol jeden z najlepších krokov pri plánovaní svadby. Chcela by som poďakovať aj cateringu Cukráreň Soffia za vynikajúce jedlo (to s tou cibuľkou), bola výborná voľba. Profesionálny prístup vašich čašníkov, klobúk dole, za pomoc a poradenstvo pri výbere jedál. Vďaka vám bol náš deň ten najkrajší.",
   },
   {
     name: "Anna Kondelová",
-    meta: "Centrum prípravy na manželstvo, prednáška 10.–12. 7. 2020",
+    meta: "2020",
     text: "Korona kríza nás donútila opustiť komorné prostredie kurzov prípravy na manželstvo a hľadať vhodné priestory pre veľký kurz. Sála Žilina predčila naše očakávania. Od starostlivej prípravy s maximálnou ústretovosťou pri usporiadaní stolov, zabezpečení cateringu, až po poskytnutie bohatých priestorov s výbornou klimatizáciou a modernými možnosťami osvetlenia a ozvučenia. K pohode prispel aj dostatočný počet miest na parkovanie. Účastníci kurzu vo svojich vyjadreniach chválili reprezentačné priestory sály. Písali, že prežili v príjemnom prostredí bez stresu a naháňania pekný víkend. Ďakujeme za nezvyčajnú ochotu a ľudský prístup.",
   },
   {
     name: "Marienka Ďuricová",
-    meta: "Svadba, 25. 7. 2020",
+    meta: "2020",
     featured: true,
     text: "Osláviť náš veľký deň v priestoroch sály Kinekus bolo veľmi dobré rozhodnutie. Sála je vybavená moderným osvetlením, ozvučením a hlavne je veľmi priestranná práve pre väčšiu kapacitu ľudí. Veľká vďaka patrí p. Labudovej za ochotný, milý prístup a hlavne za vybavenie všetkých požiadaviek, aké sme mali. Na našu udalosť sme si zabezpečili catering Agentúra Sofia, nič lepšie sme si nemohli vybrať. Veľmi profesionálny prístup p. Kučerikovej, ktorá nám pomohla a hlavne poradila s výborným výberom jedla, čo sa odzrkadlilo a hlavne potvrdilo aj od hostí, ktorým veľmi chutilo. Vďaka patrí aj hlavnému čašníkovi Jakubovi a čašníčkam, ktorí boli super zorganizovaní a veľmi profesionálni. Ďakujeme všetkým, boli sme veľmi spokojní.",
   },
   {
     name: "Gabriela Petreková",
-    meta: "Svadba, 20. 6. 2020",
+    meta: "2020",
     featured: true,
     text: "Nádherné priestory, mali sme tu svadbu 20. 6. 2020 a boli sme nad mieru spokojní. Všetko ohľadom komunikácie aj celkového priebehu svadby bolo bez chybičky. Veľké ďakujem patrí aj p. Labudovej za milý a ochotný prístup. Vrelo odporúčame.",
   },
@@ -202,6 +203,21 @@ export const quotes: Quote[] = [
     text: "Ďakujem veľmi pekne za spoluprácu, ja som bol veľmi spokojný.",
   },
 ];
+
+export function gridColumns(count: number): number {
+  if (count <= 1) return 1;
+  const options = [3, 2, 4, 5];
+  const exact = options.find((cols) => count % cols === 0);
+  if (exact) return exact;
+  const safe = options.find((cols) => count % cols !== 1);
+  return safe ?? 3;
+}
+
+export function isPublicQuote(quote: Quote): boolean {
+  if (/\*{2,}|_{3,}/.test(quote.name)) return false;
+  if (/\b(?:pán|pani|p\.)\s*\*+/iu.test(quote.text)) return false;
+  return true;
+}
 
 export const galleryFilters = [
   { id: "all", label: "Všetko" },

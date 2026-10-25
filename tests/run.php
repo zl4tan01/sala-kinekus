@@ -100,6 +100,20 @@ check(isset($bad['errors']['email'], $bad['errors']['gdpr']), 'e-mail a súhlas 
 $past = sala_validate_inquiry(array_merge($base, ['dates' => '2020-01-01']), null, $today);
 check(isset($past['errors']['dates']), 'minulý deň neprejde');
 
+$todayDate = sala_validate_inquiry(array_merge($base, ['dates' => $today]), null, $today);
+check(isset($todayDate['errors']['dates']), 'dnešný deň neprejde');
+
+$optionalGuests = sala_validate_inquiry(array_merge($base, ['guests' => '', 'dates' => '28. 10. 2026']), null, $today);
+check(
+    $optionalGuests['errors'] === []
+        && $optionalGuests['data']['guests'] === null
+        && $optionalGuests['data']['dates'] === ['2026-10-28'],
+    'prázdny rozsah hostí a slovenský dátum prejdú'
+);
+
+$rangeGuests = sala_validate_inquiry(array_merge($base, ['guests' => '100-150']), [], $today);
+check($rangeGuests['errors'] === [] && $rangeGuests['data']['guests'] === '100-150', 'rozsah hostí prejde');
+
 $blocked = sala_validate_inquiry($base, ['2026-11-14'], $today);
 check(isset($blocked['errors']['dates']), 'obsadený deň neprejde');
 

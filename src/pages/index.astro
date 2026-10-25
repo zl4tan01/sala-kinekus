@@ -7,10 +7,23 @@ import Location from "../components/Location.astro";
 import Logos from "../components/Logos.astro";
 import Tour from "../components/Tour.astro";
 import media from "../data/media.json";
-import { faqs, layouts, proof, quotes, site, steps } from "../data/site";
+import { faqs, gridColumns, isPublicQuote, layouts, proof, quotes, site, steps } from "../data/site";
 
-const description = "Svadobná sála a stužkové v Žiline. Kapacita 50–250 osôb, parket, pódium 12×6 m, balkón a parkovanie pred budovou. Aj konferencie a firemné akcie.";
-const featured = quotes.filter((quote) => quote.featured);
+const description = "Svadobná sála a stužkové v Žiline. Parket, pódium 12×6 m, balkón a parkovanie pred budovou. Aj konferencie a firemné akcie.";
+const featured = quotes.filter((quote) => quote.featured && isPublicQuote(quote));
+const photo = (id: string) => {
+  const found = media.gallery.find((item) => item.id === id);
+  if (!found) throw new Error(`Chýba fotografia ${id}`);
+  return found;
+};
+function excerpt(text: string, max = 280): string {
+  const clean = text.replace(/\s+/g, " ").trim();
+  if (clean.length <= max) return clean;
+  const slice = clean.slice(0, max + 1);
+  const end = Math.max(slice.lastIndexOf(". "), slice.lastIndexOf("! "), slice.lastIndexOf("? "));
+  if (end >= 80) return slice.slice(0, end + 1).trim();
+  return clean;
+}
 const cateringPhoto = media.gallery.find((item) => item.id === "svadba-22");
 if (!cateringPhoto) throw new Error("Chýba fotografia svadba-22");
 ---
@@ -21,13 +34,13 @@ if (!cateringPhoto) throw new Error("Chýba fotografia svadba-22");
   bookingHref="#termin"
 >
   <section class="hero">
-    <Picture image={media.b2c} sizes="100vw" priority />
+    <Picture image={media.hero} sizes="100vw" priority />
     <div class="hero-shade"></div>
     <div class="wrap hero-copy">
       <p class="eyebrow">Sála Kinekus · Rosinská cesta, Žilina</p>
       <h1>Svadba aj stužková v sále, ktorá sa prispôsobí vám.</h1>
       <p class="lead">
-        Kapacita sály je 50 až 250 osôb. Veľký parket a pódium 12×6 m, balkón s terasou a parkovanie pred budovou na Rosinskej ceste sú súčasťou priestoru. Svetlo a ozvučenie nastavíme podľa programu.
+        Veľký parket a pódium 12×6 m, balkón s terasou a parkovanie pred budovou na Rosinskej ceste sú súčasťou priestoru. Svetlo a ozvučenie nastavíme podľa programu večera.
       </p>
       <div class="hero-actions">
         <a class="btn" href="#termin">Overiť voľný termín</a>
@@ -61,7 +74,7 @@ if (!cateringPhoto) throw new Error("Chýba fotografia svadba-22");
         <p class="eyebrow">Svadby a stužkové</p>
         <h2>Svadba aj stužková, každá podľa svojho programu.</h2>
         <p class="lead">
-          Veľký parket, pódium 12×6 m a ozvučenie sú v priestore. Rozloženie nastavíme podľa programu, kapacita sály je 50 až 250 osôb.
+          Veľký parket, pódium 12×6 m a ozvučenie sú v priestore. Rozloženie pripravíme podľa programu.
         </p>
       </div>
       <div class="path-grid">
@@ -72,7 +85,7 @@ if (!cateringPhoto) throw new Error("Chýba fotografia svadba-22");
             <h3>Svadba s parketom a pódiom</h3>
             <p>Veľký parket a pódium 12×6 m pre sprievodný program, kapelu alebo DJ-a. Ozvučenie je v sále, svetlo sa dá nastaviť podľa večera.</p>
             <ul>
-              <li>Kapacita 50 až 250 osôb, usadenie podľa stolov a programu</li>
+              <li>Usadenie podľa stolov a programu</li>
               <li>Mixážny pult Yamaha, náhlavné aj ručné mikrofóny</li>
               <li>Balkón a terasa priamo zo sály, parkovanie pred budovou</li>
               <li>Catering a výzdobu odporučíme, vyberiete si vy</li>
@@ -81,7 +94,7 @@ if (!cateringPhoto) throw new Error("Chýba fotografia svadba-22");
           </div>
         </article>
         <article class="path">
-          <Picture image={media.stuzkova} sizes="(min-width: 720px) 46vw, 100vw" />
+          <Picture image={photo("stuz-05")} sizes="(min-width: 720px) 46vw, 100vw" />
           <div class="path-body">
             <p class="eyebrow">Stužkové</p>
             <h3>Stužková s jasnými pravidlami</h3>
@@ -90,7 +103,7 @@ if (!cateringPhoto) throw new Error("Chýba fotografia svadba-22");
               <li>Dohodneme vopred jasné pravidlá, aj k prípadnému poškodeniu</li>
               <li>Čo platí, si povieme pred potvrdením termínu, férovým a prehľadným spôsobom</li>
               <li>Pódium 12×6 m, ozvučenie Yamaha, parkovanie pred budovou</li>
-              <li>Kapacita sály je 50 až 250 osôb</li>
+              <li>Parket ostáva na tanec, hostia zaparkujú pred budovou</li>
             </ul>
             <a class="btn btn-dark" href="/stuzkova/">Stužková v sále</a>
           </div>
@@ -108,11 +121,11 @@ if (!cateringPhoto) throw new Error("Chýba fotografia svadba-22");
         <p class="eyebrow">Pre firmy</p>
         <h2>Konferencie, školenia, prezentácie a firemné akcie.</h2>
         <p class="lead">
-          Druhý pilier sály. Keď firma potrebuje projekciu, zvuk a miesto, kde hostia zaparkujú.
+          Aj pre firmy. Keď potrebujete projekciu, zvuk a miesto, kde hostia zaparkujú.
         </p>
       </div>
       <article class="path path-wide">
-        <Picture image={media.b2b} sizes="(min-width: 720px) 48vw, 100vw" />
+        <Picture image={photo("konf-03")} sizes="(min-width: 720px) 48vw, 100vw" />
         <div class="path-body">
           <h3>Sála pripravená na firemný program</h3>
           <p>Konferencia, školenie, prezentácia aj firemná akcia pre vlastných ľudí. Technika je v priestore, rozloženie prispôsobíme programu.</p>
@@ -120,9 +133,9 @@ if (!cateringPhoto) throw new Error("Chýba fotografia svadba-22");
             <li>Full HD projektor so svietivosťou 5 400 lumenov</li>
             <li>SMART zatemnenie okien a svetelné scény</li>
             <li>Ozvučenie s mixážnym pultom Yamaha, náhlavné a ručné mikrofóny</li>
-            <li>Kapacita 50 až 250 osôb, parkovanie pred budovou</li>
+            <li>Parkovanie pred budovou</li>
           </ul>
-          <a class="btn btn-dark" href="/konferencie/">Konferenčná sála</a>
+          <a class="btn btn-dark" href="/konferencie/">Pre firmy</a>
         </div>
       </article>
     </div>
@@ -218,8 +231,8 @@ if (!cateringPhoto) throw new Error("Chýba fotografia svadba-22");
       </div>
       <div class="fact-grid">
         <article class="fact">
-          <h3>Kapacita</h3>
-          <p>50 až 250 osôb. Koľko miest dá konkrétne usporiadanie, povieme podľa stolov, pódia a cateringu.</p>
+          <h3>Usadenie</h3>
+          <p>Koľko miest dá konkrétne usporiadanie, povieme podľa stolov, pódia a cateringu.</p>
         </article>
         <article class="fact">
           <h3>Pódium a parket</h3>
@@ -260,7 +273,7 @@ if (!cateringPhoto) throw new Error("Chýba fotografia svadba-22");
       <div class="section-head">
         <p class="eyebrow">Google</p>
         <h2>Z recenzií na Google</h2>
-        <p class="lead">Doslovné recenzie z profilu Sála Žilina. Stužkové sú na svojej stránke.</p>
+        <p class="lead">Z profilu Sála Žilina. Stužkové sú na svojej stránke.</p>
       </div>
       <ul class="theme-grid" data-review-themes></ul>
       <div class="review-grid" data-review-list></div>
@@ -268,7 +281,7 @@ if (!cateringPhoto) throw new Error("Chýba fotografia svadba-22");
         <a class="review-count" data-review-count href={site.maps} hidden rel="noopener noreferrer"></a>
         <a class="btn btn-dark" href={site.writeReview} data-write-review rel="noopener noreferrer">Napísať recenziu</a>
       </div>
-      <p class="note">Text je z Google a neprepisujeme ho. Profil uvádza, že recenzie nie sú overené.</p>
+      <p class="note"><a href={site.maps} rel="noopener noreferrer">Recenzie z Google profilu Sála Žilina</a></p>
     </div>
   </section>
 
@@ -276,13 +289,13 @@ if (!cateringPhoto) throw new Error("Chýba fotografia svadba-22");
     <div class="wrap">
       <div class="section-head">
         <p class="eyebrow">Referencie klientov</p>
-        <h2>Referencie z pôvodného webu.</h2>
-        <p class="lead">Texty sú z salazilina.sk. Nie sú to recenzie z Google. Celé znenie je na stránke referencií.</p>
+        <h2>Referencie klientov.</h2>
+        <p class="lead">Skúsenosti hostí. Celé znenie je na stránke referencií.</p>
       </div>
-      <div class="quote-grid">
+      <div class="quote-grid" style={`--cols: ${gridColumns(featured.length)}`}>
         {featured.map((quote) => (
           <blockquote class="quote">
-            <p>„{quote.text.length > 280 ? `${quote.text.slice(0, 280).trim()}…` : quote.text}“</p>
+            <p>„{excerpt(quote.text)}“</p>
             <footer>
               <cite>{quote.name}</cite>
               <small>{quote.meta}</small>

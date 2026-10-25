@@ -1,0 +1,8 @@
+{
+  "items": [
+    { "id": "svadba", "label": "Svadba", "from": "" },
+    { "id": "stuzkova", "label": "Stužková", "from": "" },
+    { "id": "firemna", "label": "Pre firmy", "from": "" },
+    { "id": "catering", "label": "Catering", "from": "" }
+  ]
+}

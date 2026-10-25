@@ -1,5 +1,5 @@
 ---
-import { nav } from "../data/site";
+import { nav, site } from "../data/site";
 interface Props {
   bookingHref?: string;
 }
@@ -10,17 +10,31 @@ const path = Astro.url.pathname;
 <header class="header">
   <div class="wrap header-inner">
     <a class="brand" href="/" aria-current={path === "/" ? "page" : undefined}>
-      Sála Kinekus
-      <small>Žilina</small>
+      <span class="mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" fill="none">
+          <path d="M5 14.5 16 5l11 9.5" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"></path>
+          <path d="M8 13.5V26h16V13.5" stroke="currentColor" stroke-width="1.8"></path>
+          <path d="M14 26v-7h4v7" stroke="currentColor" stroke-width="1.8"></path>
+        </svg>
+      </span>
+      <span class="brand-name">
+        Sála Kinekus
+        <small>Žilina</small>
+      </span>
     </a>
     <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav">
-      Menu
+      <span data-nav-label>Menu</span>
     </button>
     <nav id="site-nav" class="nav-panel" aria-label="Hlavné" hidden>
       {nav.map((item) => (
         <a href={item.href} aria-current={path === item.href ? "page" : undefined}>{item.label}</a>
       ))}
+      <a class="nav-only-mobile" href="/catering/">Catering</a>
+      <a class="nav-only-mobile" href={site.phoneHref}>{site.phone}</a>
+      <a class="btn nav-only-mobile" href={bookingHref}>Overiť termín</a>
     </nav>
+    <a class="header-phone" href={site.phoneHref}>{site.phone}</a>
     <a class="btn header-cta" href={bookingHref}>Overiť termín</a>
   </div>
 </header>
+<button class="nav-backdrop" type="button" data-nav-backdrop hidden aria-label="Zavrieť menu"></button>

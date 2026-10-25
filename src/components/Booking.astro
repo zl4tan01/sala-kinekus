@@ -5,14 +5,12 @@ interface Props {
   kind?: string;
   title?: string;
   lead?: string;
-  quoteSection?: string;
 }
 const {
   segment = "b2c",
   kind = "svadba",
   title = "Overte voľný termín",
   lead = "Obsadené sú dni, na ktoré už siaha celodenná akcia. Kliknutie deň nerezervuje. Pošlete nezáväzný dopyt na svadbu, stužkovú alebo firemnú akciu a termín potvrdíme my.",
-  quoteSection = "",
 } = Astro.props;
 const selected = kinds.find((item) => item.id === kind) ?? kinds.find((item) => item.segment === segment) ?? kinds[0];
 ---
@@ -31,14 +29,15 @@ const selected = kinds.find((item) => item.id === kind) ?? kinds.find((item) => 
         <p class="form-error" data-cal-error hidden>
           Dostupnosť sa nepodarilo načítať, napíšte nám. Formulár môžete vyplniť aj tak.
         </p>
+        <p class="next-free" data-next-free hidden></p>
         <ul class="chips" data-selected></ul>
       </div>
       <div>
         <div class="thanks" data-thanks tabindex="-1" hidden>
           <h3>Ďakujeme, dopyt máme.</h3>
           <p>
-            Termín zatiaľ nie je rezervovaný. Ozveme sa vám a potvrdíme, či vybraný deň platí.
-            Ak sa neozveme do najbližšieho pracovného dňa, zavolajte na {site.phone}.
+            Termín zatiaľ nie je rezervovaný. Ozveme sa do 1 pracovného dňa a potvrdíme, či vybraný deň platí.
+            Ak sa neozveme, zavolajte na {site.phone}.
           </p>
         </div>
         <form class="form" data-form action="/api/inquiry.php" method="post" data-segment={selected.segment} data-kind={selected.id} novalidate>
@@ -58,12 +57,19 @@ const selected = kinds.find((item) => item.id === kind) ?? kinds.find((item) => 
           </label>
           <p class="field-error" data-error-for="kind" hidden></p>
           <label>Dátumy
-            <input name="dates" required autocomplete="off" inputmode="numeric" placeholder="2026-11-14 alebo viac dní čiarkou" />
+            <input name="dates" required autocomplete="off" placeholder="Vyberte deň v kalendári alebo napíšte dátum" />
           </label>
-          <p class="note">Kliknutím na voľný deň sa dátum doplní. Môžete ich označiť aj viac.</p>
           <p class="field-error" data-error-for="dates" hidden></p>
-          <label>Odhadovaný počet hostí
-            <input name="guests" type="number" inputmode="numeric" min="1" max="5000" required />
+          <label>Počet hostí <span class="optional">(nepovinné)</span>
+            <select name="guests">
+              <option value="">Nechcem uviesť</option>
+              <option value="do-50">do 50</option>
+              <option value="50-100">50–100</option>
+              <option value="100-150">100–150</option>
+              <option value="150-200">150–200</option>
+              <option value="200-250">200–250</option>
+              <option value="250-plus">viac ako 250</option>
+            </select>
           </label>
           <p class="field-error" data-error-for="guests" hidden></p>
           <label>Meno a priezvisko
@@ -89,14 +95,8 @@ const selected = kinds.find((item) => item.id === kind) ?? kinds.find((item) => 
             </span>
           </label>
           <p class="field-error" data-error-for="gdpr" hidden></p>
-          <figure class="form-quote" data-form-quote data-quote-section={quoteSection || undefined} hidden>
-            <blockquote data-form-quote-text></blockquote>
-            <figcaption data-form-quote-by></figcaption>
-          </figure>
           <button class="btn btn-dark" type="submit">Odoslať nezáväzný dopyt</button>
-          <p class="note">
-            Administratíva je {site.hours}. Dopyt sa nezapíše do kalendára, kým termín nepotvrdíme.
-          </p>
+          <p class="note">Ozveme sa do 1 pracovného dňa. Dopyt sa nezapíše do kalendára, kým termín nepotvrdíme.</p>
         </form>
       </div>
     </div>

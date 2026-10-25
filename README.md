@@ -2,6 +2,18 @@
 
 Nový web sály na Rosinskej ceste 13 v Žiline. Nahrádza [salazilina.sk](https://www.salazilina.sk). Statické stránky (Astro) a PHP endpointy: dostupnosť z Google Kalendára, nezáväzný dopyt e-mailom a recenzie z Google Places.
 
+## TODO pre majiteľa
+
+Doplňte, keď budete mať podklady. Kým polia ostanú prázdne, web číslo ani mená dodávateľov nevymýšľa.
+
+- **Ceny.** V `content/pricing.json` pri svadbe, stužkovej, firmách a cateringu vyplňte `from`, napríklad `od 800 €`. Prázdny reťazec znamená, že blok „Koľko to stojí“ ukáže len vysvetlenie, čo cenu ovplyvňuje, a vetu, že ponuku pošleme do 1 pracovného dňa.
+- **Fotky stužkovej a konferencie.** Hero týchto stránok berie zábery z galérie (`stuz-01`, `konf-01`), nie stock. Ak máte krajší záber celej sály z reálnej stužkovej alebo konferencie, nahraďte ním tieto fotky.
+- **Ďalšie Google recenzie.** Postup je nižšie v časti Recenzie z Google. Pridávajte len doslovný text z profilu.
+
+## Čo je na webe z kontaktov
+
+Primárny kontakt je `+421 908 761 253` a `marketing@salazilina.sk`. Telefón `041 555 55 10` je vedľajší. `info@salazilina.sk` je len v pätičke. WhatsApp je v pätičke, lebo mobilné číslo existuje. Pracovné hodiny sú na Kontakte a v pätičke. Sľub reakcie je „Ozveme sa do 1 pracovného dňa“.
+
 Texty sú po slovensky. Fotografie pochádzajú z pôvodného webu a v repozitári sú už zmenšené do WebP a AVIF.
 
 ## Čo nahrať na Websupport
@@ -34,7 +46,7 @@ Verejný endpoint je `GET /api/availability.php`. Prehliadač dostane len toto:
 {"occupied":["2026-11-07"],"updated":"2026-10-24T18:00:00+02:00"}
 ```
 
-Žiadne názvy akcií, opisy ani účastníkov. Obsadený je deň, na ktorom leží **celodenná** udalosť. Viacdňová celodenná udalosť obsadí dni od začiatku vrátane po koniec bez posledného dňa (takto to dáva Google). Udalosť s časom deň neobsadzuje. Zrušená udalosť tiež nie. Minulé dni sú v kalendári vypnuté.
+Žiadne názvy akcií, opisy ani účastníkov. Obsadený je deň, na ktorom leží **celodenná** udalosť. Viacdňová celodenná udalosť obsadí dni od začiatku vrátane po koniec bez posledného dňa (takto to dáva Google). Udalosť s časom deň neobsadzuje. Zrušená udalosť tiež nie. Dnešný deň a minulé dni sú v kalendári nedostupné. Počet hostí vo formulári je nepovinný rozsah.
 
 Keď sa kalendár nepodarí načítať, stránka napíše „Dostupnosť sa nepodarilo načítať, napíšte nám“ a formulár sa dá odoslať aj tak.
 
@@ -78,7 +90,7 @@ Do `api/config.php` doplňte kľúč:
 'google_places_api_key' => 'váš kľúč Places API (New)',
 ```
 
-Kľúč patrí len do `config.php` na serveri. Do verejného JSON sa nedostane. Kým kľúč nie je, endpoint číta `content/google-reviews.json`. V tom súbore je päť recenzií z profilu, doslovne. Na úvod idú Aneta, Tatiana a Jaroslav. Emilka a Erika sú na stránke stužkovej. Vedľa citácie je malý odkaz „4,4 ★ · 36 recenzií na Google“. Rozpis hviezdičiek sa nezobrazuje. Vety s menom zamestnanca sa vynechajú. Google pri profile uvádza, že recenzie nie sú overené.
+Kľúč patrí len do `config.php` na serveri. Do verejného JSON sa nedostane. Kým kľúč nie je, endpoint číta `content/google-reviews.json`. V tom súbore je päť recenzií z profilu, doslovne. Na úvod idú Aneta, Tatiana a Jaroslav. Emilka a Erika sú na stránke stužkovej. Vedľa citácie je malý odkaz „4,4 ★ · 36 recenzií na Google“. Rozpis hviezdičiek sa nezobrazuje. Vety s menom zamestnanca sa vynechajú. Na stránke je len veta „Recenzie z Google profilu Sála Žilina“ s odkazom na profil.
 
 Ďalšiu recenziu pridáte do poľa `reviews`. Nový objekt má `author` (krstné meno), `rating` (4 alebo 5), `text` (doslovne z Google, bez prepisovania), `url` (nechajte `listingUrl`) a `section`: `general` na úvod, `stuzkova` na stránku stužkovej. Ak má byť v hero, pri formulári alebo medzi dlaždicami, úryvok v `hero`, `formQuote`, `sectionQuotes` alebo `themes` musí byť doslovná časť niektorej recenzie. `rating` a `userRatingCount` meňte len podľa aktuálneho súčtu na profile. Postup je aj v poli `instructions` v tom istom súbore. Priečinok `dist/content/` má `.htaccess`, ktorý súbor zvonku zakáže; číta ho len PHP.
 
@@ -102,5 +114,5 @@ Skript zapíše `public/media/` a `src/data/media.json`.
 
 - `index.html` a podstránky (svadby, stužková, konferencie, catering, galéria, referencie, kontakt). Adresa `/oslavy/` presmeruje na úvod.
 - `api/availability.php`, `api/inquiry.php`, `api/reviews.php`, `api/config.php`
-- `content/google-reviews.json` (recenzie, zvonku zakázaný)
+- `content/google-reviews.json` a `content/pricing.json` (zvonku zakázané)
 - `sitemap-index.xml`, `robots.txt`

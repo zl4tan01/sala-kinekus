@@ -8,28 +8,24 @@ import { site } from "../data/site";
   <div class="wrap">
     <div class="section-head">
       <p class="eyebrow">360°</p>
-      <h2>Prejdite sa po sále.</h2>
-      <p class="lead">
-        Virtuálna prehliadka z pôvodného webu. Je naviazaná na profil Sála Žilina na Google a spustí sa až po kliknutí.
-      </p>
+      <h2>Virtuálna prehliadka</h2>
+      <p class="lead">Prejdite sa po sále. Prehliadka sa spustí až po kliknutí.</p>
     </div>
     <div class="tour" data-tour>
       <div class="tour-poster" data-tour-poster>
-        <Picture image={media.wide} sizes="(min-width: 980px) 74rem, 100vw" />
-        <button class="btn" type="button" data-tour-open>Prejsť sa po sále 360°</button>
+        <Picture image={media.opening} sizes="(min-width: 980px) 74rem, 100vw" />
+        <button class="btn" type="button" data-tour-open>Prehliadka 360°</button>
       </div>
       <iframe
         data-tour-frame
         hidden
         tabindex="-1"
-        title="360° prehliadka sály Kinekus"
+        title="Virtuálna prehliadka sály Kinekus"
         data-src={site.tour}
-        allow="fullscreen; xr-spatial-tracking"
-        allowfullscreen
+        allow="accelerometer; gyroscope; fullscreen"
         referrerpolicy="strict-origin-when-cross-origin"
       ></iframe>
     </div>
-    <p class="note">Prehliadka sa načíta až po kliknutí. Dovtedy sa GoThru ani Google nespúšťajú a neukladajú cookies.</p>
-    <p><a href={site.maps} rel="noopener noreferrer">Otvoriť prehliadku v Mapách Google</a></p>
+    <p class="note">Prehliadka sa načíta až po kliknutí.</p>
   </div>
 </section>

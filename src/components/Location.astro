@@ -1,7 +1,6 @@
 ---
 import { site } from "../data/site";
-const bbox = "18.752,49.193,18.789,49.210";
-const src = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=mapnik&marker=${site.geo.lat}%2C${site.geo.lng}`;
+const preview = `https://staticmap.openstreetmap.de/staticmap.php?center=${site.geo.lat},${site.geo.lng}&zoom=15&size=800x450&maptype=mapnik&markers=${site.geo.lat},${site.geo.lng},lightblue1`;
 ---
 
 <section class="section" id="miesto">
@@ -14,25 +13,19 @@ const src = `https://www.openstreetmap.org/export/embed.html?bbox=${bbox}&layer=
       </p>
       <p style="margin-top:1rem">
         {site.legalName}<br />
-        {site.street}<br />
-        {site.postal} {site.city}
+        {site.street}, {site.postal} {site.city}
       </p>
       <p>
         <a href={site.phoneHref}>{site.phone}</a><br />
-        <a href={site.whatsapp} rel="noopener noreferrer">WhatsApp</a><br />
         <a href={`mailto:${site.email}`}>{site.email}</a>
       </p>
-      <p>
-        {site.landline}<br />
-        <a href={`mailto:${site.infoEmail}`}>{site.infoEmail}</a>
-      </p>
-      <p class="note">Administratíva {site.hours}.</p>
+      <p class="contact-secondary"><a href={site.landlineHref}>{site.landline}</a></p>
+      <p>Ozveme sa do 1 pracovného dňa.</p>
       <p style="margin-top:0.8rem"><a href={site.maps} rel="noopener noreferrer">Profil na Google</a></p>
     </div>
-    <div class="map-hold" data-map>
-      <button class="btn btn-dark" type="button" data-map-open>Zobraziť mapu</button>
-      <p class="note">Mapa OpenStreetMap sa načíta až po kliknutí.</p>
-      <iframe class="map-frame" data-map-frame hidden tabindex="-1" title="Mapa: Sála Kinekus, Rosinská cesta 13, Žilina" data-src={src}></iframe>
-    </div>
+    <a class="map-preview" href={site.directions} rel="noopener noreferrer">
+      <img src={preview} alt="Náhľad mapy, Rosinská cesta 13, Žilina" width="800" height="450" loading="lazy" decoding="async" />
+      <span class="btn btn-dark">Navigovať</span>
+    </a>
   </div>
 </section>

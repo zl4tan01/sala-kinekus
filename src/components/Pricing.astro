@@ -1,0 +1,25 @@
+---
+import pricing from "../../content/pricing.json";
+
+interface Props {
+  id: string;
+}
+const { id } = Astro.props;
+const item = pricing.items.find((entry) => entry.id === id);
+const from = item?.from?.trim() ?? "";
+---
+
+<section class="section" id="cena" style="padding-top:0">
+  <div class="wrap">
+    <div class="price-card">
+      <p class="eyebrow">Cena</p>
+      <h2>Koľko to stojí</h2>
+      <p>
+        Cenu ovplyvňuje dĺžka prenájmu, počet hostí, technika a upratovanie.
+        Preto ju posielame v ponuke, nie ako jedno číslo pre všetky akcie.
+      </p>
+      {from !== "" && <p class="price-from">{from}</p>}
+      <a class="btn btn-dark" href="#termin">Pošleme vám cenovú ponuku do 1 pracovného dňa</a>
+    </div>
+  </div>
+</section>

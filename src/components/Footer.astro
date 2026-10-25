@@ -14,8 +14,12 @@ const year = 2026;
       </p>
       <p style="margin-top:0.8rem">
         <a href={site.phoneHref}>{site.phone}</a><br />
-        <a href={site.whatsapp} rel="noopener noreferrer">WhatsApp</a><br />
         <a href={`mailto:${site.email}`}>{site.email}</a>
+      </p>
+      <p class="contact-secondary">
+        <a href={site.landlineHref}>{site.landline}</a><br />
+        <a href={site.whatsapp} rel="noopener noreferrer">WhatsApp</a><br />
+        <a href={`mailto:${site.infoEmail}`}>{site.infoEmail}</a>
       </p>
     </div>
     <div>
@@ -40,7 +44,7 @@ const year = 2026;
     </div>
   </div>
   <div class="wrap footer-base">
-    <span>© {year} {site.legalName}. Sála Kinekus, Žilina.</span>
+    <span>© {year} {site.legalName}, Sála Kinekus, Žilina.</span>
     <span>Administratíva {site.hours}.</span>
   </div>
 </footer>
