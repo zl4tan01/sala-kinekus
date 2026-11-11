@@ -3,10 +3,8 @@
  * Skopírujte tento súbor na serveri ako api/config.php.
  * config.php nepatrí do gitu — je v .gitignore.
  *
- * Stačí vyplniť JEDEN spôsob čítania kalendára:
- *   mode = ical     tajná adresa iCal (najjednoduchšie na Websupporte)
- *   mode = google   Google Calendar API a service account
- *   mode = mock     ukážkové obsadené dni, bez prístupu ku kalendáru
+ * Verejný web kalendár neukazuje a /api/availability.php nie je súčasťou webu.
+ * Termín overí tím sály pri odpovedi na dopyt. Polia kalendára nižšie sa na webe nepoužívajú.
  */
 return [
     'mode' => 'mock',

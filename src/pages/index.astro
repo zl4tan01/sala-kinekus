@@ -45,8 +45,6 @@ const advicePreview = featuredAdvice(await allAdvice());
   bookingHref="#termin"
 >
   <section class="hero">
-    <Picture image={media.hero} sizes="100vw" priority />
-    <div class="hero-shade"></div>
     <div class="wrap hero-copy">
       <p class="eyebrow">Sála Kinekus · Rosinská cesta, Žilina</p>
       <h1>Svadba aj stužková v sále, ktorá sa prispôsobí vám.</h1>
@@ -54,8 +52,9 @@ const advicePreview = featuredAdvice(await allAdvice());
         Veľký parket a pódium 12×6 m, balkón s terasou a parkovanie pred budovou na Rosinskej ceste sú súčasťou priestoru. Svetlo a ozvučenie sú v sále.
       </p>
       <div class="hero-actions">
-        <a class="btn" href="#termin">Overiť voľný termín</a>
-        <a class="btn-line" href="#prehliadka">Virtuálna prehliadka</a>
+        <a class="btn" href="#termin">Poslať nezáväzný dopyt</a>
+        <a class="btn-line" href="#termin">Dohodnúť obhliadku</a>
+        <a class="btn-line" href={site.phoneHref}>Zavolať</a>
       </div>
       <figure class="hero-quote" data-hero-quote hidden>
         <blockquote data-hero-quote-text></blockquote>
@@ -64,6 +63,9 @@ const advicePreview = featuredAdvice(await allAdvice());
         </figcaption>
         <a class="hero-proof" href={site.maps} rel="noopener noreferrer">Recenzie na Google</a>
       </figure>
+    </div>
+    <div class="hero-photo">
+      <Picture image={media.hero} sizes="100vw" priority />
     </div>
   </section>
 
@@ -367,6 +369,6 @@ const advicePreview = featuredAdvice(await allAdvice());
     </div>
   </section>
 
-  <Booking kind="svadba" title="Overte voľný termín" />
+  <Booking kind="svadba" title="Poslať nezáväzný dopyt" />
   <Location />
 </Base>

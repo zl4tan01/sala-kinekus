@@ -1,8 +1,5 @@
 ---
-import "@fontsource/manrope/400.css";
-import "@fontsource/manrope/600.css";
-import "@fontsource/fraunces/500.css";
-import "@fontsource/fraunces/600.css";
+import "../styles/fonts.css";
 import "../styles/global.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
@@ -58,6 +55,12 @@ const json = JSON.stringify(venueLd).replace(/</g, "\\u003c");
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="preload" href="/fonts/montserrat/montserrat-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/montserrat/montserrat-latin-ext-400-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/montserrat/montserrat-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/montserrat/montserrat-latin-ext-600-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/montserrat/montserrat-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/montserrat/montserrat-latin-ext-800-normal.woff2" as="font" type="font/woff2" crossorigin />
     <title>{title}</title>
     <meta name="description" content={description} />
     {noindex ? (
@@ -65,7 +68,7 @@ const json = JSON.stringify(venueLd).replace(/</g, "\\u003c");
     ) : (
       <link rel="canonical" href={canonical} />
     )}
-    <meta name="theme-color" content="#14110e" />
+    <meta name="theme-color" content="#F2BC21" />
     <meta property="og:type" content={ogType} />
     <meta property="og:locale" content="sk_SK" />
     <meta property="og:site_name" content={site.name} />
@@ -97,8 +100,8 @@ const json = JSON.stringify(venueLd).replace(/</g, "\\u003c");
       <button type="button" data-consent-ok>Rozumiem</button>
     </div>
     <div class="dock">
-      <a class="btn btn-dark" href={site.phoneHref}>Zavolať</a>
-      <a class="btn" href={bookingHref}>Overiť termín</a>
+      <a class="btn" href={site.phoneHref}>Zavolať</a>
+      <a class="btn" href={bookingHref}>Poslať nezáväzný dopyt</a>
     </div>
     <script>
       import "../scripts/site.ts";

@@ -98,16 +98,16 @@ $bad = sala_validate_inquiry(array_merge($base, ['email' => "a@b.sk\r\nBcc: evil
 check(isset($bad['errors']['email'], $bad['errors']['gdpr']), 'e-mail a súhlas sa kontrolujú');
 
 $past = sala_validate_inquiry(array_merge($base, ['dates' => '2020-01-01']), null, $today);
-check(isset($past['errors']['dates']), 'minulý deň neprejde');
+check($past['errors'] === [] && $past['data']['preferred'] === '2020-01-01', 'text termínu sa neporovnáva s kalendárom');
 
-$todayDate = sala_validate_inquiry(array_merge($base, ['dates' => $today]), null, $today);
-check(isset($todayDate['errors']['dates']), 'dnešný deň neprejde');
+$todayDate = sala_validate_inquiry(array_merge($base, ['dates' => 'jún 2027']), null, $today);
+check($todayDate['errors'] === [] && $todayDate['data']['preferred'] === 'jún 2027', 'voľný text termínu prejde');
 
 $optionalGuests = sala_validate_inquiry(array_merge($base, ['guests' => '', 'dates' => '28. 10. 2026']), null, $today);
 check(
     $optionalGuests['errors'] === []
         && $optionalGuests['data']['guests'] === null
-        && $optionalGuests['data']['dates'] === ['2026-10-28'],
+        && $optionalGuests['data']['preferred'] === '28. 10. 2026',
     'prázdny rozsah hostí a slovenský dátum prejdú'
 );
 
@@ -115,10 +115,12 @@ $rangeGuests = sala_validate_inquiry(array_merge($base, ['guests' => '100-150'])
 check($rangeGuests['errors'] === [] && $rangeGuests['data']['guests'] === '100-150', 'rozsah hostí prejde');
 
 $blocked = sala_validate_inquiry($base, ['2026-11-14'], $today);
-check(isset($blocked['errors']['dates']), 'obsadený deň neprejde');
+check($blocked['errors'] === [] && $blocked['data']['preferred'] === '2026-11-14', 'web neoveruje, či je deň obsadený');
 
-$unknown = sala_validate_inquiry($base, null, $today);
-check($unknown['errors'] === [], 'keď dostupnosť zlyhá, dátum sa neblokuje');
+$emptyDate = sala_validate_inquiry(array_merge($base, ['dates' => '  ']), null, $today);
+check(isset($emptyDate['errors']['dates']), 'prázdny termín neprejde');
+
+check(!is_file(dirname(__DIR__) . '/api/availability.php'), 'verejný endpoint dostupnosti neexistuje');
 
 $wrongKind = sala_validate_inquiry(array_merge($base, ['kind' => 'oslava', 'segment' => 'b2c']), [], $today);
 check(isset($wrongKind['errors']['kind']), 'neznámy druh neprejde');
@@ -131,7 +133,7 @@ $injectResult = sala_validate_inquiry($inject, [], $today);
 check($injectResult['data'] !== null && !str_contains($injectResult['data']['name'], "\n"), 'meno v hlavičke neskáče na nový riadok');
 
 $body = sala_inquiry_body($ok['data']);
-check(str_contains($body, 'NIE JE rezervovaný') && str_contains($body, 'Jana Nováková') && str_contains($body, 'Svadba'), 'mail má správny text');
+check(str_contains($body, 'NIE JE rezervovaný') && str_contains($body, 'Jana Nováková') && str_contains($body, 'Svadba') && str_contains($body, 'Preferovaný termín: 2026-11-14'), 'mail má správny text');
 
 $dir = sys_get_temp_dir() . '/sala-rl-' . getmypid();
 mkdir($dir);

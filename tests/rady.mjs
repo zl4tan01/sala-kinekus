@@ -169,7 +169,7 @@ for (const article of articles) {
   check(html.includes("25. 10. 2026") || html.includes(article.data.published.split("-").reverse().map((part) => String(Number(part))).join(". ").replace(/(\d+)\. (\d+)\. (\d+)/, (_, d, m, y) => `${Number(d)}. ${Number(m)}. ${y}`)), `${article.id} ukazuje dátum`);
   const minutes = html.match(/(\d+) min čítania/);
   check(Boolean(minutes) && Number(minutes[1]) >= 4, `${article.id} má čas čítania`);
-  check(html.includes('href="/#termin"') && html.includes("Overiť voľný termín"), `${article.id} má výzvu na termín`);
+  check(html.includes('href="/#termin"') && html.includes("Poslať nezáväzný dopyt"), `${article.id} má výzvu na termín`);
   check(html.includes('rel="canonical"'), `${article.id} má canonical`);
   check(html.includes('property="og:title"') && html.includes('property="og:description"') && html.includes('property="og:image"'), `${article.id} má Open Graph`);
   check(html.includes('property="og:type" content="article"'), `${article.id} má og:type article`);
@@ -227,7 +227,7 @@ function walk(dir, acc = []) {
   }
   return acc;
 }
-const banned = ["bezbariér", "nelimituje", "wa.me", "Mená dodávateľov", "zámerne nie sú", "Vlastnú kuchyňu v sále nemáme", "overené cateringové", "Cenu ovplyvňuje"];
+const banned = ["bezbariér", "nelimituje", "wa.me", "Mená dodávateľov", "zámerne nie sú", "Vlastnú kuchyňu v sále nemáme", "overené cateringové", "Cenu ovplyvňuje", "Overiť voľný termín", "Overiť termín", "availability.php", "Ďalší voľný termín", "posledné voľné"];
 const built = walk(dist).map((file) => ({ file, text: fs.readFileSync(file, "utf8") }));
 for (const phrase of banned) {
   const hits = built.filter((item) => item.text.includes(phrase)).map((item) => path.relative(dist, item.file));

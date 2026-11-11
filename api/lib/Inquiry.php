@@ -35,11 +35,12 @@ function sala_segment_for_kind(string $kind): ?string
 }
 
 /**
- * @param list<string>|null $occupied null = dostupnosť sa nepodarila načítať, dátum neblokujeme
+ * @param list<string>|null $occupied nepoužíva sa, web obsadenosť neukazuje ani neoveruje
  * @return array{errors:array<string,string>,data:?array<string,mixed>}
  */
 function sala_validate_inquiry(array $post, ?array $occupied, string $today): array
 {
+    unset($occupied, $today);
     $errors = [];
     $name = sala_one_line((string) ($post['name'] ?? ''), 120);
     $email = sala_clean_header((string) ($post['email'] ?? ''));
@@ -81,26 +82,9 @@ function sala_validate_inquiry(array $post, ?array $occupied, string $today): ar
         }
     }
 
-    $dates = sala_parse_dates((string) ($post['dates'] ?? ''));
-    if ($dates === []) {
-        $errors['dates'] = 'Vyberte deň v kalendári alebo napíšte dátum, napríklad 28. 10. 2026.';
-    } else {
-        $past = [];
-        $blocked = [];
-        foreach ($dates as $date) {
-            if ($date <= $today) {
-                $past[] = $date;
-            } elseif (is_array($occupied) && in_array($date, $occupied, true)) {
-                $blocked[] = $date;
-            }
-        }
-        if ($past !== []) {
-            $errors['dates'] = 'Dnešný deň a dni v minulosti sa vybrať nedajú.';
-        } elseif ($blocked !== []) {
-            $errors['dates'] = 'Niektorý z vybraných dní je už obsadený. Vyberte iný, alebo nám napíšte.';
-        } elseif (count($dates) > 14) {
-            $errors['dates'] = 'Označte najviac 14 dní. Pri dlhšom termíne nám napíšte.';
-        }
+    $preferred = sala_one_line((string) ($post['dates'] ?? ''), 200);
+    if (sala_len($preferred) < 3) {
+        $errors['dates'] = 'Napíšte preferovaný termín, napríklad 28. 10. 2026.';
     }
 
     if (sala_len($message) > 4000) {
@@ -123,7 +107,7 @@ function sala_validate_inquiry(array $post, ?array $occupied, string $today): ar
             'segment' => $segment,
             'kind' => $kind,
             'guests' => $guests,
-            'dates' => $dates,
+            'preferred' => $preferred,
             'message' => $message,
         ],
     ];
@@ -159,7 +143,7 @@ function sala_inquiry_body(array $data): string
     $labels = sala_kind_labels();
     $segment = $data['segment'] === 'b2b' ? 'Pre firmy' : 'Svadba alebo stužková';
     $kind = $labels[$data['kind']] ?? $data['kind'];
-    $dates = array_map('sala_format_sk_date', $data['dates']);
+    $preferred = (string) ($data['preferred'] ?? '');
     $ranges = sala_guest_ranges();
     $guestLabel = $data['guests'] === null || $data['guests'] === ''
         ? 'neuvádza'
@@ -168,7 +152,7 @@ function sala_inquiry_body(array $data): string
         'Nezáväzný dopyt z webu Sála Kinekus.',
         'Termín NIE JE rezervovaný. Potvrďte ho klientovi, až keď ho overíte.',
         '',
-        'Dátumy: ' . implode(', ', $dates),
+        'Preferovaný termín: ' . $preferred,
         'Typ: ' . $segment . ' — ' . $kind,
         'Odhad hostí: ' . $guestLabel,
         'Meno: ' . $data['name'],
@@ -190,9 +174,9 @@ function sala_send_inquiry(array $config, array $data): bool
         return false;
     }
 
-    $first = sala_format_sk_date($data['dates'][0]);
+    $when = sala_one_line((string) ($data['preferred'] ?? ''), 80);
     $kind = sala_kind_labels()[$data['kind']] ?? 'dopyt';
-    $subject = sala_clean_header('Dopyt na sálu: ' . $kind . ', ' . $first);
+    $subject = sala_clean_header('Dopyt na sálu: ' . $kind . ', ' . $when);
     $body = sala_inquiry_body($data);
     $reply = sala_clean_header($data['email']);
 
@@ -379,7 +363,7 @@ a{color:#7a5424}
 <main>
 <p>Nezáväzný dopyt</p>
 <h1>Dopyt sa neodoslal.</h1>
-<p>Text, ktorý ste napísali, ostal vo formulári. Súhlas treba znova označiť. <a href="/#termin">Späť na kalendár</a></p>
+<p>Text, ktorý ste napísali, ostal vo formulári. Súhlas treba znova označiť. <a href="/#termin">Späť na dopyt</a></p>
 <form action="/api/inquiry.php" method="post" aria-describedby="error-form"' . ($formError !== '' ? ' aria-invalid="true"' : '') . '>
 <p class="form-error" id="error-form"' . $formHidden . '>' . sala_h($formError) . '</p>
 <p class="hp" hidden><label>Webová stránka firmy <input name="company_url" tabindex="-1" autocomplete="off"></label></p>
@@ -387,7 +371,7 @@ a{color:#7a5424}
 <select id="field-kind" name="kind" required aria-describedby="error-kind"' . $parts['kind']['invalid'] . '>' . $kindOptions . '</select>
 </label>
 ' . $errorLine('kind') . '
-<label for="field-dates">Dátumy
+<label for="field-dates">Preferovaný termín
 <input id="field-dates" name="dates" required autocomplete="off" value="' . sala_h($values['dates']) . '" aria-describedby="error-dates"' . $parts['dates']['invalid'] . '>
 </label>
 ' . $errorLine('dates') . '

@@ -83,4 +83,4 @@ Spočítajte, či toalety stíhajú hosťom v prestávke medzi chodmi a či je k
 
 To, na čom ste sa zhodli ústne, nechajte zopakovať v e-maile. Platí deň, ktorý tím sály potvrdí, nie samotná návšteva.
 
-Do správy patria dátum, hodiny prístupu, na ktorých sa dohodnete, typ usporiadania a technika, ktorú budete používať. Patrí tam aj veta, že jedlo vozí cateringová firma. Cenovú ponuku vám pošleme osobitne. Dopyt cez kalendár termín nerezervuje. Kým potvrdenie nemáte, neoznamujte hosťom deň ako hotový. Ako si deň vybrať, je v texte o [rezervácii termínu](/rady/kedy-rezervovat-termin-svadby/).
+Do správy patria dátum, hodiny prístupu, na ktorých sa dohodnete, typ usporiadania a technika, ktorú budete používať. Patrí tam aj veta, že jedlo vozí cateringová firma. Cenovú ponuku vám pošleme osobitne. Odoslanie dopytu termín nerezervuje. Kým potvrdenie nemáte, neoznamujte hosťom deň ako hotový. Ako si deň vybrať, je v texte o [rezervácii termínu](/rady/kedy-rezervovat-termin-svadby/).

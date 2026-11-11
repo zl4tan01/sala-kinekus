@@ -39,6 +39,8 @@ Primárny kontakt je `+421 908 761 253` a `marketing@salazilina.sk`. Telefón `0
 
 Texty sú po slovensky. Fotografie pochádzajú z pôvodného webu a v repozitári sú už zmenšené do WebP a AVIF.
 
+Farby sú žltá `#F2BC21`, tmavá `#2C2C2B` a červenooranžová `#FC5502` len v hviezde loga. Písmo je Montserrat (náhrada za Proxima Nova), zásoba `Arial, Helvetica, sans-serif`. Súbory woff2 sú v `public/fonts/montserrat/`, vrátane latin-ext, váhy 400, 600 a 800. Licencia je SIL OFL v `public/fonts/montserrat/OFL.txt`. Písmo sa nenaťahuje z Google Fonts. Logo je v `public/brand/` a na svetlom aj tmavom podklade má rovnakú kresbu, mení sa len výplň.
+
 ## Čo nahrať na Websupport
 
 Na server ide **obsah priečinka `dist/`**, priamo do webového koreňa (tam, kde má byť `index.html`). Nie celý repozitár a nie `node_modules`.
@@ -51,7 +53,7 @@ npm run build
 
 Príkaz `npm run build` zloží HTML, CSS, obrázky aj `dist/api/` (PHP). Potom obsah `dist/` nahrajte cez FTP.
 
-Po nahratí na serveri **vytvorte** `api/config.php` podľa `api/config.example.php`. Súbor `config.php` sa do gitu nedáva a build ho do `dist/` nekopíruje. Priečinok `api/cache/` musí byť pre PHP zapisovateľný. PHP si tam ukladá dostupnosť na 15 minút a počítadlo odoslaní formulára. Ak priečinok zapisovateľný nie je, formulár dopyt neodošle a vráti „Dopyt sa teraz nepodarilo prijať. Zavolajte na +421 908 761 253.“ Limit sa v tom prípade nevypne potichu. Kalendár dostupnosti sa len nezapíše do cache a do logu servera pribudne správa. Stránka kalendár stále načíta.
+Po nahratí na serveri **vytvorte** `api/config.php` podľa `api/config.example.php`. Súbor `config.php` sa do gitu nedáva a build ho do `dist/` nekopíruje. Priečinok `api/cache/` musí byť pre PHP zapisovateľný. PHP si tam počíta odoslania formulára. Ak priečinok zapisovateľný nie je, formulár dopyt neodošle a vráti „Dopyt sa teraz nepodarilo prijať. Zavolajte na +421 908 761 253.“ Limit sa v tom prípade nevypne potichu.
 
 Lokálny náhľad hotového buildu:
 
@@ -59,43 +61,15 @@ Lokálny náhľad hotového buildu:
 php -S 127.0.0.1:8080 -t dist
 ```
 
-Bez `config.php` beží **ukážkový režim**: kalendár ukazuje vymyslené obsadené dni a na stránke je o tom veta. Formulár v ukážke e-mail neodošle, kým v konfigurácii nie je schránka.
+Bez `config.php` formulár e-mail neodošle, kým v konfigurácii nie je schránka. Web neukazuje, ktoré dni sú voľné.
 
-## Kalendár
+## Termíny
 
-Verejný endpoint je `GET /api/availability.php`. Prehliadač dostane len toto:
-
-```json
-{"occupied":["2026-11-07"],"updated":"2026-10-24T18:00:00+02:00"}
-```
-
-Žiadne názvy akcií, opisy ani účastníkov. Obsadený je deň, na ktorom leží **celodenná** udalosť. Viacdňová celodenná udalosť obsadí dni od začiatku vrátane po koniec bez posledného dňa (takto to dáva Google). Udalosť s časom deň neobsadzuje. Zrušená udalosť tiež nie. Dnešný deň a minulé dni sú v kalendári nedostupné. Počet hostí vo formulári je nepovinný rozsah.
-
-Keď sa kalendár nepodarí načítať, stránka napíše „Dostupnosť sa nepodarilo načítať, napíšte nám“ a formulár sa dá odoslať aj tak.
-
-Dá sa zapojiť jeden z dvoch zdrojov. V `config.php` nastavte `mode`.
-
-### Tajná adresa iCal (jednoduchšie)
-
-1. Otvorte Google Kalendár.
-2. Nájdite kalendár **Sála Žilina - Kinekus**.
-3. Nastavenia kalendára → **Integrovať kalendár** → **Tajná adresa vo formáte iCal**.
-4. Celú adresu vložte do `ical_url` a nastavte `'mode' => 'ical'`.
-
-Táto adresa je heslo ku kalendáru. Patrí len do `api/config.php` na serveri.
-
-### Service account (Google Calendar API)
-
-1. V Google Cloud vytvorte service account a stiahnite JSON kľúč.
-2. V kalendári **Sála Žilina - Kinekus** (ID `s5ehtdjuripasjnt59qrui0su4@group.calendar.google.com`) ho zdieľajte s e-mailom service accountu, oprávnenie na zobrazenie všetkých podrobností udalostí.
-3. JSON nahrajte mimo verejného webu, napríklad o priečinok vyššie, než je webový koreň.
-4. V `config.php`: `'mode' => 'google'` a `'google_service_account_json' => '/absolútna/cesta/k/klicu.json'`.
-
-Časové pásmo je `Europe/Prague`. Endpoint vracia približne 18 mesiacov dopredu a odpoveď si 15 minút pamätá. Keď Google práve neodpovie, ešte najviac 6 hodín vráti posledný úspešný zoznam.
+Návštevník na webe nevidí voľné ani obsadené dni. Do formulára napíše preferovaný termín voľným textom. Odoslanie dopytu deň nerezervuje. Či sa deň dá, povie tím sály v odpovedi. Endpoint `/api/availability.php` na webe nie je. Súbory `api/lib/Calendar.php` a `api/lib/Availability.php` ostanú v repozitári pre prípadné interné použitie, ale žiadna verejná stránka ani JSON ich nevolá.
 
 ## Formulár
 
-`POST /api/inquiry.php` pošle dopyt na adresu z `mail_to` (predvolene `marketing@salazilina.sk`). Do kalendára **nezapisuje**. V texte správy je, že termín nie je rezervovaný, kým ho tím nepotvrdí.
+`POST /api/inquiry.php` pošle dopyt na adresu z `mail_to` (predvolene `marketing@salazilina.sk`). Do žiadneho kalendára nezapisuje a obsadenosť neoveruje. V texte správy je, že termín nie je rezervovaný, kým ho tím nepotvrdí. Preferovaný termín je text od návštevníka.
 
 Na Websupporte musí byť `mail_from` existujúca schránka na doméne, inak `mail()` poštu odmietne. Rozumná voľba je `marketing@salazilina.sk`.
 
@@ -106,7 +80,7 @@ Formulár má skryté pole proti robotom (honeypot) a limit odoslaní z jednej I
 Tieto kroky build nerobí. Canonical adresy ostávajú `https://www.salazilina.sk`.
 
 - **Presmerovanie.** Starý web je indexovaný bez `www`. Pri spustení nastavte 301 z `http://` na `https://` a z `https://salazilina.sk` na `https://www.salazilina.sk`.
-- **iCal.** Režim `ical` neberie výnimky `RECURRENCE-ID` a týždenné opakovanie `BYDAY` rozbalí najviac 160 týždňov od začiatku série. Režim `google` (`singleEvents=true`) tieto výnimky berie. Ak v kalendári sú opakované celodenné rezervácie, použite `mode=google`, alebo ich zadávajte ako samostatné dni.
+- **Kalendár na webe nie je.** Voľné dni sa návštevníkom neukazujú. Ak by sa interný prehľad niekedy znova zapínal, režim `ical` neberie výnimky `RECURRENCE-ID` a týždenné `BYDAY` rozbalí najviac 160 týždňov od začiatku série. Režim `google` (`singleEvents=true`) tieto výnimky berie. Verejný web ho aj tak nesmie vystaviť.
 - **Právne údaje, ktoré musí doplniť majiteľ.** Na web ich nedávajte odhadom. Chýba:
   - IČO a zápis v registri (zákon č. 22/2004 Z. z. o elektronickom obchode)
   - právny základ spracúvania údajov z formulára
@@ -154,6 +128,6 @@ Skript zapíše `public/media/` a `src/data/media.json`.
 
 - `index.html` a podstránky (svadby, stužková, konferencie, catering, galéria, referencie, rady, kontakt). Adresa `/oslavy/` presmeruje na úvod.
 - `llms.txt` — krátky prehľad webu a odkazy na rady. `robots.txt` ostáva ako je (`Allow: /`, `Disallow: /api/`).
-- `api/availability.php`, `api/inquiry.php`, `api/reviews.php`, `api/config.php`
+- `api/inquiry.php`, `api/reviews.php`, `api/config.php`. Endpoint dostupnosti na webe nie je.
 - `content/google-reviews.json` a `content/pricing.json` (zvonku zakázané)
 - `sitemap-index.xml`, `robots.txt`

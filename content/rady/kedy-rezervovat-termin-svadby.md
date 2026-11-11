@@ -14,14 +14,14 @@ related:
 summary:
   - "Deň si páry zvyčajne vyberajú niekoľko mesiacov dopredu. Nie je to lehota, ktorú by sála vyžadovala."
   - "Soboty v teplejších mesiacoch bývajú obsadenejšie. Všedný deň býva voľnejší, hostia však riešia prácu."
-  - "Dopyt ani klik v kalendári termín nerezervuje. Deň platí, až keď ho tím sály potvrdí."
+  - "Odoslanie dopytu termín nerezervuje. Deň platí, až keď ho tím sály potvrdí."
 faq:
   - q: "Ako dlho dopredu máme termín riešiť?"
-    a: "Orientačne niekoľko mesiacov až zhruba rok. Nie je to podmienka sály. Voľný deň sa dá nájsť aj neskôr a obsadený deň ostane obsadený, aj keď sa pýtate skoro."
+    a: "Orientačne niekoľko mesiacov až zhruba rok. Nie je to podmienka sály. Deň viete napísať aj neskôr. Či sa dá, povie vám tím sály."
   - q: "Rezervuje odoslanie formulára náš deň?"
-    a: "Nie. Formulár je nezáväzný dopyt. Kalendár ukazuje dni, na ktoré už siaha celodenná akcia. Termín platí až po potvrdení tímom sály."
+    a: "Nie. Formulár je nezáväzný dopyt. Web neukazuje, ktoré dni sú voľné. Termín platí až po potvrdení tímom sály."
   - q: "Čo ak je vysnívaná sobota obsadená?"
-    a: "Pozrite blízky piatok, nedeľu alebo inú sobotu a napíšte, ktorý deň vám sedí. Dopyt na obsadený deň ho neuvoľní a sám od seba vás nezapíše do poradia."
+    a: "Napíšte do dopytu aj blízky piatok, nedeľu alebo inú sobotu. Či sa deň dá, povie vám tím sály. Dopyt vás sám od seba nezapíše do poradia."
   - q: "Kedy vás zastihneme kvôli obhliadke?"
     a: "Administratíva je v pracovných dňoch od 7:00 do 15:30. Samotná svadba sa koná podľa programu, na ktorom sa dohodnete, nie len v týchto hodinách."
 ---
@@ -30,7 +30,7 @@ faq:
 
 Orientačne si páry vyberajú deň niekoľko mesiacov až zhruba rok dopredu. Nie je to lehota Sály Kinekus a kratší čas neznamená, že deň nie je voľný.
 
-Najprv si povedzte, koho voláte a v akom ročnom období chcete svadbu mať. Potom sa pozrite do kalendára na webe. Farba dňa ukazuje, či naň už siaha celodenná akcia. Až potom posielate dopyt. Obrad v kostole alebo na úrade na termín nadväzuje, preto deň porovnajte aj s miestom obradu, nie len so sálou.
+Najprv si povedzte, koho voláte a v akom ročnom období chcete svadbu mať. Preferovaný deň potom napíšte do dopytu. Web neukazuje, ktoré dni sú voľné. Obrad v kostole alebo na úrade na termín nadväzuje, preto deň porovnajte aj s miestom obradu, nie len so sálou.
 
 Ak máte hostí z väčšej diaľky, dajte im vedieť až keď deň potvrdí tím sály. Skoršie oznámenie potom ťažko beriete späť. Ako si sálu pozrieť, je v texte [dvanástich otázok na obhliadku](/rady/ako-vybrat-svadobnu-salu/). Priestor svadieb je na stránke [svadieb](/svadby/).
 
@@ -40,11 +40,11 @@ Zvyčajne sú vyhľadávanejšie teplé mesiace a soboty. Zima a všedný deň b
 
 | Obdobie | Čo z toho zvyčajne vyplýva |
 | --- | --- |
-| Sobota od mája do septembra | Dopyt býva vyšší, deň si overte skôr |
+| Sobota od mája do septembra | Záujem býva vyšší, deň napíšte do dopytu |
 | Piatok a nedeľa | Deň býva dosiahnuteľnejší, hostia riešia prácu okolo víkendu |
 | Všedný deň mimo teplých mesiacov | Termín býva voľnejší, časť hostí si berie voľno |
 
-Teplý deň na terasách a fotenie vonku lákajú viac párov naraz. Preto sa soboty v tomto období míňajú skôr. Január alebo utorok v novembri taký tlak zvyčajne nemajú. Ak vám na ročnom období nezáleží, máte širší výber. Ak trváte na konkrétnej júnovej sobote, overte si ju medzi prvými krokmi, nie až po výbere šiat.
+Teplý deň na terasách a fotenie vonku lákajú viac párov naraz. Preto o soboty v tomto období býva väčší záujem. Január alebo utorok v novembri taký tlak zvyčajne nemajú. Ak vám na ročnom období nezáleží, máte širší výber. Ak trváte na konkrétnej júnovej sobote, napíšte ju do dopytu medzi prvými krokmi, nie až po výbere šiat.
 
 Sála má balkón a terasu priamo zo sály. Na obhliadke uvidíte, či vám vonkajší priestor v danom mesiaci dáva zmysel. December vyzerá inak než jún a fotka z inej sezóny to nenahradí.
 
@@ -54,11 +54,11 @@ Sobota je pre hostí jednoduchšia, lebo väčšina nepracuje. Piatok a nedeľa 
 
 Piatok znamená, že časť ľudí odchádza z práce skôr alebo si berie celý deň. Nedeľa býva pokojnejšia na príjazd, v pondelok však hostia znova vstávajú do práce, preto sa program zvyčajne neťahá tak dlho ako v sobotu. To nie je pokyn sály, len ohľad na hostí. Hodiny akcie si dohodnete so sálou pri potvrdení termínu.
 
-Všedný deň sa hodí, keď je hostí menej a sú to ľudia, ktorí si vedia zobrať voľno. Opýtajte sa najbližšej rodiny skôr, než deň odošlete ako dopyt. Ak väčšina povie, že v utorok nepríde, voľný termín vám nepomôže.
+Všedný deň sa hodí, keď je hostí menej a sú to ľudia, ktorí si vedia zobrať voľno. Opýtajte sa najbližšej rodiny skôr, než deň odošlete ako dopyt. Ak väčšina povie, že v utorok nepríde, samotný deň vám nepomôže.
 
 ## Čo robiť, keď je vysnívaný deň obsadený?
 
-Vyberte náhradný deň v kalendári a napíšte ho do dopytu. Obsadený deň sa správou neuvoľní.
+Napíšte do dopytu aj náhradný deň. Či sa pôvodný deň dá, povie vám tím sály.
 
 Pozrite piatok a nedeľu v tom istom víkende, potom blízke soboty a až potom iný mesiac. Do správy napíšte poradie: ktorý deň chcete najviac a ktoré dni sú náhradné. Kým tím sály jeden z nich nepotvrdí, žiadny z nich nie je váš.
 
@@ -66,9 +66,9 @@ Nemáme na webe automatické poradie čakateľov. Ak vám niekto sľúbi, že v�
 
 ## Rezervuje dopyt termín svadby?
 
-Nie. Kliknutie v kalendári odošle nezáväzný dopyt. Deň platí, až keď ho tím sály potvrdí.
+Nie. Odoslanie formulára je nezáväzný dopyt. Deň platí, až keď ho tím sály potvrdí.
 
-Kalendár ukazuje dni, na ktoré už siaha celodenná akcia. Voľný deň v mriežke teda nie je rezervácia na vaše meno. Po odoslaní formulára sa deň do kalendára nezapíše, kým termín nepotvrdíme. Kým potvrdenie nemáte, obrad ani oznámenia nefixujte na tento dátum.
+Web neukazuje, ktoré dni sú voľné. Samotná správa deň nerezervuje. Kým potvrdenie nemáte, obrad ani oznámenia nefixujte na tento dátum.
 
 Do dopytu napíšte typ akcie, orientačný počet hostí a či chcete obhliadku. Čím je správa konkrétnejšia, tým skôr vieme povedať, či deň sedí na program. Lehotu odpovede tu nesľubujeme. Administratíva je v pracovných dňoch od 7:00 do 15:30. Telefón je +421 908 761 253.
 

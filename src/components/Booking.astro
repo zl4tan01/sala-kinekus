@@ -9,8 +9,8 @@ interface Props {
 const {
   segment = "b2c",
   kind = "svadba",
-  title = "Overte voľný termín",
-  lead = "Obsadené sú dni, na ktoré už siaha celodenná akcia. Kliknutie deň nerezervuje. Pošlete nezáväzný dopyt na svadbu, stužkovú alebo firemnú akciu a termín potvrdíme my.",
+  title = "Poslať nezáväzný dopyt",
+  lead = "Napíšte preferovaný termín a o akciu ide. Ozveme sa vám. Odoslanie formulára termín nerezervuje.",
 } = Astro.props;
 const selected = kinds.find((item) => item.id === kind) ?? kinds.find((item) => item.segment === segment) ?? kinds[0];
 ---
@@ -23,16 +23,6 @@ const selected = kinds.find((item) => item.id === kind) ?? kinds.find((item) => 
       <p class="lead">{lead}</p>
     </div>
     <div class="booking-grid">
-      <div>
-        <div class="calendar" data-calendar data-endpoint="/api/availability.php" aria-live="polite"></div>
-        <p class="note" data-cal-note hidden></p>
-        <p class="form-error" data-cal-error hidden>
-          Dostupnosť sa nepodarilo načítať, napíšte nám. Formulár môžete vyplniť aj tak.
-        </p>
-        <p class="next-free" data-next-free hidden></p>
-        <ul class="chips" data-selected></ul>
-      </div>
-      <div>
         <div class="thanks" data-thanks tabindex="-1" hidden>
           <h3>Ďakujeme, dopyt máme.</h3>
           <p>
@@ -56,8 +46,8 @@ const selected = kinds.find((item) => item.id === kind) ?? kinds.find((item) => 
             </select>
           </label>
           <p class="field-error" id="error-kind" data-error-for="kind" hidden></p>
-          <label for="field-dates">Dátumy
-            <input id="field-dates" name="dates" required autocomplete="off" placeholder="Vyberte deň v kalendári alebo napíšte dátum" aria-describedby="error-dates" />
+          <label for="field-dates">Preferovaný termín
+            <input id="field-dates" name="dates" required autocomplete="off" placeholder="Napríklad 28. 10. 2026 alebo jún 2027" aria-describedby="error-dates" />
           </label>
           <p class="field-error" id="error-dates" data-error-for="dates" hidden></p>
           <label for="field-guests">Počet hostí <span class="optional">(nepovinné)</span>
@@ -96,10 +86,9 @@ const selected = kinds.find((item) => item.id === kind) ?? kinds.find((item) => 
             </span>
           </label>
           <p class="field-error" id="error-gdpr" data-error-for="gdpr" hidden></p>
-          <button class="btn btn-dark" type="submit">Odoslať nezáväzný dopyt</button>
-          <p class="note">Ozveme sa vám. Dopyt sa nezapíše do kalendára, kým termín nepotvrdíme.</p>
+          <button class="btn" type="submit">Poslať nezáväzný dopyt</button>
+          <p class="note">Ozveme sa vám. Dopyt termín nerezervuje, kým ho nepotvrdíme.</p>
         </form>
-      </div>
     </div>
   </div>
 </section>

@@ -57,7 +57,7 @@ export const steps = [
   {
     n: "01",
     title: "Dopyt",
-    text: "Označíte voľný deň a napíšete, či chystáte svadbu, stužkovú alebo firemnú akciu. Dopyt je nezáväzný — deň sa tým ešte nerezervuje.",
+    text: "Napíšete preferovaný deň a či chystáte svadbu, stužkovú alebo firemnú akciu. Dopyt je nezáväzný — deň sa tým ešte nerezervuje.",
   },
   {
     n: "02",
@@ -72,7 +72,7 @@ export const steps = [
   {
     n: "04",
     title: "Realizácia",
-    text: "V deň akcie je sála pripravená podľa dohody. Termín platí, až keď ho potvrdíme — nie kliknutím v kalendári.",
+    text: "V deň akcie je sála pripravená podľa dohody. Termín platí, až keď ho potvrdíme.",
   },
 ];
 
@@ -105,8 +105,8 @@ export const faqs = [
     a: "Kapacita je 50 až 250 osôb. Presné usadenie závisí od stolov, pódia a cateringu.",
   },
   {
-    q: "Keď je deň v kalendári voľný, mám ho rezervovaný?",
-    a: "Nie. Kalendár ukazuje dni, na ktoré už siaha celodenná akcia. Kliknutím posielate nezáväzný dopyt. Termín svadby, stužkovej alebo firemnej akcie potvrdí tím sály a až potom platí.",
+    q: "Rezervuje odoslanie dopytu náš deň?",
+    a: "Nie. Formulár je nezáväzný dopyt. Termín svadby, stužkovej alebo firemnej akcie potvrdí tím sály a až potom platí.",
   },
   {
     q: "Ako prebieha príprava stužkovej?",

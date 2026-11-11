@@ -2,7 +2,6 @@
 declare(strict_types=1);
 
 require_once __DIR__ . '/bootstrap.php';
-require_once __DIR__ . '/lib/Availability.php';
 require_once __DIR__ . '/lib/Inquiry.php';
 
 if (($_SERVER['REQUEST_METHOD'] ?? 'GET') !== 'POST') {
@@ -36,9 +35,7 @@ if ($allowed === false) {
     ], 429);
 }
 
-$availability = sala_availability($config);
-$occupied = is_array($availability['occupied']) ? $availability['occupied'] : null;
-$result = sala_validate_inquiry($post, $occupied, sala_today());
+$result = sala_validate_inquiry($post, null, sala_today());
 
 if ($result['errors'] !== [] || $result['data'] === null) {
     sala_respond(['ok' => false, 'errors' => $result['errors']], 422);
