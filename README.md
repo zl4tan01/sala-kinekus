@@ -108,7 +108,7 @@ Keď doplníte `google_places_api_key`, tento súbor sa obíde a recenzie sa na�
 
 ## Mapa
 
-Sekcia „Kde nás nájdete“ je na úvode aj na kontakte. Náhľad nie je obrázok zvonku. Je to lokálna karta s adresou a tlačidlom „Zobraziť mapu“. Vložená Google mapa (`output=embed`) sa načíta až po tomto kliknutí. Dovtedy prehliadač Google nevolá. „Navigovať“ ostáva a ide na `https://maps.app.goo.gl/nT8hn4QGFAZ5ZP8K8`. Na serveri nie je Content-Security-Policy; keby ste ju doplnili, `frame-src` musí povoliť `https://www.google.com/maps` a tiež `https://tourmkr.com` pre prehliadku.
+Sekcia „Kde nás nájdete“ je na úvode aj na kontakte. Mapa Google s označením Sála Žilina sa načíta hneď, bez kľúča, `loading="lazy"`. „Navigovať“ ide na `https://maps.app.goo.gl/nT8hn4QGFAZ5ZP8K8`. Na serveri nie je Content-Security-Policy; keby ste ju doplnili, `frame-src` musí povoliť `https://www.google.com/maps` a tiež `https://tourmkr.com` pre prehliadku.
 
 ## Testy
 

@@ -1,6 +1,6 @@
 ---
 import { site } from "../data/site";
-const mapEmbed = `https://www.google.com/maps?q=${site.geo.lat},${site.geo.lng}&hl=sk&z=16&output=embed`;
+const mapEmbed = "https://www.google.com/maps?q=S%C3%A1la+%C5%BDilina,+Rosinsk%C3%A1+cesta+13,+%C5%BDilina&ll=49.2013982,18.7699948&z=16&hl=sk&output=embed";
 ---
 
 <section class="section" id="miesto">
@@ -23,26 +23,15 @@ const mapEmbed = `https://www.google.com/maps?q=${site.geo.lat},${site.geo.lng}&
       <p>Ozveme sa vám.</p>
       <p style="margin-top:0.8rem"><a href={site.maps} rel="noopener noreferrer">Profil na Google</a></p>
     </div>
-    <div class="map-stage" data-map>
-      <div class="map-poster" data-map-poster>
-        <svg class="map-pin" viewBox="0 0 24 24" aria-hidden="true">
-          <path fill="currentColor" d="M12 2.2a7.2 7.2 0 0 0-7.2 7.2c0 5.4 7.2 12.4 7.2 12.4s7.2-7 7.2-12.4A7.2 7.2 0 0 0 12 2.2zm0 9.7a2.5 2.5 0 1 1 0-5 2.5 2.5 0 0 1 0 5z"></path>
-        </svg>
-        <p>{site.street}, {site.city}</p>
-      </div>
+    <div class="map-stage">
       <iframe
-        data-map-frame
-        hidden
-        tabindex="-1"
-        title="Mapa, Rosinská cesta 13, Žilina"
+        title="Mapa: Sála Žilina, Rosinská cesta 13, Žilina"
+        src={mapEmbed}
         loading="lazy"
         referrerpolicy="strict-origin-when-cross-origin"
-        data-src={mapEmbed}
+        allowfullscreen
       ></iframe>
-      <div class="map-actions">
-        <button class="btn" type="button" data-map-open>Zobraziť mapu</button>
-        <a class="btn btn-dark" href={site.directions} rel="noopener noreferrer">Navigovať</a>
-      </div>
+      <a class="btn" href={site.directions} rel="noopener noreferrer">Navigovať</a>
     </div>
   </div>
 </section>
