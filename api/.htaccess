@@ -1,0 +1,9 @@
+<Files "config.php">
+    Require all denied
+</Files>
+<Files "config.example.php">
+    Require all denied
+</Files>
+<Files "bootstrap.php">
+    Require all denied
+</Files>

@@ -1,0 +1,27 @@
+---
+import Picture from "./Picture.astro";
+import { adviceHref, findMedia, readingMinutes, type AdviceEntry } from "../lib/advice";
+
+interface Props {
+  articles: AdviceEntry[];
+}
+const { articles } = Astro.props;
+---
+
+<ul class="advice-grid">
+  {articles.map((article) => {
+    const image = findMedia(article.data.image);
+    return (
+      <li>
+        <a class="advice-card" href={adviceHref(article.id)}>
+          <Picture image={image} sizes="(min-width: 980px) 24rem, 100vw" />
+          <span class="advice-card-body">
+            <strong>{article.data.title}</strong>
+            <span>{article.data.description}</span>
+            <em>{readingMinutes(article)} min čítania</em>
+          </span>
+        </a>
+      </li>
+    );
+  })}
+</ul>

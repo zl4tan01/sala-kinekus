@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 800">
+  <rect width="800" height="800" fill="#F2BC21"/>
+  <g fill="#2C2C2B" fill-rule="evenodd" transform="translate(166.4 66) scale(0.958)">
+    <path d="M158 111H653V779H158Z M208 161V729H603V161Z"/>
+    <path d="M246 197H563V400L514 373V247H295V306L604 477V534L246 335Z"/>
+    <path d="M208 365L566 562V696H248V496L297 523V647H516V592L208 422Z"/>
+  </g>
+</svg>

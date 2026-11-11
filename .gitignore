@@ -1,0 +1,9 @@
+node_modules/
+dist/
+dist-preview/
+.preview-pack/
+api/config.php
+api/cache/*.json
+.DS_Store
+*.log
+.astro/

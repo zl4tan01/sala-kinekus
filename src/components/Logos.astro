@@ -1,0 +1,11 @@
+---
+import media from "../data/media.json";
+---
+
+<ul class="logo-grid">
+  {media.logos.map((logo) => (
+    <li>
+      <img src={logo.src} alt={logo.name} width={logo.width} height={logo.height} loading="lazy" />
+    </li>
+  ))}
+</ul>
