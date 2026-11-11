@@ -4,6 +4,7 @@ import "../styles/global.css";
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
 import { site } from "../data/site";
+import { url } from "../lib/base";
 
 interface Props {
   title: string;
@@ -15,8 +16,12 @@ interface Props {
   noindex?: boolean;
 }
 const { title, description, bookingHref = "/#termin", image, ogType = "website", jsonLd = [], noindex = false } = Astro.props;
-const canonical = new URL(Astro.url.pathname, site.url).toString();
-const imageUrl = new URL(image ?? "/og.jpg", site.url).toString();
+const previewNoindex = import.meta.env.SITE_NOINDEX === "1";
+const hideFromIndex = noindex || previewNoindex;
+const origin = Astro.site ?? site.url;
+const canonical = new URL(Astro.url.pathname, origin).toString();
+const imageUrl = new URL(url(image ?? "/og.jpg"), origin).toString();
+const bookingLink = url(bookingHref);
 const venueLd = {
   "@context": "https://schema.org",
   "@type": ["EventVenue", "LocalBusiness"],
@@ -55,19 +60,16 @@ const json = JSON.stringify(venueLd).replace(/</g, "\\u003c");
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="preload" href="/fonts/montserrat/montserrat-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/montserrat/montserrat-latin-ext-400-normal.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/montserrat/montserrat-latin-600-normal.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/montserrat/montserrat-latin-ext-600-normal.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/montserrat/montserrat-latin-800-normal.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/fonts/montserrat/montserrat-latin-ext-800-normal.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={url("/fonts/montserrat/montserrat-latin-400-normal.woff2")} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={url("/fonts/montserrat/montserrat-latin-ext-400-normal.woff2")} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={url("/fonts/montserrat/montserrat-latin-600-normal.woff2")} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={url("/fonts/montserrat/montserrat-latin-ext-600-normal.woff2")} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={url("/fonts/montserrat/montserrat-latin-800-normal.woff2")} as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href={url("/fonts/montserrat/montserrat-latin-ext-800-normal.woff2")} as="font" type="font/woff2" crossorigin />
     <title>{title}</title>
     <meta name="description" content={description} />
-    {noindex ? (
-      <meta name="robots" content="noindex" />
-    ) : (
-      <link rel="canonical" href={canonical} />
-    )}
+    {hideFromIndex ? <meta name="robots" content="noindex" /> : null}
+    {noindex ? null : <link rel="canonical" href={canonical} />}
     <meta name="theme-color" content="#F2BC21" />
     <meta property="og:type" content={ogType} />
     <meta property="og:locale" content="sk_SK" />
@@ -80,8 +82,8 @@ const json = JSON.stringify(venueLd).replace(/</g, "\\u003c");
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={imageUrl} />
-    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="icon" href={url("/favicon-32.png")} type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href={url("/apple-touch-icon.png")} />
     <script type="application/ld+json" set:html={json} />
     {jsonLd.map((block) => (
       <script type="application/ld+json" set:html={JSON.stringify(block).replace(/</g, "\\u003c")} />
@@ -89,19 +91,19 @@ const json = JSON.stringify(venueLd).replace(/</g, "\\u003c");
   </head>
   <body>
     <a class="skip" href="#obsah">Preskočiť na obsah</a>
-    <Header bookingHref={bookingHref} />
+    <Header bookingHref={bookingLink} />
     <main id="obsah">
       <slot />
     </main>
     <Footer />
     <div class="consent" data-consent hidden>
       <p>Analytické cookies nepoužívame.</p>
-      <a href="/ochrana-udajov/">Ochrana údajov</a>
+      <a href={url("/ochrana-udajov/")}>Ochrana údajov</a>
       <button type="button" data-consent-ok>Rozumiem</button>
     </div>
     <div class="dock">
       <a class="btn" href={site.phoneHref}>Zavolať</a>
-      <a class="btn" href={bookingHref}>Poslať nezáväzný dopyt</a>
+      <a class="btn" href={bookingLink}>Poslať nezáväzný dopyt</a>
     </div>
     <script>
       import "../scripts/site.ts";

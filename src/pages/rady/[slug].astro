@@ -5,6 +5,7 @@ import Picture from "../../components/Picture.astro";
 import AdviceCards from "../../components/AdviceCards.astro";
 import { adviceHref, allAdvice, findMedia, formatSkDate, readingMinutes, relatedAdvice } from "../../lib/advice";
 import { site } from "../../data/site";
+import { absolute, url } from "../../lib/base";
 
 export async function getStaticPaths() {
   const articles = await allAdvice();
@@ -18,7 +19,8 @@ const { article, articles } = Astro.props;
 const { Content } = await render(article);
 const image = findMedia(article.data.image);
 const imagePath = image.webp.at(-1)?.src ?? "/og.jpg";
-const canonical = new URL(adviceHref(article.id), site.url).toString();
+const origin = Astro.site ?? site.url;
+const canonical = absolute(adviceHref(article.id), origin);
 const minutes = readingMinutes(article);
 const related = relatedAdvice(articles, article);
 const faqLd = {
@@ -40,15 +42,15 @@ const articleLd = {
   author: { "@type": "Organization", name: "Sála Kinekus", url: site.url },
   publisher: { "@type": "Organization", name: "Sála Kinekus", url: site.url },
   mainEntityOfPage: canonical,
-  image: new URL(imagePath, site.url).toString(),
+  image: absolute(imagePath, origin),
   inLanguage: "sk",
 };
 const crumbsLd = {
   "@context": "https://schema.org",
   "@type": "BreadcrumbList",
   itemListElement: [
-    { "@type": "ListItem", position: 1, name: "Úvod", item: new URL("/", site.url).toString() },
-    { "@type": "ListItem", position: 2, name: "Rady", item: new URL("/rady/", site.url).toString() },
+    { "@type": "ListItem", position: 1, name: "Úvod", item: absolute("/", origin) },
+    { "@type": "ListItem", position: 2, name: "Rady", item: absolute("/rady/", origin) },
     { "@type": "ListItem", position: 3, name: article.data.title, item: canonical },
   ],
 };
@@ -65,9 +67,9 @@ const crumbsLd = {
     <header class="sub-hero">
       <div class="wrap">
         <nav class="crumbs" aria-label="Drobečková navigácia">
-          <a href="/">Úvod</a>
+          <a href={url("/")}>Úvod</a>
           <span aria-hidden="true">/</span>
-          <a href="/rady/">Rady</a>
+          <a href={url("/rady/")}>Rady</a>
           <span aria-hidden="true">/</span>
           <span>{article.data.title}</span>
         </nav>
@@ -102,7 +104,7 @@ const crumbsLd = {
           ))}
         </section>
         <p class="article-cta">
-          <a class="btn" href="/#termin">Poslať nezáväzný dopyt</a>
+          <a class="btn" href={url("/#termin")}>Poslať nezáväzný dopyt</a>
         </p>
         <p class="note">Dopyt termín nerezervuje. Deň platí, až keď ho tím sály potvrdí.</p>
         {related.length > 0 && (

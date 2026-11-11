@@ -1,3 +1,5 @@
+import { url } from "../lib/base";
+
 function gridColumns(count: number): number {
   if (count <= 1) return 1;
   const options = [3, 2, 4, 5];
@@ -256,7 +258,7 @@ function setupReviews(): void {
   const sectionBlocks = [...document.querySelectorAll<HTMLElement>("[data-review-section]")];
   if (!hero && !section && formQuotes.length === 0 && sectionBlocks.length === 0) return;
 
-  fetch("/api/reviews.php", { headers: { Accept: "application/json" } })
+  fetch(url("/api/reviews.php"), { headers: { Accept: "application/json" } })
     .then(async (response) => {
       if (!response.ok) return;
       const data = (await response.json()) as {

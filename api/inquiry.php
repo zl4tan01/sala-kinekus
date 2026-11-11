@@ -66,7 +66,7 @@ function sala_respond(array $payload, int $code = 200): void
     }
 
     if (!empty($payload['ok'])) {
-        header('Location: /?odoslane=1#termin', true, 303);
+        header('Location: ' . sala_web_base() . '?odoslane=1#termin', true, 303);
         exit;
     }
 

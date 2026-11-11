@@ -1,5 +1,6 @@
 ---
 import { kinekusLinks, nav, site } from "../data/site";
+import { url } from "../lib/base";
 import Logo from "./Logo.astro";
 const year = 2026;
 ---
@@ -7,7 +8,7 @@ const year = 2026;
 <footer class="footer">
   <div class="wrap footer-grid">
     <div>
-      <Logo variant="on-dark" />
+      <p class="logo-badge"><Logo /></p>
       <h2>Sála Kinekus</h2>
       <p>
         {site.legalName}<br />
@@ -26,10 +27,10 @@ const year = 2026;
     <div>
       <h2>Na webe</h2>
       <ul>
-        <li><a href="/">Úvod</a></li>
-        {nav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
-        <li><a href="/catering/">Catering</a></li>
-        <li><a href="/ochrana-udajov/">Ochrana údajov</a></li>
+        <li><a href={url("/")}>Úvod</a></li>
+        {nav.map((item) => <li><a href={url(item.href)}>{item.label}</a></li>)}
+        <li><a href={url("/catering/")}>Catering</a></li>
+        <li><a href={url("/ochrana-udajov/")}>Ochrana údajov</a></li>
       </ul>
     </div>
     <div>

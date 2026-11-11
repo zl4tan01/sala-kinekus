@@ -3,11 +3,13 @@ import Base from "../../layouts/Base.astro";
 import AdviceCards from "../../components/AdviceCards.astro";
 import { adviceHref, allAdvice, findMedia } from "../../lib/advice";
 import { site } from "../../data/site";
+import { absolute, url } from "../../lib/base";
 
 const articles = await allAdvice();
 const title = "Rady pred akciou | Sála Kinekus";
 const description = "Praktické rady pred svadbou, stužkovou a firemnou akciou: obhliadka sály, termín, rozloženie, harmonogram, catering a technika.";
-const canonical = new URL("/rady/", site.url).toString();
+const origin = Astro.site ?? site.url;
+const canonical = absolute("/rady/", origin);
 const jsonLd = [
   {
     "@context": "https://schema.org",
@@ -22,8 +24,8 @@ const jsonLd = [
         "@type": "ListItem",
         position: index + 1,
         name: article.data.title,
-        url: new URL(adviceHref(article.id), site.url).toString(),
-        image: new URL(findMedia(article.data.image).webp.at(-1)?.src ?? "/og.jpg", site.url).toString(),
+        url: absolute(adviceHref(article.id), origin),
+        image: absolute(findMedia(article.data.image).webp.at(-1)?.src ?? "/og.jpg", origin),
       })),
     },
   },
@@ -31,7 +33,7 @@ const jsonLd = [
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      { "@type": "ListItem", position: 1, name: "Úvod", item: site.url },
+      { "@type": "ListItem", position: 1, name: "Úvod", item: absolute("/", origin) },
       { "@type": "ListItem", position: 2, name: "Rady", item: canonical },
     ],
   },
@@ -42,7 +44,7 @@ const jsonLd = [
   <header class="sub-hero page-rady">
     <div class="wrap">
       <nav class="crumbs" aria-label="Drobečková navigácia">
-        <a href="/">Úvod</a>
+        <a href={url("/")}>Úvod</a>
         <span aria-hidden="true">/</span>
         <span>Rady</span>
       </nav>

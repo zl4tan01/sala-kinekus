@@ -363,8 +363,8 @@ a{color:#7a5424}
 <main>
 <p>Nezáväzný dopyt</p>
 <h1>Dopyt sa neodoslal.</h1>
-<p>Text, ktorý ste napísali, ostal vo formulári. Súhlas treba znova označiť. <a href="/#termin">Späť na dopyt</a></p>
-<form action="/api/inquiry.php" method="post" aria-describedby="error-form"' . ($formError !== '' ? ' aria-invalid="true"' : '') . '>
+<p>Text, ktorý ste napísali, ostal vo formulári. Súhlas treba znova označiť. <a href="' . sala_h(sala_web_base() . '#termin') . '">Späť na dopyt</a></p>
+<form action="' . sala_h(sala_web_base() . 'api/inquiry.php') . '" method="post" aria-describedby="error-form"' . ($formError !== '' ? ' aria-invalid="true"' : '') . '>
 <p class="form-error" id="error-form"' . $formHidden . '>' . sala_h($formError) . '</p>
 <p class="hp" hidden><label>Webová stránka firmy <input name="company_url" tabindex="-1" autocomplete="off"></label></p>
 <label for="field-kind">Druh podujatia

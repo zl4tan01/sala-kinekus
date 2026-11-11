@@ -25,10 +25,7 @@ function sala_config(): array
         'google_reviews_file' => '',
     ];
 
-    $explicit = getenv('SALAK_CONFIG');
-    $path = is_string($explicit) && $explicit !== ''
-        ? $explicit
-        : __DIR__ . '/config.php';
+    $path = sala_config_path();
 
     $file = [];
     if (is_file($path)) {
@@ -47,6 +44,32 @@ function sala_config(): array
     date_default_timezone_set($tz);
 
     return $config;
+}
+
+function sala_config_path(): string
+{
+    $explicit = getenv('SALAK_CONFIG');
+    if (is_string($explicit) && $explicit !== '') {
+        return $explicit;
+    }
+    $local = __DIR__ . '/config.php';
+    if (is_file($local)) {
+        return $local;
+    }
+    $root = dirname(__DIR__, 2) . '/api/config.php';
+    if (is_file($root)) {
+        return $root;
+    }
+    return $local;
+}
+
+function sala_web_base(): string
+{
+    $script = str_replace('\\', '/', (string) ($_SERVER['SCRIPT_NAME'] ?? ''));
+    if (preg_match('#^(.*)/api/[^/]+\.php$#', $script, $match) === 1) {
+        return ($match[1] === '' ? '' : $match[1]) . '/';
+    }
+    return '/';
 }
 
 function sala_cache_dir(): string

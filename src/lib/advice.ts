@@ -1,5 +1,6 @@
 import { getCollection, type CollectionEntry } from "astro:content";
 import media from "../data/media.json";
+import { url } from "./base";
 
 export type AdviceEntry = CollectionEntry<"rady">;
 
@@ -36,7 +37,7 @@ export function featuredAdvice(items: AdviceEntry[], count = 3): AdviceEntry[] {
 }
 
 export function adviceHref(id: string): string {
-  return `/rady/${id}/`;
+  return url(`/rady/${id}/`);
 }
 
 export function findMedia(id: string): AdviceImage {

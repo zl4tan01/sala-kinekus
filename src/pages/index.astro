@@ -10,6 +10,7 @@ import Tour from "../components/Tour.astro";
 import media from "../data/media.json";
 import { allAdvice, featuredAdvice } from "../lib/advice";
 import { faqs, gridColumns, isPublicQuote, layouts, proof, quotes, site, steps } from "../data/site";
+import { url } from "../lib/base";
 
 const description = "Svadobná sála a stužkové v Žiline. Parket, pódium 12×6 m, balkón a parkovanie pred budovou. Aj konferencie a firemné akcie.";
 const featured = quotes.filter((quote) => quote.featured && isPublicQuote(quote));
@@ -103,7 +104,7 @@ const advicePreview = featuredAdvice(await allAdvice());
               <li>Balkón a terasa priamo zo sály, parkovanie pred budovou</li>
               <li>Catering a výzdobu odporučíme, vyberiete si vy</li>
             </ul>
-            <a class="btn btn-dark" href="/svadby/">Svadobná sála</a>
+            <a class="btn btn-dark" href={url("/svadby/")}>Svadobná sála</a>
           </div>
         </article>
         <article class="path">
@@ -118,7 +119,7 @@ const advicePreview = featuredAdvice(await allAdvice());
               <li>Pódium 12×6 m, ozvučenie Yamaha, parkovanie pred budovou</li>
               <li>Kapacita 50 až 250 osôb</li>
             </ul>
-            <a class="btn btn-dark" href="/stuzkova/">Stužková v sále</a>
+            <a class="btn btn-dark" href={url("/stuzkova/")}>Stužková v sále</a>
           </div>
         </article>
       </div>
@@ -148,7 +149,7 @@ const advicePreview = featuredAdvice(await allAdvice());
             <li>Ozvučenie s mixážnym pultom Yamaha, náhlavné a ručné mikrofóny</li>
             <li>Parkovanie pred budovou</li>
           </ul>
-          <a class="btn btn-dark" href="/konferencie/">Pre firmy</a>
+          <a class="btn btn-dark" href={url("/konferencie/")}>Pre firmy</a>
         </div>
       </article>
     </div>
@@ -279,7 +280,7 @@ const advicePreview = featuredAdvice(await allAdvice());
         <p class="lead">Tri praktické texty k obhliadke, termínu a stužkovej. Ďalšie rady sú na samostatnej stránke.</p>
       </div>
       <AdviceCards articles={advicePreview} />
-      <p class="advice-more"><a class="btn-line" href="/rady/">Všetky rady</a></p>
+      <p class="advice-more"><a class="btn-line" href={url("/rady/")}>Všetky rady</a></p>
     </div>
   </section>
 
@@ -290,7 +291,7 @@ const advicePreview = featuredAdvice(await allAdvice());
     lead="Výber zo svadieb a stužkových, ktoré sa v sále už konali. Celú galériu, vrátane firemných akcií, nájdete na samostatnej stránke."
   />
   <div class="wrap" style="margin-top:-3rem;margin-bottom:2rem">
-    <a class="btn-line" href="/galeria/" style="color:var(--ink)">Celá galéria</a>
+    <a class="btn-line" href={url("/galeria/")} style="color:var(--ink)">Celá galéria</a>
   </div>
 
   <section class="section" id="recenzie-google" data-reviews hidden>
@@ -327,7 +328,7 @@ const advicePreview = featuredAdvice(await allAdvice());
           </blockquote>
         ))}
       </div>
-      <p style="margin-top:1.2rem"><a href="/referencie/">Všetky referencie</a></p>
+      <p style="margin-top:1.2rem"><a href={url("/referencie/")}>Všetky referencie</a></p>
       <div style="margin-top:2rem">
         <h3 style="font-size:1.6rem;margin-bottom:0.8rem">Klienti sály</h3>
         <Logos />
@@ -344,7 +345,7 @@ const advicePreview = featuredAdvice(await allAdvice());
           <p>Vlastnú kuchyňu neprevádzkujeme. Odporučíme kvalitné cateringové firmy, ktoré pripravia ponuku na mieru. Viaceré vedia zabezpečiť aj výzdobu.</p>
           <p>Výber zostáva na vás. Ak už máte vlastného dodávateľa, radi vám povieme, ako to pri vašej akcii vieme zariadiť.</p>
         </div>
-        <p style="margin-top:1rem"><a class="btn btn-dark" href="/catering/">Viac o cateringu</a></p>
+        <p style="margin-top:1rem"><a class="btn btn-dark" href={url("/catering/")}>Viac o cateringu</a></p>
       </div>
       <div class="frame">
         <Picture image={cateringPhoto} sizes="(min-width: 720px) 46vw, 100vw" />

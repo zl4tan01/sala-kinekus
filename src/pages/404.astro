@@ -1,5 +1,6 @@
 ---
 import Base from "../layouts/Base.astro";
+import { url } from "../lib/base";
 ---
 
 <Base title="Stránka sa nenašla | Sála Kinekus" description="Táto adresa na webe Sály Kinekus neexistuje." noindex>
@@ -9,8 +10,8 @@ import Base from "../layouts/Base.astro";
       <h1>Túto stránku nemáme.</h1>
       <p class="lead" style="margin-top:1rem">Vráťte sa na úvod, alebo pošlite nezáväzný dopyt.</p>
       <div class="hero-actions">
-        <a class="btn" href="/#termin">Poslať nezáväzný dopyt</a>
-        <a class="btn-line" href="/">Úvod</a>
+        <a class="btn" href={url("/#termin")}>Poslať nezáväzný dopyt</a>
+        <a class="btn-line" href={url("/")}>Úvod</a>
       </div>
     </div>
   </section>

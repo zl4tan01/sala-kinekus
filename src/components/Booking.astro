@@ -1,5 +1,6 @@
 ---
 import { kinds, site } from "../data/site";
+import { url } from "../lib/base";
 interface Props {
   segment?: string;
   kind?: string;
@@ -30,7 +31,7 @@ const selected = kinds.find((item) => item.id === kind) ?? kinds.find((item) => 
             Ak sa vám neozveme, zavolajte na {site.phone}.
           </p>
         </div>
-        <form class="form" data-form action="/api/inquiry.php" method="post" data-segment={selected.segment} data-kind={selected.id} novalidate aria-describedby="error-form">
+        <form class="form" data-form action={url("/api/inquiry.php")} method="post" data-segment={selected.segment} data-kind={selected.id} novalidate aria-describedby="error-form">
           <p class="form-error" id="error-form" data-form-error hidden></p>
           <div class="hp" aria-hidden="true">
             <label>Webová stránka firmy
@@ -82,7 +83,7 @@ const selected = kinds.find((item) => item.id === kind) ?? kinds.find((item) => 
             <input id="field-gdpr" type="checkbox" name="gdpr" value="1" required aria-describedby="error-gdpr" />
             <span>
               Súhlasím so spracovaním údajov z tohto formulára, aby ma Sála Kinekus mohla kontaktovať k nezáväznému dopytu.
-              Viac v <a href="/ochrana-udajov/">ochrane údajov</a>.
+              Viac v <a href={url("/ochrana-udajov/")}>ochrane údajov</a>.
             </span>
           </label>
           <p class="field-error" id="error-gdpr" data-error-for="gdpr" hidden></p>

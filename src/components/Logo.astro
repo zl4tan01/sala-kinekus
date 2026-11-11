@@ -1,9 +1,4 @@
 ---
-interface Props {
-  variant?: "on-light" | "on-dark";
-}
-const { variant = "on-light" } = Astro.props;
-const src = variant === "on-dark" ? "/brand/logo-on-dark.svg" : "/brand/logo-on-light.svg";
+import { url } from "../lib/base";
 ---
-
-<img class="logo" src={src} width="240" height="114" alt="Sála Kinekus Žilina" />
+<img class="logo" src={url("/brand/logo-on-light.svg")} width="240" height="114" alt="Sála Kinekus Žilina" />

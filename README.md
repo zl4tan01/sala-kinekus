@@ -43,7 +43,9 @@ Farby sú žltá `#F2BC21`, tmavá `#2C2C2B` a červenooranžová `#FC5502` len 
 
 ## Čo nahrať na Websupport
 
-Na server ide **obsah priečinka `dist/`**, priamo do webového koreňa (tam, kde má byť `index.html`). Nie celý repozitár a nie `node_modules`.
+Na ostrý web ide **obsah priečinka `dist/`** (`npm run build`), priamo do webového koreňa. Nie celý repozitár a nie `node_modules`.
+
+Testovací náhľad na `sala.kelvio.sk` je samostatný build v skrytej ceste. `node scripts/pack-preview.mjs` zloží zip, v ktorom je priečinok `9456E0ulzhlbeu2YNw7AJhI7/` na vrchnej úrovni. Rozbaľte ho do koreňa `sala.kelvio.sk`. Koreň domény sa nemení. `api/bootstrap.php` číta najprv vlastný `config.php`, a ak nie je, `api/config.php` o dve úrovne vyššie v koreni servera. Ostrý build pre `salazilina.sk` necháva `SITE_BASE` prázdne, teda koreň `/`.
 
 ```bash
 npm ci

@@ -121,6 +121,11 @@ $emptyDate = sala_validate_inquiry(array_merge($base, ['dates' => '  ']), null, 
 check(isset($emptyDate['errors']['dates']), 'prázdny termín neprejde');
 
 check(!is_file(dirname(__DIR__) . '/api/availability.php'), 'verejný endpoint dostupnosti neexistuje');
+$_SERVER['SCRIPT_NAME'] = '/api/inquiry.php';
+check(sala_web_base() === '/', 'base v koreni je /');
+$_SERVER['SCRIPT_NAME'] = '/9456E0ulzhlbeu2YNw7AJhI7/api/inquiry.php';
+check(sala_web_base() === '/9456E0ulzhlbeu2YNw7AJhI7/', 'base v skrytej ceste');
+$_SERVER['SCRIPT_NAME'] = '/api/inquiry.php';
 
 $wrongKind = sala_validate_inquiry(array_merge($base, ['kind' => 'oslava', 'segment' => 'b2c']), [], $today);
 check(isset($wrongKind['errors']['kind']), 'neznámy druh neprejde');

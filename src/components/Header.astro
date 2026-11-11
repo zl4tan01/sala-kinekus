@@ -1,17 +1,19 @@
 ---
 import { nav, site } from "../data/site";
+import { url } from "../lib/base";
 import Logo from "./Logo.astro";
 interface Props {
   bookingHref?: string;
 }
 const { bookingHref = "/#termin" } = Astro.props;
 const path = Astro.url.pathname;
+const home = url("/");
 ---
 
 <header class="header">
   <div class="wrap header-inner">
-    <a class="brand" href="/" aria-current={path === "/" ? "page" : undefined}>
-      <Logo variant="on-dark" />
+    <a class="brand" href={home} aria-current={path === home ? "page" : undefined}>
+      <Logo />
     </a>
     <button class="nav-toggle" type="button" data-nav-toggle aria-expanded="false" aria-controls="site-nav">
       <span data-nav-label>Menu</span>
@@ -22,9 +24,9 @@ const path = Astro.url.pathname;
     </div>
     <nav id="site-nav" class="nav-panel" aria-label="Hlavné" hidden>
       {nav.map((item) => (
-        <a href={item.href} aria-current={path === item.href ? "page" : undefined}>{item.label}</a>
+        <a href={url(item.href)} aria-current={path === url(item.href) ? "page" : undefined}>{item.label}</a>
       ))}
-      <a class="nav-only-mobile" href="/catering/">Catering</a>
+      <a class="nav-only-mobile" href={url("/catering/")}>Catering</a>
       <a class="nav-only-mobile" href={site.phoneHref}>Zavolať {site.phone}</a>
       <a class="btn nav-only-mobile" href={bookingHref}>Poslať nezáväzný dopyt</a>
     </nav>
