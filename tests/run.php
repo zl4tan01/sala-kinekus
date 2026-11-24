@@ -185,7 +185,7 @@ $sent = sala_send_inquiry([
     'mail_file' => $mailFile,
 ], $ok['data']);
 $mail = $sent ? (string) file_get_contents($mailFile) : '';
-check($sent && str_contains($mail, 'marketing@salazilina.sk') && str_contains($mail, 'Reply-To: jana@example.com') && str_contains($mail, 'Subject: Dopyt: Svadba') && !str_contains($mail, 'Bcc:'), 'file transport odošle poštu bez vloženej hlavičky');
+check($sent && str_contains($mail, 'To: marketing@salazilina.sk') && str_contains($mail, 'Cc: slovacek@kinekus.sk') && str_contains($mail, 'Reply-To: jana@example.com') && str_contains($mail, 'Subject: Dopyt: Svadba') && !str_contains($mail, 'Bcc:'), 'file transport odošle poštu bez vloženej hlavičky');
 $visitFile = $dir . '/visit.txt';
 $visitSent = sala_send_inquiry([
     'mail_to' => 'marketing@salazilina.sk',
@@ -195,7 +195,7 @@ $visitSent = sala_send_inquiry([
     'mail_file' => $visitFile,
 ], $visit['data']);
 $visitMail = $visitSent ? (string) file_get_contents($visitFile) : '';
-check($visitSent && str_contains($visitMail, 'Subject: Obhliadka: Ples') && str_contains($visitMail, 'Účel: Obhliadka'), 'predmet rozlíši obhliadku');
+check($visitSent && str_contains($visitMail, 'Subject: Obhliadka: Ples') && str_contains($visitMail, 'Účel: Obhliadka') && str_contains($visitMail, 'Cc: slovacek@kinekus.sk'), 'predmet rozlíši obhliadku');
 
 $config = sala_config();
 $config['mode'] = 'ical';

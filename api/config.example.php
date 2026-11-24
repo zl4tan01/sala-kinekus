@@ -30,7 +30,9 @@ return [
 
     // --- E-mail z formulára ----------------------------------------------
     'mail_to' => 'marketing@salazilina.sk',
-    // Obálka From musí byť schránka na doméne, inak Websupport poštu odmietne.
+    // Kópia. Prázdny reťazec kópiu vypne. Keď kľúč v config.php chýba, použije sa predvolená adresa z bootstrap.php.
+    'mail_cc' => 'slovacek@kinekus.sk',
+    // Obálka From musí byť schránka na doméne, z ktorej PHP poštu odosiela, inak Websupport poštu odmietne.
     'mail_from' => 'marketing@salazilina.sk',
     'mail_from_name' => 'Sála Kinekus',
 

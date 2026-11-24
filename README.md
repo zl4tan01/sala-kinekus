@@ -71,9 +71,9 @@ Návštevník na webe nevidí voľné ani obsadené dni. Do formulára napíše 
 
 ## Formulár
 
-`POST /api/inquiry.php` pošle dopyt na adresu z `mail_to` (predvolene `marketing@salazilina.sk`). Do žiadneho kalendára nezapisuje a obsadenosť neoveruje. V texte správy je, že termín nie je rezervovaný, kým ho tím nepotvrdí. Preferovaný termín je text od návštevníka.
+`POST /api/inquiry.php` pošle dopyt aj obhliadku na `mail_to` (predvolene `marketing@salazilina.sk`) a kópiu na `mail_cc` (predvolene `slovacek@kinekus.sk`). `Reply-To` je e-mail návštevníka. Do žiadneho kalendára nezapisuje a obsadenosť neoveruje. V texte správy je, že termín nie je rezervovaný, kým ho tím nepotvrdí. Preferovaný termín je text od návštevníka.
 
-Na Websupporte musí byť `mail_from` existujúca schránka na doméne, inak `mail()` poštu odmietne. Rozumná voľba je `marketing@salazilina.sk`.
+Na Websupporte musí byť `mail_from` existujúca schránka na doméne, z ktorej beží PHP, inak `mail()` poštu odmietne. Predvolená obálka je `marketing@salazilina.sk`. Keď formulár odosiela server `kelvio.sk`, táto obálka nemusí prejsť, lebo nie je schránka na odosielajúcej doméne.
 
 Formulár má skryté pole proti robotom (honeypot) a limit odoslaní z jednej IP. Povinný je súhlas so spracovaním údajov. Pošta ide cez `mail()` s odosielateľom obálky `-f` z `mail_from`. Keď prehliadač nemá JavaScript a odoslanie zlyhá, vráti sa stránka s textom chyby a s poliami, ktoré návštevník vyplnil. Úspešný dopyt bez JavaScriptu presmeruje na `/?odoslane=1#termin`.
 

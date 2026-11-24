@@ -181,10 +181,14 @@ function sala_inquiry_body(array $data): string
 function sala_send_inquiry(array $config, array $data): bool
 {
     $to = sala_clean_header((string) $config['mail_to']);
+    $cc = sala_clean_header((string) ($config['mail_cc'] ?? 'slovacek@kinekus.sk'));
     $from = sala_clean_header((string) $config['mail_from']);
     $fromName = sala_clean_header((string) $config['mail_from_name']);
-    if ($to === '' || $from === '' || filter_var($from, FILTER_VALIDATE_EMAIL) === false) {
+    if ($to === '' || $from === '' || filter_var($to, FILTER_VALIDATE_EMAIL) === false || filter_var($from, FILTER_VALIDATE_EMAIL) === false) {
         return false;
+    }
+    if ($cc !== '' && filter_var($cc, FILTER_VALIDATE_EMAIL) === false) {
+        $cc = '';
     }
 
     $when = sala_one_line((string) ($data['preferred'] ?? ''), 80);
@@ -200,6 +204,9 @@ function sala_send_inquiry(array $config, array $data): bool
         'From: ' . sala_header_phrase($fromName) . ' <' . $from . '>',
         'Reply-To: ' . $reply,
     ];
+    if ($cc !== '') {
+        $headers[] = 'Cc: ' . $cc;
+    }
 
     $transport = (string) ($config['mail_transport'] ?? 'mail');
     if ($transport === 'file') {

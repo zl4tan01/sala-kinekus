@@ -12,6 +12,7 @@ function sala_config(): array
         'ical_url' => '',
         'google_service_account_json' => '',
         'mail_to' => 'marketing@salazilina.sk',
+        'mail_cc' => 'slovacek@kinekus.sk',
         'mail_from' => 'marketing@salazilina.sk',
         'mail_from_name' => 'Sála Kinekus',
         'mail_transport' => 'mail',
