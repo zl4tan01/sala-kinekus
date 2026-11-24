@@ -6,7 +6,7 @@ published: "2026-10-25"
 updated: "2026-10-25"
 author: "Tím Sály Kinekus"
 image: "svadba-20"
-order: 1
+order: 2
 featured: true
 related:
   - kedy-rezervovat-termin-svadby
@@ -21,7 +21,7 @@ faq:
   - q: "Koľko hostí sála uvádza?"
     a: "Kapacita je 50 až 250 osôb. Presné usadenie závisí od stolov, pódia a cateringu. Číslo pre vašu svadbu povieme na obhliadke."
   - q: "Môžeme si priniesť vlastný catering?"
-    a: "Vlastnú kuchyňu neprevádzkujeme. Cateringovú firmu vieme odporučiť. Ak už máte vlastného dodávateľa, radi vám povieme, ako to pri vašej akcii vieme zariadiť."
+    a: "Od 1. 6. 2027 je na akcie overený catering s vlastnou kuchyňou priamo v sále. Máme s ním dobré skúsenosti. Jedlo vzniká na mieste."
   - q: "Rezervuje obhliadka termín?"
     a: "Nie. Ani obhliadka, ani dopyt vo formulári deň nerezervujú. Termín platí, až keď ho tím sály potvrdí."
 ---
@@ -59,7 +59,7 @@ Na obhliadke si nechajte poskladať aspoň náznak stolov. Fotka slávnostnej v�
 
 Parkovanie má byť také, aby hostia v šatách nehľadali miesto po meste.
 
-Pri sále sa parkuje pred budovou. Adresa je Rosinská cesta 13, 010 08 Žilina, na okraji mesta, s prístupom autom. Na obhliadke si prejdite cestu od áut ku vchodu. Opýtajte sa, kde môže svadobné auto na chvíľu zastaviť a kadiaľ pôjde dodávka s jedlom. Ak príde veľa hostí naraz, overte si, či sa autá zmestia pred budovu aj pri plnejšej sále.
+V areáli Kinekusu je veľké parkovisko zadarmo. Adresa je Rosinská cesta 13, 010 08 Žilina, na okraji mesta, s prístupom autom. Na obhliadke si prejdite cestu od áut ku vchodu. Opýtajte sa, kde môže svadobné auto na chvíľu zastaviť. Ak príde veľa hostí naraz, uvidíte na mieste, že parkovisko v areáli je veľké.
 
 Opýtajte sa, či je vstup bez schodov a či ním prejde kočík. Ocení to starší hosť, človek s barlami aj rodič s kočíkom. Otvorte si dvere tak, ako pôjdu hostia, a prejdite cestu od vchodu k miestu, kde budú stoly. Na mieste si prejdite aj toalety, nie len vchod.
 
@@ -75,7 +75,7 @@ Svetlo sa dá prepínať do scén. V sále je SMART osvetlenie a možnosť zastr
 
 Jedlo nevarí sála. Toalety a miesto na výdaj jedla si pozrite rovnako dôkladne ako stoly.
 
-Vlastnú kuchyňu neprevádzkujeme. Cateringovú firmu vieme odporučiť. Ak už máte vlastného dodávateľa, radi vám povieme, ako to pri vašej akcii vieme zariadiť. Viac je na stránke [cateringu](/catering/). Na obhliadke sa opýtajte, kadiaľ pôjde obsluha od prípravného miesta k stolom a či švédsky stôl nezablokuje parket.
+Od 1. 6. 2027 je na akcie overený catering s vlastnou kuchyňou priamo v sále. Máme s ním dobré skúsenosti a jedlo vzniká na mieste. Viac je na stránke [cateringu](/catering/) a v texte o [kuchyni v sále a donáške](/rady/catering-vlastna-kuchyne-a-donaska/). Na obhliadke sa opýtajte, kadiaľ pôjde obsluha od kuchyne k stolom a či švédsky stôl nezablokuje parket.
 
 Spočítajte, či toalety stíhajú hosťom v prestávke medzi chodmi a či je k nim krátka cesta. Opýtajte sa, kam sa uchýli hosť, keď mu prišlo nevoľno. Z sály sa prechádza na balkón a terasu. Medzi chodmi tam hostia vyjdú na vzduch. Overte si, či je východ priamo zo sály.
 

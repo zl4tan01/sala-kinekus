@@ -127,8 +127,13 @@ $_SERVER['SCRIPT_NAME'] = '/9456E0ulzhlbeu2YNw7AJhI7/api/inquiry.php';
 check(sala_web_base() === '/9456E0ulzhlbeu2YNw7AJhI7/', 'base v skrytej ceste');
 $_SERVER['SCRIPT_NAME'] = '/api/inquiry.php';
 
-$wrongKind = sala_validate_inquiry(array_merge($base, ['kind' => 'oslava', 'segment' => 'b2c']), [], $today);
+$wrongKind = sala_validate_inquiry(array_merge($base, ['kind' => 'vecierok', 'segment' => 'b2c']), [], $today);
 check(isset($wrongKind['errors']['kind']), 'neznámy druh neprejde');
+$visit = sala_validate_inquiry(array_merge($base, ['intent' => 'obhliadka', 'kind' => 'ples']), [], $today);
+check(
+    $visit['errors'] === [] && $visit['data']['intent'] === 'obhliadka' && $visit['data']['kind'] === 'ples' && $visit['data']['segment'] === 'b2c',
+    'obhliadka a ples prejdú'
+);
 
 $firm = sala_validate_inquiry(array_merge($base, ['kind' => 'firemna', 'segment' => 'b2c']), [], $today);
 check($firm['errors'] === [] && $firm['data']['segment'] === 'b2b', 'firemná akcia je firemný dopyt');
@@ -180,7 +185,17 @@ $sent = sala_send_inquiry([
     'mail_file' => $mailFile,
 ], $ok['data']);
 $mail = $sent ? (string) file_get_contents($mailFile) : '';
-check($sent && str_contains($mail, 'marketing@salazilina.sk') && str_contains($mail, 'Reply-To: jana@example.com') && !str_contains($mail, 'Bcc:'), 'file transport odošle poštu bez vloženej hlavičky');
+check($sent && str_contains($mail, 'marketing@salazilina.sk') && str_contains($mail, 'Reply-To: jana@example.com') && str_contains($mail, 'Subject: Dopyt: Svadba') && !str_contains($mail, 'Bcc:'), 'file transport odošle poštu bez vloženej hlavičky');
+$visitFile = $dir . '/visit.txt';
+$visitSent = sala_send_inquiry([
+    'mail_to' => 'marketing@salazilina.sk',
+    'mail_from' => 'marketing@salazilina.sk',
+    'mail_from_name' => 'Sála Kinekus',
+    'mail_transport' => 'file',
+    'mail_file' => $visitFile,
+], $visit['data']);
+$visitMail = $visitSent ? (string) file_get_contents($visitFile) : '';
+check($visitSent && str_contains($visitMail, 'Subject: Obhliadka: Ples') && str_contains($visitMail, 'Účel: Obhliadka'), 'predmet rozlíši obhliadku');
 
 $config = sala_config();
 $config['mode'] = 'ical';

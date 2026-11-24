@@ -6,7 +6,7 @@ published: "2026-10-25"
 updated: "2026-10-25"
 author: "Tím Sály Kinekus"
 image: "sala-siroko"
-order: 3
+order: 4
 featured: false
 related:
   - ako-vybrat-svadobnu-salu
@@ -19,7 +19,7 @@ faq:
   - q: "Koľko stoličiek má sála pri bankete?"
     a: "Konkrétne číslo pre Sálu Kinekus na webe nie je. Kapacita priestoru je 50 až 250 osôb. Presné usadenie závisí od stolov, pódia a cateringu a ukáže sa na obhliadke."
   - q: "Dá sa cez večer zmeniť divadlo na párty?"
-    a: "Zvyčajne áno, ak je na to v programe pauza a má kto stoly alebo stoličky presunúť. Na obhliadke si povieme, či to váš počet hostí unesie."
+    a: "Zvyčajne áno, ak je na to v programe pauza a má kto stoly alebo stoličky presunúť. Na obhliadke si povieme, či sa do prestávky váš počet hostí zmestí."
   - q: "Zaberá pódium miesto na stoly?"
     a: "Áno. Pódium má 12×6 m a parket ostáva na tanec. Stoly pri bankete stoja okolo nich, nie po celej podlahe."
   - q: "Ktoré rozloženie si vybrať na konferenciu?"
@@ -53,7 +53,7 @@ Tieto vety sú pomôcka na rozhovor, nie sľub počtu. Keď niekto povie „do t
 
 Kapacita je 50 až 250 osôb. Presné počty pre banket, párty, divadlo a školu závisia od stolov, pódia, výzdoby a cateringu. Na webe ich preto neuvádzame.
 
-Pódium má 12×6 m a parket ostáva na tanec. Oboje berie podlahu, ktorú pri hostine nezaplníte stoličkami do posledného metra. Balkón a terasa sú naviac na prestávku na vzduchu, nie náhradná jedáleň, do ktorej by ste dopočítali ďalšie miesta. Parkovanie pred budovou tiež nie je násobok kapacity sály. Koľko áut sa zmestí, uvidíte na mieste.
+Pódium má 12×6 m a parket ostáva na tanec. Oboje berie podlahu, ktorú pri hostine nezaplníte stoličkami do posledného metra. Balkón a terasa sú naviac na prestávku na vzduchu, nie náhradná jedáleň, do ktorej by ste dopočítali ďalšie miesta. Veľké parkovisko v areáli tiež nie je násobok kapacity sály. Na obhliadke uvidíte, ako sa z neho prechádza dnu.
 
 Na obhliadke sa ukáže, koľko miest dá konkrétny nákres. Potrebujeme od vás počet hostí, či sa bude jesť pri stoloch, či bude kapela a či jedlo pôjde na stôl alebo na švédsky stôl. Švédsky stôl zaberie vlastnú plochu a z banketu uberie miesta. To isté platí pre výdajný stôl na stužkovej.
 

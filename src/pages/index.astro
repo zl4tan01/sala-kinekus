@@ -9,10 +9,10 @@ import Logos from "../components/Logos.astro";
 import Tour from "../components/Tour.astro";
 import media from "../data/media.json";
 import { allAdvice, featuredAdvice } from "../lib/advice";
-import { faqs, gridColumns, isPublicQuote, layouts, proof, quotes, site, steps } from "../data/site";
+import { faqs, gridColumns, isPublicQuote, proof, quotes, site, steps } from "../data/site";
 import { url } from "../lib/base";
 
-const description = "Svadobná sála a stužkové v Žiline. Parket, pódium 12×6 m, balkón a parkovanie pred budovou. Aj konferencie a firemné akcie.";
+const description = "Svadobná sála a stužkové v Žiline. Parket, pódium 12×6 m, balkón a veľké parkovisko zadarmo v areáli. Aj konferencie a firemné akcie.";
 const featured = quotes.filter((quote) => quote.featured && isPublicQuote(quote));
 const photo = (id: string) => {
   const found = media.gallery.find((item) => item.id === id);
@@ -50,11 +50,11 @@ const advicePreview = featuredAdvice(await allAdvice());
       <p class="eyebrow">Sála Kinekus · Rosinská cesta, Žilina</p>
       <h1>Svadba aj stužková v sále, ktorá sa prispôsobí vám.</h1>
       <p class="lead">
-        Veľký parket a pódium 12×6 m, balkón s terasou a parkovanie pred budovou na Rosinskej ceste sú súčasťou priestoru. Svetlo a ozvučenie sú v sále.
+        Veľký parket a pódium 12×6 m, balkón s terasou a veľké parkovisko zadarmo v areáli Kinekusu sú súčasťou priestoru. Svetlo a ozvučenie sú v sále.
       </p>
       <div class="hero-actions">
         <a class="btn" href="#termin">Poslať nezáväzný dopyt</a>
-        <a class="btn-line" href="#termin">Dohodnúť obhliadku</a>
+        <a class="btn-line" href="?obhliadka=1#termin" data-viewing>Dohodnúť obhliadku</a>
         <a class="btn-line" href={site.phoneHref}>Zavolať</a>
       </div>
       <figure class="hero-quote" data-hero-quote hidden>
@@ -101,8 +101,8 @@ const advicePreview = featuredAdvice(await allAdvice());
             <ul>
               <li>Usadenie podľa stolov a programu</li>
               <li>Mixážny pult Yamaha, náhlavné aj ručné mikrofóny</li>
-              <li>Balkón a terasa priamo zo sály, parkovanie pred budovou</li>
-              <li>Catering a výzdobu odporučíme, vyberiete si vy</li>
+              <li>Balkón a terasa priamo zo sály, veľké parkovisko zadarmo v areáli</li>
+              <li>Od 1. 6. 2027 overený catering s kuchyňou priamo v sále</li>
             </ul>
             <a class="btn btn-dark" href={url("/svadby/")}>Svadobná sála</a>
           </div>
@@ -116,7 +116,7 @@ const advicePreview = featuredAdvice(await allAdvice());
             <ul>
               <li>Detaily večera si viete prejsť s tímom sály vopred</li>
               <li>Rozloženie sály prispôsobíme vašej akcii</li>
-              <li>Pódium 12×6 m, ozvučenie Yamaha, parkovanie pred budovou</li>
+              <li>Pódium 12×6 m, ozvučenie Yamaha, veľké parkovisko zadarmo v areáli</li>
               <li>Kapacita 50 až 250 osôb</li>
             </ul>
             <a class="btn btn-dark" href={url("/stuzkova/")}>Stužková v sále</a>
@@ -124,7 +124,7 @@ const advicePreview = featuredAdvice(await allAdvice());
         </article>
       </div>
       <p class="aside-line">
-        <strong>Plesy.</strong> Sála je vhodná aj na ples: parket a pódium 12×6 m sú v priestore. Termín overíte rovnakým dopytom a do správy napíšete, že ide o ples.
+        <strong>Plesy.</strong> Sála je vhodná aj na ples: parket a pódium 12×6 m sú v priestore. Termín napíšete do rovnakého dopytu a ako druh podujatia vyberiete ples.
       </p>
     </div>
   </section>
@@ -147,7 +147,7 @@ const advicePreview = featuredAdvice(await allAdvice());
             <li>Full HD projektor so svietivosťou 5 400 lumenov</li>
             <li>SMART osvetlenie a možnosť zastrieť okná</li>
             <li>Ozvučenie s mixážnym pultom Yamaha, náhlavné a ručné mikrofóny</li>
-            <li>Parkovanie pred budovou</li>
+            <li>Veľké parkovisko zadarmo v areáli Kinekusu</li>
           </ul>
           <a class="btn btn-dark" href={url("/konferencie/")}>Pre firmy</a>
         </div>
@@ -176,57 +176,8 @@ const advicePreview = featuredAdvice(await allAdvice());
         ))}
       </ol>
       <div class="viewing">
-        <a class="btn btn-dark" href="#termin" data-viewing>Obhliadka sály</a>
+        <a class="btn btn-dark" href="?obhliadka=1#termin" data-viewing>Obhliadka sály</a>
         <p class="note">Dohodneme termín, kedy si sálu prejdete naživo.</p>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="rozlozenie" style="padding-top:0">
-    <div class="wrap">
-      <div class="section-head">
-        <p class="eyebrow">Rozloženie</p>
-        <h2>Sála nie je jedna pevná schéma.</h2>
-        <p class="lead">
-          Rozloženie sály prispôsobíme vašej akcii. Presné počty miest pri jednotlivých usporiadaniach závisia od výzdoby, pódia a chodu cateringu. Na obhliadke ich prejdete.
-        </p>
-      </div>
-      <div class="layout-grid">
-        {layouts.map((item) => (
-          <article class="layout-card">
-            <svg class="viz" viewBox="0 0 160 96" aria-hidden="true">
-              <rect x="18" y="8" width="124" height="16" rx="3" fill="#c6a36b"></rect>
-              {item.id === "divadlo" && [0, 1, 2, 3].map((row) => (
-                [0, 1, 2, 3, 4, 5, 6].map((col) => (
-                  <circle cx={28 + col * 18} cy={40 + row * 14} r="3" fill="#1b1612"></circle>
-                ))
-              ))}
-              {item.id === "skola" && [0, 1, 2].map((row) => (
-                <g>
-                  <rect x="24" y={40 + row * 16} width="112" height="5" rx="1" fill="#1b1612"></rect>
-                  {[0, 1, 2, 3, 4, 5].map((col) => (
-                    <rect x={30 + col * 18} y={47 + row * 16} width="8" height="4" fill="#7a5424"></rect>
-                  ))}
-                </g>
-              ))}
-              {item.id === "banket" && [0, 1].map((row) => (
-                [0, 1, 2].map((col) => (
-                  <g>
-                    <circle cx={40 + col * 40} cy={46 + row * 28} r="10" fill="none" stroke="#1b1612" stroke-width="2"></circle>
-                  </g>
-                ))
-              ))}
-              {item.id === "party" && (
-                <g>
-                  <rect x="36" y="42" width="88" height="36" rx="4" fill="none" stroke="#1b1612" stroke-width="2"></rect>
-                  <text x="80" y="64" text-anchor="middle" font-size="11" fill="#1b1612">parket</text>
-                </g>
-              )}
-            </svg>
-            <h3>{item.title}</h3>
-            <p>{item.text}</p>
-          </article>
-        ))}
       </div>
     </div>
   </section>
@@ -238,7 +189,7 @@ const advicePreview = featuredAdvice(await allAdvice());
       </div>
       <div class="section-head">
         <p class="eyebrow">Priestor</p>
-        <h2>Postavená pri rozširovaní Kinekusu. Nová, vrátane zázemia.</h2>
+        <h2>Moderný priestor pripravený na vaše podujatie.</h2>
         <p class="lead">
           Spoločenská sála vznikla pri rozširovaní distribučného centra spoločnosti Kinekus v Žiline. Priestory sú novo postavené, vrátane sociálnych zariadení. Sála je vhodná pre stužkové, plesy, koncerty, večierky, školenia, firemné akcie, svadby, spoločenské stretnutia a mnoho ďalších akcií. Veľké pódium a akustika umožňujú aj koncert.
         </p>
@@ -266,21 +217,9 @@ const advicePreview = featuredAdvice(await allAdvice());
         </article>
         <article class="fact">
           <h3>Prístup</h3>
-          <p>Okraj Žiliny, Rosinská cesta, parkovanie priamo pred budovou.</p>
+          <p>Okraj Žiliny, Rosinská cesta. V areáli Kinekusu je veľké parkovisko zadarmo.</p>
         </article>
       </div>
-    </div>
-  </section>
-
-  <section class="section" id="rady" style="padding-top:0">
-    <div class="wrap">
-      <div class="section-head">
-        <p class="eyebrow">Rady</p>
-        <h2>Než si vyberiete sálu a deň.</h2>
-        <p class="lead">Tri praktické texty k obhliadke, termínu a stužkovej. Ďalšie rady sú na samostatnej stránke.</p>
-      </div>
-      <AdviceCards articles={advicePreview} />
-      <p class="advice-more"><a class="btn-line" href={url("/rady/")}>Všetky rady</a></p>
     </div>
   </section>
 
@@ -342,8 +281,8 @@ const advicePreview = featuredAdvice(await allAdvice());
         <p class="eyebrow">Catering</p>
         <h2>Jedlo a výzdobu vieme odporučiť.</h2>
         <div class="prose" style="margin-top:1rem">
-          <p>Vlastnú kuchyňu neprevádzkujeme. Odporučíme kvalitné cateringové firmy, ktoré pripravia ponuku na mieru. Viaceré vedia zabezpečiť aj výzdobu.</p>
-          <p>Výber zostáva na vás. Ak už máte vlastného dodávateľa, radi vám povieme, ako to pri vašej akcii vieme zariadiť.</p>
+          <p>Od 1. 6. 2027 poskytujeme na akcie overený catering, s ktorým máme dobré skúsenosti. Má priamo v sále vybavenú vlastnú kuchyňu.</p>
+          <p>Jedlo tak vzniká na mieste. Prispieva to k čerstvosti, rýchlosti obsluhy a celkovému zážitku hostí.</p>
         </div>
         <p style="margin-top:1rem"><a class="btn btn-dark" href={url("/catering/")}>Viac o cateringu</a></p>
       </div>
@@ -370,6 +309,18 @@ const advicePreview = featuredAdvice(await allAdvice());
     </div>
   </section>
 
-  <Booking kind="svadba" title="Poslať nezáväzný dopyt" />
+  <Booking title="Poslať nezáväzný dopyt" />
   <Location />
+
+  <section class="section" id="rady" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Rady</p>
+        <h2>Než si vyberiete sálu a deň.</h2>
+        <p class="lead">Praktické texty k cateringu, obhliadke a termínu. Ďalšie rady sú na samostatnej stránke.</p>
+      </div>
+      <AdviceCards articles={advicePreview} />
+      <p class="advice-more"><a class="btn-line" href={url("/rady/")}>Všetky rady</a></p>
+    </div>
+  </section>
 </Base>

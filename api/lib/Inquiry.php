@@ -7,7 +7,10 @@ function sala_kind_labels(): array
     return [
         'svadba' => 'Svadba',
         'stuzkova' => 'Stužková',
-        'firemna' => 'Firemná akcia alebo konferencia',
+        'firemna' => 'Firemná akcia',
+        'oslava' => 'Oslava',
+        'ples' => 'Ples',
+        'ine' => 'Iné',
     ];
 }
 
@@ -30,6 +33,9 @@ function sala_segment_for_kind(string $kind): ?string
         'svadba' => 'b2c',
         'stuzkova' => 'b2c',
         'firemna' => 'b2b',
+        'oslava' => 'b2c',
+        'ples' => 'b2c',
+        'ine' => 'b2c',
     ];
     return $map[$kind] ?? null;
 }
@@ -84,7 +90,11 @@ function sala_validate_inquiry(array $post, ?array $occupied, string $today): ar
 
     $preferred = sala_one_line((string) ($post['dates'] ?? ''), 200);
     if (sala_len($preferred) < 3) {
-        $errors['dates'] = 'Napíšte preferovaný termín, napríklad 28. 10. 2026.';
+        $errors['dates'] = 'Napíšte preferovaný termín, napríklad jún 2028 alebo konkrétny dátum.';
+    }
+    $intent = (string) ($post['intent'] ?? '');
+    if ($intent !== 'obhliadka') {
+        $intent = 'dopyt';
     }
 
     if (sala_len($message) > 4000) {
@@ -109,6 +119,7 @@ function sala_validate_inquiry(array $post, ?array $occupied, string $today): ar
             'guests' => $guests,
             'preferred' => $preferred,
             'message' => $message,
+            'intent' => $intent,
         ],
     ];
 }
@@ -141,9 +152,10 @@ function sala_parse_dates(string $raw): array
 function sala_inquiry_body(array $data): string
 {
     $labels = sala_kind_labels();
-    $segment = $data['segment'] === 'b2b' ? 'Pre firmy' : 'Svadba alebo stužková';
+    $segment = $data['segment'] === 'b2b' ? 'Pre firmy' : 'Súkromná akcia';
     $kind = $labels[$data['kind']] ?? $data['kind'];
     $preferred = (string) ($data['preferred'] ?? '');
+    $intent = ($data['intent'] ?? '') === 'obhliadka' ? 'Obhliadka' : 'Dopyt';
     $ranges = sala_guest_ranges();
     $guestLabel = $data['guests'] === null || $data['guests'] === ''
         ? 'neuvádza'
@@ -152,6 +164,7 @@ function sala_inquiry_body(array $data): string
         'Nezáväzný dopyt z webu Sála Kinekus.',
         'Termín NIE JE rezervovaný. Potvrďte ho klientovi, až keď ho overíte.',
         '',
+        'Účel: ' . $intent,
         'Preferovaný termín: ' . $preferred,
         'Typ: ' . $segment . ' — ' . $kind,
         'Odhad hostí: ' . $guestLabel,
@@ -176,7 +189,8 @@ function sala_send_inquiry(array $config, array $data): bool
 
     $when = sala_one_line((string) ($data['preferred'] ?? ''), 80);
     $kind = sala_kind_labels()[$data['kind']] ?? 'dopyt';
-    $subject = sala_clean_header('Dopyt na sálu: ' . $kind . ', ' . $when);
+    $purpose = ($data['intent'] ?? '') === 'obhliadka' ? 'Obhliadka' : 'Dopyt';
+    $subject = sala_clean_header($purpose . ': ' . $kind . ', ' . $when);
     $body = sala_inquiry_body($data);
     $reply = sala_clean_header($data['email']);
 
@@ -302,6 +316,7 @@ function sala_inquiry_error_html(array $post, array $errors): string
 {
     $kind = (string) ($post['kind'] ?? '');
     $guests = (string) ($post['guests'] ?? '');
+    $intent = (string) ($post['intent'] ?? '') === 'obhliadka' ? 'obhliadka' : 'dopyt';
     $values = [
         'dates' => (string) ($post['dates'] ?? ''),
         'name' => (string) ($post['name'] ?? ''),
@@ -325,7 +340,7 @@ function sala_inquiry_error_html(array $post, array $errors): string
         $selected = $value === $current ? ' selected' : '';
         return '<option value="' . sala_h($value) . '"' . $selected . '>' . sala_h($label) . '</option>';
     };
-    $kindOptions = $option('', 'Vyberte', $kind === '' ? '' : '—');
+    $kindOptions = $option('', 'Vyberte druh podujatia', $kind === '' ? '' : '—');
     foreach (sala_kind_labels() as $id => $label) {
         $kindOptions .= $option($id, $label, $kind);
     }
@@ -371,8 +386,13 @@ a{color:#7a5424}
 <select id="field-kind" name="kind" required aria-describedby="error-kind"' . $parts['kind']['invalid'] . '>' . $kindOptions . '</select>
 </label>
 ' . $errorLine('kind') . '
+<fieldset>
+<legend>Čo potrebujete</legend>
+<label class="check"><input type="radio" name="intent" value="dopyt"' . ($intent === 'dopyt' ? ' checked' : '') . '> Dopyt</label>
+<label class="check"><input type="radio" name="intent" value="obhliadka"' . ($intent === 'obhliadka' ? ' checked' : '') . '> Mám záujem o obhliadku</label>
+</fieldset>
 <label for="field-dates">Preferovaný termín
-<input id="field-dates" name="dates" required autocomplete="off" value="' . sala_h($values['dates']) . '" aria-describedby="error-dates"' . $parts['dates']['invalid'] . '>
+<input id="field-dates" name="dates" required autocomplete="off" placeholder="Napríklad jún 2028 alebo konkrétny dátum" value="' . sala_h($values['dates']) . '" aria-describedby="error-dates"' . $parts['dates']['invalid'] . '>
 </label>
 ' . $errorLine('dates') . '
 <label for="field-guests">Počet hostí

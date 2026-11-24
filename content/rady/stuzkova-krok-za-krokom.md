@@ -6,7 +6,7 @@ published: "2026-10-25"
 updated: "2026-10-25"
 author: "Tím Sály Kinekus"
 image: "stuz-07"
-order: 5
+order: 6
 featured: true
 related:
   - catering-ako-vybrat-firmu
@@ -23,7 +23,7 @@ faq:
   - q: "Čo si máme so sálou prejsť vopred?"
     a: "Program, hodinu príchodu, rozloženie, hudbu, catering a tombolu. Cieľom je pokojný a príjemný večer, na ktorý ste pripravení vy aj my."
   - q: "Varí sála na stužkovú?"
-    a: "Nie. Vlastnú kuchyňu neprevádzkujeme. Cateringovú firmu vieme odporučiť. Ako ju vybrať, je v samostatnom texte o cateringu."
+    a: "Od 1. 6. 2027 je na akcie overený catering s vlastnou kuchyňou priamo v sále. Ako sa líši od donášky, je v samostatnom texte o cateringu."
 ---
 
 ## Kedy so stužkovou začať?
@@ -66,10 +66,10 @@ Tombola potrebuje zoznam cien, človeka, ktorý ju moderuje, a stôl, ktorý nez
 
 Jedlo riešite s cateringovou firmou. So sálou riešite, kam sa jedlo postaví a kedy príde obsluha, aby ste sa v deň večera nehľadali.
 
-Vlastnú kuchyňu neprevádzkujeme. Cateringovú firmu vieme odporučiť. Výber menu, švédskeho stola a diét je v texte [o cateringu](/catering/) a v rade [ako firmu vybrať](/rady/catering-ako-vybrat-firmu/). Triede stačí vedieť počet jediacich a hodinu, kedy má byť jedlo na stole. Alergie zbiera jeden študent alebo rodič, nie náhodný oznam v skupine, ktorý nikto nečíta.
+Od 1. 6. 2027 je na akcie overený catering s vlastnou kuchyňou priamo v sále. Menu, švédsky stôl a diéty sú v texte [o cateringu](/catering/) a v rade [o kuchyni v sále](/rady/catering-vlastna-kuchyne-a-donaska/). Triede stačí vedieť počet jediacich a hodinu, kedy má byť jedlo na stole. Alergie zbiera jeden študent alebo rodič, nie náhodný oznam v skupine, ktorý nikto nečíta.
 
 Pred akciou si s tímom sály prejdete priebeh večera. Zoberte so sebou návrh programu, orientačný počet hostí a vetu, či budete chcieť skôr tancovať alebo skôr sedieť pri stoloch. Rozloženie párty necháva parket voľný. Ako sa typy usporiadania líšia, je v texte o [rozložení sály](/rady/rozlozenie-saly/).
 
-Na tej istej schôdzke si povedzte, odkedy môžete veci nosiť dnu, kde bude tombola a kadiaľ pôjde catering. Prejdite aj balkón a terasu, ak ich chcete medzi blokmi použiť na vzduch. Parkovanie je pred budovou na Rosinskej ceste. Povedzte to rodičom v pozvánke, nech nehľadajú miesto v centre.
+Na tej istej schôdzke si povedzte, odkedy môžete veci nosiť dnu, kde bude tombola a kadiaľ pôjde catering. Prejdite aj balkón a terasu, ak ich chcete medzi blokmi použiť na vzduch. V areáli Kinekusu na Rosinskej ceste je veľké parkovisko zadarmo. Povedzte to rodičom v pozvánke, nech nehľadajú miesto v centre.
 
 Cieľom spoločnej prípravy je pokojný a príjemný večer. Keď program, jedlo a priestor sedia dokopy ešte pred dňom akcie, trieda sa v sále venuje hosťom, nie zhonu v zákulisí.

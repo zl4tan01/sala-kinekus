@@ -6,14 +6,14 @@ published: "2026-10-25"
 updated: "2026-10-25"
 author: "Tím Sály Kinekus"
 image: "konf-01"
-order: 7
+order: 8
 featured: false
 related:
   - rozlozenie-saly
   - catering-ako-vybrat-firmu
 summary:
   - "Pred rezerváciou si overte obraz, okná, mikrofóny, stoly, parkovanie a jedlo."
-  - "V sále je Full HD projektor 5 400 lumenov, SMART osvetlenie a možnosť zastrieť okná, mixáž Yamaha a parkovanie pred budovou."
+  - "V sále je Full HD projektor 5 400 lumenov, SMART osvetlenie a možnosť zastrieť okná, mixáž Yamaha a veľké parkovisko zadarmo v areáli."
   - "Opýtajte sa, či sa dá techniku vyskúšať vopred. Dopyt termín nerezervuje, deň platí až po potvrdení."
 faq:
   - q: "Aký projektor je v sále?"
@@ -23,9 +23,9 @@ faq:
   - q: "Koľko účastníkov sa zmestí?"
     a: "Kapacita je 50 až 250 osôb. Presný počet závisí od usporiadania, pódia a cateringu. Konkrétne stoličky pre vašu akciu povieme na obhliadke, na webe ich neuvádzame."
   - q: "Je pri sále parkovanie?"
-    a: "Áno, pred budovou. Sála je na Rosinskej ceste 13, 010 08 Žilina, na okraji mesta. Na obhliadke uvidíte, ako sa od áut prechádza dnu."
+    a: "Áno. V areáli Kinekusu je veľké parkovisko zadarmo. Sála je na Rosinskej ceste 13, 010 08 Žilina. Na obhliadke uvidíte, ako sa od áut prechádza dnu."
   - q: "Zabezpečí sála obedy?"
-    a: "Nie. Vlastnú kuchyňu neprevádzkujeme. Cateringovú firmu vieme odporučiť. Výdaj jedla si s ňou aj s nami odsúhlaste pred termínom."
+    a: "Od 1. 6. 2027 je na akcie overený catering s vlastnou kuchyňou priamo v sále. Výdaj jedla si odsúhlaste pred termínom, aby sedel na program."
 ---
 
 ## Čo si odškrtnúť, kým sálu rezervujete na firmu?
@@ -36,7 +36,7 @@ Prejdite obraz, zvuk, stoly, autá a jedlo ešte pred tým, než deň beriete ak
 2. Vieme, či chceme zastrieť okná a či budeme premietať aj cez deň.
 3. Vieme, koľko ľudí hovorí a či chcú náhlavný alebo ručný mikrofón.
 4. Vieme, či účastníci sedia v divadle, v škole alebo pri spoločnej večeri.
-5. Vieme, koľko áut príde a že parkovanie je pred budovou.
+5. Vieme, koľko áut príde a že v areáli je veľké parkovisko zadarmo.
 6. Vieme, kto vezie jedlo a kedy ho chce vydávať.
 7. Opýtajte sa, či sa dá techniku vyskúšať vopred.
 
@@ -62,11 +62,11 @@ Ak deň mení zostavu, napíšte poradie. Ráno škola, večer banket, znamená 
 
 ## Kde zaparkujú účastníci a kto zabezpečí catering?
 
-Parkovanie je pred budovou na Rosinskej ceste 13, 010 08 Žilina, na okraji mesta. Jedlo vozí catering, nie kuchyňa sály.
+V areáli Kinekusu na Rosinskej ceste 13, 010 08 Žilina, je veľké parkovisko zadarmo. Od 1. 6. 2027 jedlo varí overený catering s kuchyňou priamo v sále.
 
-Do pozvánky dajte adresu a vetu, že sa parkuje pred budovou. Na obhliadke si prejdite cestu od áut ku vchodu. Opýtajte sa, či je vstup bez schodov. Ak veziete materiál, opýtajte sa, kadiaľ ho znesiete dnu, aby ste neskúšali trasu až ráno v deň akcie.
+Do pozvánky dajte adresu a vetu, že v areáli Kinekusu je veľké parkovisko zadarmo. Na obhliadke si prejdite cestu od áut ku vchodu. Opýtajte sa, či je vstup bez schodov. Ak veziete materiál, opýtajte sa, kadiaľ ho znesiete dnu, aby ste neskúšali trasu až ráno v deň akcie.
 
-Vlastnú kuchyňu neprevádzkujeme. Cateringovú firmu vieme odporučiť. Ako porovnať ponuky, je v texte [o cateringu](/rady/catering-ako-vybrat-firmu/) a kratšie na stránke [cateringu](/catering/). Pri konferencii stačí často káva a obed v pauze. Pri večernom programe riešite aj to, či jedlo stojí na švédskom stole mimo pohľadu na plátno. Prestávku na jedlo napíšte do programu. Inak sa výdaj stretne s prednáškou.
+Od 1. 6. 2027 je na akcie overený catering s vlastnou kuchyňou priamo v sále. Ako sa taký catering líši od donášky, je v texte [o kuchyni v sále](/rady/catering-vlastna-kuchyne-a-donaska/) a kratšie na stránke [cateringu](/catering/). Pri konferencii stačí často káva a obed v pauze. Pri večernom programe riešite aj to, či jedlo stojí na švédskom stole mimo pohľadu na plátno. Prestávku na jedlo napíšte do programu. Inak sa výdaj stretne s prednáškou.
 
 Balkón a terasa sa hodia na prestávku, nie na premietanie. Ak ich chcete, povedzte to, nech viete, či sú v tom období použiteľné.
 

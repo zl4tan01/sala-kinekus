@@ -90,8 +90,6 @@ function setupBooking(root: HTMLElement): void {
   if (!form || !thanks) return;
 
   const kindSelect = form.querySelector<HTMLSelectElement>("[name=kind]");
-  const presetKind = form.dataset.kind || "";
-  if (presetKind && kindSelect) kindSelect.value = presetKind;
   syncSegment();
   kindSelect?.addEventListener("change", syncSegment);
 
@@ -380,14 +378,21 @@ function setupConsent(): void {
   });
 }
 
+function markViewing(): void {
+  const choice = document.querySelector<HTMLInputElement>("[data-viewing-choice]");
+  if (choice) choice.checked = true;
+  document.getElementById("termin")?.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+
 function setupViewing(): void {
-  const line = "Chcem si dohodnúť obhliadku sály.";
+  if (new URLSearchParams(window.location.search).get("obhliadka") === "1") markViewing();
   document.querySelectorAll<HTMLAnchorElement>("[data-viewing]").forEach((link) => {
-    link.addEventListener("click", () => {
-      const field = document.querySelector<HTMLTextAreaElement>('textarea[name="message"]');
-      if (!field || field.value.includes(line)) return;
-      const current = field.value.trim();
-      field.value = current === "" ? line : `${current}\n${line}`;
+    link.addEventListener("click", (event) => {
+      if (!document.getElementById("termin")) return;
+      event.preventDefault();
+      const next = `${window.location.pathname}?obhliadka=1#termin`;
+      history.replaceState(null, "", next);
+      markViewing();
     });
   });
 }

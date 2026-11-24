@@ -58,7 +58,7 @@ const namedIds = ["hero", "b2b", "b2c", "stuzkova", "wide", "party", "opening", 
 const imageIds = new Set([...(media.gallery ?? []).map((item) => item.id), ...namedIds]);
 
 const files = fs.readdirSync(contentDir).filter((name) => name.endsWith(".md")).sort();
-check(files.length === 7, `v content/rady je 7 článkov (${files.length})`);
+check(files.length === 8, `v content/rady je 8 článkov (${files.length})`);
 
 const articles = files.map((file) => {
   const raw = fs.readFileSync(path.join(contentDir, file), "utf8");

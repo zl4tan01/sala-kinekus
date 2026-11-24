@@ -5,7 +5,7 @@ import Booking from "../components/Booking.astro";
 import Pricing from "../components/Pricing.astro";
 import media from "../data/media.json";
 
-const description = "Sála v Žiline pre firmy: školenia, prezentácie a firemné akcie. Projektor Full HD, SMART osvetlenie, ozvučenie Yamaha a parkovanie pred budovou.";
+const description = "Sála v Žiline pre firmy: školenia, prezentácie a firemné akcie. Projektor Full HD, SMART osvetlenie, ozvučenie Yamaha a veľké parkovisko zadarmo.";
 const hall = media.gallery.find((item) => item.id === "konf-01");
 if (!hall) throw new Error("Chýba fotografia konf-01");
 ---
@@ -17,7 +17,7 @@ if (!hall) throw new Error("Chýba fotografia konf-01");
         <p class="eyebrow">Pre firmy</p>
         <h1>Pre firmy: konferencie, školenia a prezentácie.</h1>
         <p class="lead" style="margin-top:1rem">
-          Firemná akcia tu nerieši, či bude vidieť na plátno a kde hostia zaparkujú. Projektor, možnosť zastrieť okná, zvuk aj parkovanie pred budovou sú súčasťou sály.
+          Firemná akcia tu nerieši, či bude vidieť na plátno a kde hostia zaparkujú. Projektor, možnosť zastrieť okná, zvuk aj veľké parkovisko zadarmo v areáli sú súčasťou sály.
         </p>
         <div class="hero-actions">
           <a class="btn" href="#termin">Poslať nezáväzný dopyt</a>
@@ -47,11 +47,11 @@ if (!hall) throw new Error("Chýba fotografia konf-01");
         <div class="prose" style="margin-top:1.5rem">
           <p>Sála sa hodí na konferenciu, školenie, prezentáciu aj firemnú akciu. Rozloženie sály prispôsobíme vašej akcii. Divadlo alebo škola sa hodí podľa toho, či hostia počúvajú, alebo si píšu.</p>
           <p>Kapacita priestoru je 50 až 250 osôb. Koľko miest dá konkrétne usporiadanie, závisí od programu.</p>
-          <p>Sála je na Rosinskej ceste, na okraji Žiliny, s parkovaním priamo pred budovou.</p>
+          <p>Sála je na Rosinskej ceste, na okraji Žiliny. V areáli Kinekusu je veľké parkovisko zadarmo.</p>
         </div>
       </div>
     </div>
   </article>
   <Pricing id="firemna" />
-  <Booking segment="b2b" kind="firemna" title="Termín pre firemnú akciu" />
+  <Booking title="Termín pre firemnú akciu" />
 </Base>

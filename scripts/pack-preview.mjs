@@ -77,3 +77,45 @@ cpSync(out, path.join(stage, slug), { recursive: true });
 const zip = "/opt/cursor/artifacts/sala-kinekus-9456E0ulzhlbeu2YNw7AJhI7.zip";
 spawnSync("zip", ["-r", "-q", zip, slug], { cwd: stage, stdio: "inherit" });
 console.log(zip);
+
+const kelvioDir = path.join(root, "dist-kelvio");
+const kelvio = spawnSync("npx", ["astro", "build"], {
+  cwd: root,
+  env: {
+    ...process.env,
+    SITE_BASE: "/",
+    SITE_URL: "https://sala.kelvio.sk",
+    SITE_NOINDEX: "1",
+    OUT_DIR: "dist-kelvio",
+  },
+  stdio: "inherit",
+});
+if (kelvio.status !== 0) process.exit(kelvio.status ?? 1);
+const kelvioPublish = spawnSync("node", ["scripts/publish-php.mjs"], {
+  cwd: root,
+  env: { ...process.env, OUT_DIR: "dist-kelvio" },
+  stdio: "inherit",
+});
+if (kelvioPublish.status !== 0) process.exit(kelvioPublish.status ?? 1);
+
+const kelvioAccess = path.join(kelvioDir, ".htaccess");
+let kelvioRules = readFileSync(kelvioAccess, "utf8");
+if (!kelvioRules.includes("X-Robots-Tag")) {
+  kelvioRules = kelvioRules.replace(
+    'Header always set X-Frame-Options "SAMEORIGIN"',
+    'Header always set X-Frame-Options "SAMEORIGIN"\n    Header always set X-Robots-Tag "noindex"',
+  );
+}
+writeFileSync(kelvioAccess, kelvioRules);
+const kelvioOslavy = path.join(kelvioDir, "oslavy/index.html");
+writeFileSync(
+  kelvioOslavy,
+  readFileSync(kelvioOslavy, "utf8").replace(
+    'href="https://www.salazilina.sk/"',
+    'href="https://sala.kelvio.sk/"',
+  ),
+);
+
+const rootZip = "/opt/cursor/artifacts/sala-kinekus-kelvio-root.zip";
+spawnSync("zip", ["-r", "-q", rootZip, "."], { cwd: kelvioDir, stdio: "inherit" });
+console.log(rootZip);

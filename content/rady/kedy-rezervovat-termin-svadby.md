@@ -6,7 +6,7 @@ published: "2026-10-25"
 updated: "2026-10-25"
 author: "Tím Sály Kinekus"
 image: "svadba-23"
-order: 2
+order: 3
 featured: true
 related:
   - ako-vybrat-svadobnu-salu

@@ -43,14 +43,17 @@ export const kinekusLinks = [
 export const proof = [
   { value: "50–250", label: "osôb v sále" },
   { value: "12×6 m", label: "pódium a parket" },
-  { value: "Pred budovou", label: "parkovanie pre hostí" },
+  { value: "Zadarmo", label: "veľké parkovisko v areáli" },
   { value: "Balkón", label: "a terasa zo sály" },
 ];
 
 export const kinds = [
   { id: "svadba", segment: "b2c", label: "Svadba" },
   { id: "stuzkova", segment: "b2c", label: "Stužková" },
-  { id: "firemna", segment: "b2b", label: "Firemná akcia alebo konferencia" },
+  { id: "firemna", segment: "b2b", label: "Firemná akcia" },
+  { id: "oslava", segment: "b2c", label: "Oslava" },
+  { id: "ples", segment: "b2c", label: "Ples" },
+  { id: "ine", segment: "b2c", label: "Iné" },
 ];
 
 export const steps = [
@@ -67,35 +70,12 @@ export const steps = [
   {
     n: "03",
     title: "Príprava",
-    text: "Rozloženie sály prispôsobíme vašej akcii. Catering a výzdobu vieme odporučiť, vyberiete si vy.",
+    text: "Rozloženie sály prispôsobíme vašej akcii. Od 1. 6. 2027 je na akcie overený catering s vlastnou kuchyňou priamo v sále.",
   },
   {
     n: "04",
     title: "Realizácia",
     text: "V deň akcie je sála pripravená podľa dohody. Termín platí, až keď ho potvrdíme.",
-  },
-];
-
-export const layouts = [
-  {
-    id: "banket",
-    title: "Banket",
-    text: "Stoly na hostinu a slávnostnú večeru.",
-  },
-  {
-    id: "party",
-    title: "Párty",
-    text: "Parket ostáva voľný a pódium 12×6 m je pre kapelu alebo DJ-a. Stužková, ples aj zábava po večeri.",
-  },
-  {
-    id: "divadlo",
-    title: "Divadlo",
-    text: "Stoličky v radoch k pódiu. Príhovor, prednáška alebo prezentácia.",
-  },
-  {
-    id: "skola",
-    title: "Škola",
-    text: "Stoly v radoch. Skôr na školenie a workshop, keď sálu potrebujete aj na firemný deň.",
   },
 ];
 
@@ -114,22 +94,22 @@ export const faqs = [
   },
   {
     q: "Pomôžete s prípravou, alebo si všetko riešime sami?",
-    a: "Od dopytu po večer máte na druhej strane človeka. Na obhliadke prejdete priestor. Rozloženie sály prispôsobíme vašej akcii. Catering a výzdobu odporučíme, vyberiete si vy.",
+    a: "Od dopytu po večer máte na druhej strane človeka. Na obhliadke prejdete priestor. Rozloženie sály prispôsobíme vašej akcii.",
   },
   {
-    q: "Ako je to s jedlom a výzdobou?",
-    a: "Vlastnú kuchyňu neprevádzkujeme. Odporučíme kvalitné cateringové firmy, mnohé vedia zabezpečiť aj výzdobu. Ak už máte vlastného dodávateľa, radi vám povieme, ako to pri vašej akcii vieme zariadiť.",
+    q: "Ako je to s jedlom?",
+    a: "Od 1. 6. 2027 poskytujeme na akcie overený catering, s ktorým máme dobré skúsenosti. Má priamo v sále vybavenú vlastnú kuchyňu. Jedlo tak vzniká na mieste, čo prispieva k čerstvosti, rýchlosti obsluhy a celkovému zážitku hostí.",
   },
   {
     q: "Kde zaparkujú hostia?",
-    a: "Priamo pred budovou. Sála je na Rosinskej ceste, na okraji Žiliny, s dobrým prístupom autom.",
+    a: "V areáli Kinekusu je veľké parkovisko zadarmo. Sála je na Rosinskej ceste, na okraji Žiliny, s dobrým prístupom autom.",
   },
   {
     q: "Dá sa zo sály vyjsť von?",
     a: "Áno. Z sály sa prechádza priamo na balkón a terasu.",
   },
   {
-    q: "Čo unesie pódium a parket?",
+    q: "Aké je pódium a parket?",
     a: "Pódium má 12×6 m a hodí sa na kapelu, DJ-a aj sprievodný program. Parket ostáva na tanec. Ozvučenie má mixážny pult Yamaha, náhlavné aj ručné mikrofóny a reproduktory. Svetelné scény sa dajú prepínať podľa večera.",
   },
   {

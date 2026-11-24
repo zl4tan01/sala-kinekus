@@ -2,18 +2,13 @@
 import { kinds, site } from "../data/site";
 import { url } from "../lib/base";
 interface Props {
-  segment?: string;
-  kind?: string;
   title?: string;
   lead?: string;
 }
 const {
-  segment = "b2c",
-  kind = "svadba",
   title = "Poslať nezáväzný dopyt",
   lead = "Napíšte preferovaný termín a o akciu ide. Ozveme sa vám. Odoslanie formulára termín nerezervuje.",
 } = Astro.props;
-const selected = kinds.find((item) => item.id === kind) ?? kinds.find((item) => item.segment === segment) ?? kinds[0];
 ---
 
 <section class="section" id="termin" data-booking>
@@ -31,24 +26,36 @@ const selected = kinds.find((item) => item.id === kind) ?? kinds.find((item) => 
             Ak sa vám neozveme, zavolajte na {site.phone}.
           </p>
         </div>
-        <form class="form" data-form action={url("/api/inquiry.php")} method="post" data-segment={selected.segment} data-kind={selected.id} novalidate aria-describedby="error-form">
+        <form class="form" data-form action={url("/api/inquiry.php")} method="post" novalidate aria-describedby="error-form">
           <p class="form-error" id="error-form" data-form-error hidden></p>
           <div class="hp" aria-hidden="true">
             <label>Webová stránka firmy
               <input name="company_url" tabindex="-1" autocomplete="off" />
             </label>
           </div>
-          <input type="hidden" name="segment" value={selected.segment} />
+          <input type="hidden" name="segment" value="" />
           <label for="field-kind">Druh podujatia
             <select id="field-kind" name="kind" required aria-describedby="error-kind">
+              <option value="" selected disabled>Vyberte druh podujatia</option>
               {kinds.map((item) => (
-                <option value={item.id} data-segment={item.segment} selected={item.id === selected.id}>{item.label}</option>
+                <option value={item.id} data-segment={item.segment}>{item.label}</option>
               ))}
             </select>
           </label>
           <p class="field-error" id="error-kind" data-error-for="kind" hidden></p>
+          <fieldset class="intent">
+            <legend>Čo potrebujete</legend>
+            <label class="check">
+              <input type="radio" name="intent" value="dopyt" checked />
+              <span>Dopyt</span>
+            </label>
+            <label class="check">
+              <input type="radio" name="intent" value="obhliadka" data-viewing-choice />
+              <span>Mám záujem o obhliadku</span>
+            </label>
+          </fieldset>
           <label for="field-dates">Preferovaný termín
-            <input id="field-dates" name="dates" required autocomplete="off" placeholder="Napríklad 28. 10. 2026 alebo jún 2027" aria-describedby="error-dates" />
+            <input id="field-dates" name="dates" required autocomplete="off" placeholder="Napríklad jún 2028 alebo konkrétny dátum" aria-describedby="error-dates" />
           </label>
           <p class="field-error" id="error-dates" data-error-for="dates" hidden></p>
           <label for="field-guests">Počet hostí <span class="optional">(nepovinné)</span>

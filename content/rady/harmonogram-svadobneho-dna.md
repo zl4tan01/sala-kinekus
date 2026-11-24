@@ -6,7 +6,7 @@ published: "2026-10-25"
 updated: "2026-10-25"
 author: "Tím Sály Kinekus"
 image: "svadba-25"
-order: 4
+order: 5
 featured: false
 related:
   - kedy-rezervovat-termin-svadby
@@ -54,7 +54,7 @@ Obrad otvára deň hostí. Fotenie a presun do sály sú medzera, ktorú treba p
 
 Keď je obrad inde, rátajte cestu. Orientačne nechajte medzi koncom obradu a otvorením sály toľko, koľko reálne zaberie presun a spoločná fotografia, nie len želanie v pozvánke. Hostí v pozvánke poproste, aby prišli na hodinu, keď sála naozaj prijíma, nie na hodinu obradu, ktorý je inde.
 
-Prvý kontakt so sálou je vstup, nie tanec. Nechajte si na obhliadke ukázať, kadiaľ hostia prídu od parkovania pred budovou. Krátke privítanie pri dverách alebo pri hlavnom stole zabráni tomu, že si ľudia sadnú skôr, než chcete povedať úvod. Prípitok patrí sem, kým sú ešte spolu a kým nezačne prvý chod.
+Prvý kontakt so sálou je vstup, nie tanec. Nechajte si na obhliadke ukázať, kadiaľ hostia prídu z veľkého parkoviska v areáli. Krátke privítanie pri dverách alebo pri hlavnom stole zabráni tomu, že si ľudia sadnú skôr, než chcete povedať úvod. Prípitok patrí sem, kým sú ešte spolu a kým nezačne prvý chod.
 
 Ak časť hostí príde len na večer, napíšte im inú hodinu. Inak vojdú do prípitku v polovici vety. Toto je dohoda vo vašej rodine. Sála ju neeviduje.
 
@@ -74,6 +74,6 @@ Polnočné prekvapenie je váš bod programu okolo polnoci. Môže to byť malé
 
 Ak má byť teplé jedlo, musí o ňom vedieť catering vopred, vrátane hodiny a miesta výdaja. Ak je to len hudba, stačí veta DJ-ovi. V oboch prípadoch si overte, či výdaj nezablokuje parket. Hodinu v tabuľke berte ako príklad. Posuňte ju, ak hostina mešká. Naháňať polnoc kvôli tabuľke nemá zmysel.
 
-Pred potvrdením dňa si so sálou zhrňte tri veci. Od koľkej môžete chystať výzdobu. Ktoré rozloženie stolov platí na začiatku. Kto prináša jedlo a tortu. S cateringom si zvlášť napíšte hodiny výdaja, počet hostí a alergie. Vlastnú kuchyňu neprevádzkujeme. Vety o jedle patria dodávateľovi, nie do vzoru dňa.
+Pred potvrdením dňa si so sálou zhrňte tri veci. Od koľkej môžete chystať výzdobu. Ktoré rozloženie stolov platí na začiatku. Kto prináša tortu. S cateringom si zvlášť napíšte hodiny výdaja, počet hostí a alergie. Od 1. 6. 2027 jedlo varí overený catering s kuchyňou priamo v sále. Vety o jedle patria do programu dňa, nie do odhadu.
 
 Keď sa plán zmení týždeň pred svadbou, pošlite nový sled aj nám, aj cateringu. Stačí krátky zoznam hodín. Nemusí vyzerať ako táto tabuľka.
