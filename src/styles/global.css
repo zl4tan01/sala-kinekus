@@ -219,11 +219,11 @@ a:hover { color: var(--ink); }
   color: var(--muted);
 }
 
-.brand-compact { display: none; align-items: center; gap: 0.4rem; min-width: 0; }
+.brand-compact { display: none; align-items: center; gap: 0.45rem; min-width: 0; }
 
 .brand-mark {
-  width: 31px;
-  height: 34px;
+  width: 40px;
+  height: 44px;
   max-width: none;
   display: block;
 }
@@ -231,8 +231,8 @@ a:hover { color: var(--ink); }
 .brand-name {
   color: var(--ink);
   font-weight: 800;
-  font-size: 0.78rem;
-  letter-spacing: 0.01em;
+  font-size: 1.2rem;
+  letter-spacing: 0;
   line-height: 1;
   white-space: nowrap;
 }
@@ -241,8 +241,8 @@ a:hover { color: var(--ink); }
 
 .header-call {
   display: none;
-  width: 32px;
-  height: 32px;
+  width: 44px;
+  height: 44px;
   align-items: center;
   justify-content: center;
   color: var(--ink);
@@ -250,7 +250,7 @@ a:hover { color: var(--ink); }
   border-radius: 999px;
 }
 
-.header-call svg { width: 16px; height: 16px; display: block; }
+.header-call svg { width: 20px; height: 20px; display: block; }
 
 .nav-toggle {
   min-width: 44px;
@@ -263,29 +263,29 @@ a:hover { color: var(--ink); }
 }
 
 @media (max-width: 768px) {
-  :root { --header: 56px; }
+  :root { --header: 68px; }
   .header,
   .header.is-stuck {
-    height: 56px;
-    max-height: 56px;
+    height: 68px;
+    max-height: 68px;
   }
   .header .wrap.header-inner {
     width: 100%;
     height: 100%;
-    padding: 0 0.65rem;
-    gap: 0.45rem;
+    padding: 0 0.6rem;
+    gap: 0.4rem;
   }
   .header .brand { padding: 0; min-width: 0; }
   .header .logo { display: none; }
   .brand-compact { display: flex; }
   .header-call { display: inline-flex; }
   .nav-toggle {
-    min-width: 0;
-    min-height: 32px;
-    height: 32px;
-    padding: 0 0.7rem;
+    min-width: 44px;
+    min-height: 44px;
+    height: 44px;
+    padding: 0 0.85rem;
     border-width: 1.5px;
-    font-size: 0.78rem;
+    font-size: 0.95rem;
     line-height: 1;
   }
 }
