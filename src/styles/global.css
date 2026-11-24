@@ -182,12 +182,17 @@ a:hover { color: var(--ink); }
   padding-block: 6px;
 }
 
-.brand {
+.brand,
+.brand:hover,
+.brand:focus,
+.brand:active,
+.brand:visited {
   display: block;
   padding: 10px 12px 10px 4px;
   margin: 0;
   line-height: 0;
   flex: none;
+  text-decoration: none;
 }
 
 .logo {
@@ -228,13 +233,36 @@ a:hover { color: var(--ink); }
   display: block;
 }
 
-.brand-name {
+.brand-words {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 2px;
+  min-width: 0;
+  line-height: 1;
+}
+
+.brand-name,
+.brand-city,
+.brand-name:hover,
+.brand-city:hover {
   color: var(--ink);
-  font-weight: 800;
-  font-size: 1.2rem;
-  letter-spacing: 0;
+  font-family: var(--sans);
   line-height: 1;
   white-space: nowrap;
+  text-decoration: none;
+}
+
+.brand-name {
+  font-weight: 800;
+  font-size: 1.2rem;
+}
+
+.brand-city {
+  font-weight: 500;
+  font-size: 12.5px;
+  letter-spacing: 0.14em;
 }
 
 .header-actions { display: flex; align-items: center; gap: 0.35rem; }
@@ -275,7 +303,7 @@ a:hover { color: var(--ink); }
     padding: 0 0.6rem;
     gap: 0.4rem;
   }
-  .header .brand { padding: 0; min-width: 0; }
+  .header .brand { padding: 0; min-width: 0; line-height: 1; }
   .header .logo { display: none; }
   .brand-compact { display: flex; }
   .header-call { display: inline-flex; }
