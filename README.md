@@ -45,7 +45,7 @@ Farby sú žltá `#F2BC21`, tmavá `#2C2C2B` a červenooranžová `#FC5502` len 
 
 Na ostrý web ide **obsah priečinka `dist/`** (`npm run build`), priamo do webového koreňa. Nie celý repozitár a nie `node_modules`.
 
-Testovací náhľad na `sala.kelvio.sk` sú dva zipy z `node scripts/pack-preview.mjs`. Koreňový zip sa rozbalí priamo do docrootu (`https://sala.kelvio.sk/`). Druhý zip má na vrchnej úrovni priečinok `9456E0ulzhlbeu2YNw7AJhI7/`. Oba majú `noindex` a `api/` bez `config.php`. `api/bootstrap.php` číta najprv vlastný `config.php`, a ak nie je, `api/config.php` o dve úrovne vyššie v koreni servera. Ostrý build pre `salazilina.sk` necháva `SITE_BASE` prázdne a `SITE_NOINDEX` vypnuté.
+Testovací náhľad na `sala.kelvio.sk` sú dva zipy z `node scripts/pack-preview.mjs`: `sala-root.zip` sa rozbalí priamo do docrootu (`https://sala.kelvio.sk/`). `sala-preview.zip` má na vrchnej úrovni priečinok `9456E0ulzhlbeu2YNw7AJhI7/`. Oba majú `noindex` a `api/` bez `config.php`. `api/bootstrap.php` číta najprv vlastný `config.php`, a ak nie je, `api/config.php` o dve úrovne vyššie v koreni servera. Ostrý build pre `salazilina.sk` necháva `SITE_BASE` prázdne a `SITE_NOINDEX` vypnuté.
 
 ```bash
 npm ci

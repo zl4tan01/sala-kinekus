@@ -74,7 +74,7 @@ rmSync(stage, { recursive: true, force: true });
 mkdirSync(path.join(stage, slug), { recursive: true });
 cpSync(out, path.join(stage, slug), { recursive: true });
 
-const zip = "/opt/cursor/artifacts/sala-kinekus-9456E0ulzhlbeu2YNw7AJhI7.zip";
+const zip = "/opt/cursor/artifacts/sala-preview.zip";
 spawnSync("zip", ["-r", "-q", zip, slug], { cwd: stage, stdio: "inherit" });
 console.log(zip);
 
@@ -116,6 +116,6 @@ writeFileSync(
   ),
 );
 
-const rootZip = "/opt/cursor/artifacts/sala-kinekus-kelvio-root.zip";
+const rootZip = "/opt/cursor/artifacts/sala-root.zip";
 spawnSync("zip", ["-r", "-q", rootZip, "."], { cwd: kelvioDir, stdio: "inherit" });
 console.log(rootZip);
