@@ -5,6 +5,7 @@ export function url(path: string): string {
   const base = import.meta.env.BASE_URL || "/";
   const prefix = base.endsWith("/") ? base.slice(0, -1) : base;
   const normalized = path.startsWith("/") ? path : `/${path}`;
+  if (normalized === "/api" || normalized.startsWith("/api/")) return normalized;
   if (prefix && (normalized === prefix || normalized.startsWith(`${prefix}/`))) return normalized;
   return `${prefix}${normalized}`;
 }

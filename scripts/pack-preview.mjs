@@ -20,18 +20,14 @@ const build = spawnSync("npx", ["astro", "build"], {
 });
 if (build.status !== 0) process.exit(build.status ?? 1);
 
-const publish = spawnSync("node", ["scripts/publish-php.mjs"], {
-  cwd: root,
-  env: { ...process.env, OUT_DIR: "dist-preview" },
-  stdio: "inherit",
-});
-if (publish.status !== 0) process.exit(publish.status ?? 1);
+rmSync(path.join(out, "api"), { recursive: true, force: true });
+rmSync(path.join(out, "content"), { recursive: true, force: true });
 
 function rewrite(text) {
   return text
-    .replace(/(href|src|action)=("|')\/(?!\/|9456E0ulzhlbeu2YNw7AJhI7\/)/g, `$1=$2${base}`)
-    .replace(/url\((["']?)\/(?!\/|9456E0ulzhlbeu2YNw7AJhI7\/)/g, `url($1${base}`)
-    .replace(/url=\/(?!\/|9456E0ulzhlbeu2YNw7AJhI7\/)/g, `url=${base}`);
+    .replace(/(href|src|action)=("|')\/(?!\/|9456E0ulzhlbeu2YNw7AJhI7\/|api\/)/g, `$1=$2${base}`)
+    .replace(/url\((["']?)\/(?!\/|9456E0ulzhlbeu2YNw7AJhI7\/|api\/)/g, `url($1${base}`)
+    .replace(/url=\/(?!\/|9456E0ulzhlbeu2YNw7AJhI7\/|api\/)/g, `url=${base}`);
 }
 
 function walk(dir) {
@@ -75,8 +71,11 @@ mkdirSync(path.join(stage, slug), { recursive: true });
 cpSync(out, path.join(stage, slug), { recursive: true });
 
 const zip = "/opt/cursor/artifacts/sala-preview.zip";
+rmSync(zip, { force: true });
 spawnSync("zip", ["-r", "-q", zip, slug], { cwd: stage, stdio: "inherit" });
 console.log(zip);
+
+if (process.env.PACK_ROOT === "0") process.exit(0);
 
 const kelvioDir = path.join(root, "dist-kelvio");
 const kelvio = spawnSync("npx", ["astro", "build"], {
@@ -117,5 +116,6 @@ writeFileSync(
 );
 
 const rootZip = "/opt/cursor/artifacts/sala-root.zip";
+rmSync(rootZip, { force: true });
 spawnSync("zip", ["-r", "-q", rootZip, "."], { cwd: kelvioDir, stdio: "inherit" });
 console.log(rootZip);
