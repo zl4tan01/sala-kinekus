@@ -381,6 +381,55 @@ a:hover { color: var(--ink); }
   background: var(--deep);
 }
 
+.hero-highlights {
+  display: grid;
+  gap: 0.65rem;
+  margin: 0;
+  padding: 0.85rem 1rem 0.15rem;
+  list-style: none;
+}
+
+.hero-highlights li,
+.proof-lead {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-width: 0;
+  background: #fff;
+  color: var(--ink);
+  border-radius: 0.95rem;
+  border-left: 6px solid var(--yellow);
+  padding: 0.75rem 0.9rem;
+}
+
+.hero-highlights strong,
+.proof-lead strong {
+  display: block;
+  font-weight: 800;
+  font-size: 1.05rem;
+  line-height: 1.15;
+  letter-spacing: 0;
+}
+
+.hero-highlights li span span,
+.proof-lead span span {
+  display: block;
+  margin-top: 0.15rem;
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.highlight-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  flex: none;
+  color: var(--ink);
+  background: var(--yellow);
+  border-radius: 0.7rem;
+  padding: 0.35rem;
+}
+
 .hero-photo { min-width: 0; }
 
 .hero-photo img, .hero-photo picture { display: block; width: 100%; height: 100%; }
@@ -649,6 +698,7 @@ body:has([data-consent]:not([hidden])) {
 body:has([data-consent]:not([hidden])) .dock { display: none; }
 
 @media (max-width: 899px) {
+  .hero-highlights { order: -2; }
   .hero-photo { order: -1; }
   .hero h1 { font-size: clamp(1.65rem, 7.4vw, 2.2rem); }
   .hero .lead { font-size: 1rem; }
@@ -662,6 +712,12 @@ body:has([data-consent]:not([hidden])) .dock { display: none; }
     grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
     min-height: min(78vh, 760px);
     align-items: stretch;
+  }
+  .hero-highlights {
+    grid-column: 1 / -1;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.85rem;
+    padding: 1rem clamp(1.25rem, 4vw, 4rem) 0;
   }
   .hero-copy {
     display: flex;
@@ -727,16 +783,35 @@ body:has([data-consent]:not([hidden])) .dock { display: none; }
 .proof {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  border-block: 1px solid var(--line);
+  gap: 0.75rem;
+  border-block: 0;
+  padding-block: 1rem;
+}
+
+.proof-lead {
+  grid-column: 1 / -1;
+  background: var(--yellow);
+  border-left-color: var(--ink);
+}
+
+.proof-lead .highlight-icon {
+  width: 3rem;
+  height: 3rem;
+  background: #fff;
+}
+
+.proof-lead strong {
+  font-size: clamp(1.45rem, 4vw, 2.15rem);
 }
 
 .proof article {
   min-width: 0;
-  padding: 1.25rem 0.2rem 1.25rem 0;
-  border-bottom: 1px solid var(--line);
+  padding: 1rem 0.2rem;
 }
 
-.proof article:nth-child(odd) { padding-right: 0.8rem; }
+.proof article.proof-lead {
+  padding: 1.15rem 1.15rem;
+}
 
 .proof strong {
   display: block;
@@ -746,6 +821,11 @@ body:has([data-consent]:not([hidden])) .dock { display: none; }
   letter-spacing: 0;
   line-height: 1.05;
   overflow-wrap: anywhere;
+}
+
+.proof article.proof-lead strong {
+  font-size: clamp(1.45rem, 3.2vw, 2.2rem);
+  overflow-wrap: normal;
 }
 
 .proof span {
@@ -829,6 +909,14 @@ body:has([data-consent]:not([hidden])) .dock { display: none; }
 .viz { width: 100%; height: auto; display: block; margin-bottom: 0.8rem; }
 
 .layout-card h3, .fact h2, .fact h3 { font-size: 1.45rem; margin-bottom: 0.4rem; }
+
+.fact-lead {
+  background: var(--yellow);
+  border-radius: 1rem;
+  padding: 1rem 1.1rem;
+}
+
+.fact-lead p { color: var(--ink); font-weight: 600; }
 
 .layout-card p, .fact p, .quote p { color: var(--ink-soft); }
 
@@ -1379,9 +1467,10 @@ textarea { min-height: 7rem; resize: vertical; }
     padding: 0.85rem 1rem;
   }
   .wrap { width: min(var(--max), calc(100% - 3rem)); }
-  .proof { grid-template-columns: repeat(4, 1fr); }
-  .proof article { border-bottom: 0; padding: 1.6rem 1rem 1.6rem 0; }
-  .proof article + article { border-left: 1px solid var(--line); padding-left: 1rem; }
+  .proof { grid-template-columns: 1.2fr 1.2fr 0.8fr 0.8fr; align-items: stretch; }
+  .proof-lead { grid-column: auto; }
+  .proof article { border-bottom: 0; padding: 1.15rem 1rem; }
+  .proof article:not(.proof-lead) { border-left: 1px solid var(--line); }
   .path-grid, .map-grid { grid-template-columns: 1fr 1fr; }
   .booking-grid { max-width: 40rem; }
   .quote-grid, .review-grid {

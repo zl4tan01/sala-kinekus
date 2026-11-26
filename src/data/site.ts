@@ -41,10 +41,10 @@ export const kinekusLinks = [
 ];
 
 export const proof = [
+  { value: "Parkovanie zadarmo", label: "Veľké parkovisko v areáli", lead: true, icon: "park" },
+  { value: "Balkón a terasa", label: "Priamo zo sály", lead: true, icon: "terrace" },
   { value: "50–250", label: "osôb v sále" },
   { value: "12×6 m", label: "pódium a parket" },
-  { value: "Zadarmo", label: "veľké parkovisko v areáli" },
-  { value: "Balkón", label: "a terasa zo sály" },
 ];
 
 export const kinds = [
@@ -81,6 +81,14 @@ export const steps = [
 
 export const faqs = [
   {
+    q: "Kde zaparkujú hostia?",
+    a: "V areáli Kinekusu je veľké parkovisko zadarmo. Sála je na Rosinskej ceste, na okraji Žiliny, s dobrým prístupom autom.",
+  },
+  {
+    q: "Dá sa zo sály vyjsť von?",
+    a: "Áno. Z sály sa prechádza priamo na balkón a terasu.",
+  },
+  {
     q: "Koľko hostí sa do sály zmestí?",
     a: "Kapacita je 50 až 250 osôb. Presné usadenie závisí od stolov, pódia a cateringu.",
   },
@@ -99,14 +107,6 @@ export const faqs = [
   {
     q: "Ako je to s jedlom?",
     a: "Od 1. 6. 2027 poskytujeme na akcie overený catering, s ktorým máme dobré skúsenosti. Má priamo v sále vybavenú vlastnú kuchyňu. Jedlo tak vzniká na mieste, čo prispieva k čerstvosti, rýchlosti obsluhy a celkovému zážitku hostí.",
-  },
-  {
-    q: "Kde zaparkujú hostia?",
-    a: "V areáli Kinekusu je veľké parkovisko zadarmo. Sála je na Rosinskej ceste, na okraji Žiliny, s dobrým prístupom autom.",
-  },
-  {
-    q: "Dá sa zo sály vyjsť von?",
-    a: "Áno. Z sály sa prechádza priamo na balkón a terasu.",
   },
   {
     q: "Aké je pódium a parket?",

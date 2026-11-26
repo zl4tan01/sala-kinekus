@@ -70,7 +70,7 @@ rmSync(stage, { recursive: true, force: true });
 mkdirSync(path.join(stage, slug), { recursive: true });
 cpSync(out, path.join(stage, slug), { recursive: true });
 
-const zip = "/opt/cursor/artifacts/sala-preview.zip";
+const zip = process.env.PREVIEW_ZIP || "/opt/cursor/artifacts/sala-preview.zip";
 rmSync(zip, { force: true });
 spawnSync("zip", ["-r", "-q", zip, slug], { cwd: stage, stdio: "inherit" });
 console.log(zip);

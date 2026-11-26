@@ -12,7 +12,7 @@ import { allAdvice, featuredAdvice } from "../lib/advice";
 import { faqs, gridColumns, isPublicQuote, proof, quotes, site, steps } from "../data/site";
 import { url } from "../lib/base";
 
-const description = "Svadobná sála a stužkové v Žiline. Parket, pódium 12×6 m, balkón a veľké parkovisko zadarmo v areáli. Aj konferencie a firemné akcie.";
+const description = "Veľké parkovisko zadarmo v areáli a balkón s terasou priamo zo sály. Svadobná sála a stužkové v Žiline, pódium 12×6 m.";
 const featured = quotes.filter((quote) => quote.featured && isPublicQuote(quote));
 const photo = (id: string) => {
   const found = media.gallery.find((item) => item.id === id);
@@ -46,6 +46,26 @@ const advicePreview = featuredAdvice(await allAdvice());
   bookingHref="#termin"
 >
   <section class="hero">
+    <ul class="hero-highlights">
+      <li>
+        <svg class="highlight-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor" d="M5 16.5A1.5 1.5 0 0 0 6.5 18h1a1.5 1.5 0 0 0 1.5-1.5V16h6v.5A1.5 1.5 0 0 0 16.5 18h1a1.5 1.5 0 0 0 1.5-1.5V14l-1.6-4.2A2 2 0 0 0 15.6 8.5H8.4a2 2 0 0 0-1.9 1.3L5 14v2.5Zm2.2-6.2.7-1.8h8.2l.7 1.8H7.2ZM7 15.2a1.2 1.2 0 1 1 0-2.4 1.2 1.2 0 0 1 0 2.4Zm10 0a1.2 1.2 0 1 1 0-2.4 1.2 1.2 0 0 1 0 2.4Z" />
+        </svg>
+        <span>
+          <strong>Parkovanie zadarmo</strong>
+          <span>Veľké parkovisko v areáli</span>
+        </span>
+      </li>
+      <li>
+        <svg class="highlight-icon" viewBox="0 0 24 24" aria-hidden="true">
+          <path fill="currentColor" d="M4 4h10a2 2 0 0 1 2 2v3h4v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4Zm2 2v12h6V6H6Zm8 5v7h4v-7h-4Zm1.2 1.2h1.6v1.2h-1.6v-1.2Zm0 2.2h1.6V16h-1.6v-1.6ZM7.2 8h3.6v1.4H7.2V8Zm0 2.6h3.6V12H7.2v-1.4Z" />
+        </svg>
+        <span>
+          <strong>Balkón a terasa</strong>
+          <span>Priamo zo sály</span>
+        </span>
+      </li>
+    </ul>
     <div class="wrap hero-copy">
       <p class="eyebrow">Sála Kinekus · Rosinská cesta, Žilina</p>
       <h1>Svadba aj stužková v sále, ktorá sa prispôsobí vám.</h1>
@@ -73,9 +93,21 @@ const advicePreview = featuredAdvice(await allAdvice());
   <div class="wrap">
     <section class="proof" aria-label="V skratke">
       {proof.map((item) => (
-        <article>
-          <strong>{item.value}</strong>
-          <span>{item.label}</span>
+        <article class={item.lead ? "proof-lead" : undefined}>
+          {item.icon === "park" && (
+            <svg class="highlight-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M5 16.5A1.5 1.5 0 0 0 6.5 18h1a1.5 1.5 0 0 0 1.5-1.5V16h6v.5A1.5 1.5 0 0 0 16.5 18h1a1.5 1.5 0 0 0 1.5-1.5V14l-1.6-4.2A2 2 0 0 0 15.6 8.5H8.4a2 2 0 0 0-1.9 1.3L5 14v2.5Zm2.2-6.2.7-1.8h8.2l.7 1.8H7.2ZM7 15.2a1.2 1.2 0 1 1 0-2.4 1.2 1.2 0 0 1 0 2.4Zm10 0a1.2 1.2 0 1 1 0-2.4 1.2 1.2 0 0 1 0 2.4Z" />
+            </svg>
+          )}
+          {item.icon === "terrace" && (
+            <svg class="highlight-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M4 4h10a2 2 0 0 1 2 2v3h4v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4Zm2 2v12h6V6H6Zm8 5v7h4v-7h-4Zm1.2 1.2h1.6v1.2h-1.6v-1.2Zm0 2.2h1.6V16h-1.6v-1.6ZM7.2 8h3.6v1.4H7.2V8Zm0 2.6h3.6V12H7.2v-1.4Z" />
+            </svg>
+          )}
+          <span>
+            <strong>{item.value}</strong>
+            <span>{item.label}</span>
+          </span>
         </article>
       ))}
     </section>
@@ -116,7 +148,8 @@ const advicePreview = featuredAdvice(await allAdvice());
             <ul>
               <li>Detaily večera si viete prejsť s tímom sály vopred</li>
               <li>Rozloženie sály prispôsobíme vašej akcii</li>
-              <li>Pódium 12×6 m, ozvučenie Yamaha, veľké parkovisko zadarmo v areáli</li>
+              <li>Pódium 12×6 m, ozvučenie Yamaha</li>
+              <li>Veľké parkovisko zadarmo v areáli, balkón a terasa priamo zo sály</li>
               <li>Kapacita 50 až 250 osôb</li>
             </ul>
             <a class="btn btn-dark" href={url("/stuzkova/")}>Stužková v sále</a>
@@ -148,6 +181,7 @@ const advicePreview = featuredAdvice(await allAdvice());
             <li>SMART osvetlenie a možnosť zastrieť okná</li>
             <li>Ozvučenie s mixážnym pultom Yamaha, náhlavné a ručné mikrofóny</li>
             <li>Veľké parkovisko zadarmo v areáli Kinekusu</li>
+            <li>Balkón a terasa priamo zo sály</li>
           </ul>
           <a class="btn btn-dark" href={url("/konferencie/")}>Pre firmy</a>
         </div>
@@ -195,6 +229,14 @@ const advicePreview = featuredAdvice(await allAdvice());
         </p>
       </div>
       <div class="fact-grid">
+        <article class="fact fact-lead">
+          <h3>Parkovanie zadarmo</h3>
+          <p>V areáli Kinekusu je veľké parkovisko zadarmo. Sála je na Rosinskej ceste, na okraji Žiliny.</p>
+        </article>
+        <article class="fact fact-lead">
+          <h3>Balkón a terasa</h3>
+          <p>Z sály sa prechádza priamo na balkón a terasu.</p>
+        </article>
         <article class="fact">
           <h3>Usadenie</h3>
           <p>Koľko miest dá konkrétne usporiadanie, povieme podľa stolov, pódia a cateringu.</p>
@@ -210,14 +252,6 @@ const advicePreview = featuredAdvice(await allAdvice());
         <article class="fact">
           <h3>Zvuk</h3>
           <p>Mixážny pult Yamaha, náhlavné aj ručné mikrofóny, výkonné reproduktory.</p>
-        </article>
-        <article class="fact">
-          <h3>Vonku</h3>
-          <p>Z sály sa prechádza priamo na balkón a terasu.</p>
-        </article>
-        <article class="fact">
-          <h3>Prístup</h3>
-          <p>Okraj Žiliny, Rosinská cesta. V areáli Kinekusu je veľké parkovisko zadarmo.</p>
         </article>
       </div>
     </div>
