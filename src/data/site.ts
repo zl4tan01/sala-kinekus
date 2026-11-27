@@ -41,10 +41,10 @@ export const kinekusLinks = [
 ];
 
 export const proof = [
-  { value: "Parkovanie zadarmo", label: "Veľké parkovisko v areáli", lead: true, icon: "park" },
-  { value: "Balkón a terasa", label: "Priamo zo sály", lead: true, icon: "terrace" },
-  { value: "50–250", label: "osôb v sále" },
-  { value: "12×6 m", label: "pódium a parket" },
+  { value: "Parkovanie zadarmo", label: "Veľké parkovisko v areáli", icon: "park" },
+  { value: "Balkón a terasa", label: "Priamo zo sály", icon: "terrace" },
+  { value: "50–250", label: "osôb v sále", icon: "people" },
+  { value: "12×6 m", label: "pódium a parket", icon: "stage" },
 ];
 
 export const kinds = [
@@ -70,7 +70,7 @@ export const steps = [
   {
     n: "03",
     title: "Príprava",
-    text: "Rozloženie sály prispôsobíme vašej akcii. Od 1. 6. 2027 je na akcie overený catering s vlastnou kuchyňou priamo v sále.",
+    text: "Pred večerom si prejdeme program. Od 1. 6. 2027 je na akcie overený catering s vlastnou kuchyňou priamo v sále.",
   },
   {
     n: "04",
@@ -102,7 +102,7 @@ export const faqs = [
   },
   {
     q: "Pomôžete s prípravou, alebo si všetko riešime sami?",
-    a: "Od dopytu po večer máte na druhej strane človeka. Na obhliadke prejdete priestor. Rozloženie sály prispôsobíme vašej akcii.",
+    a: "Od dopytu po večer máte na druhej strane človeka. Na obhliadke prejdete priestor.",
   },
   {
     q: "Ako je to s jedlom?",
