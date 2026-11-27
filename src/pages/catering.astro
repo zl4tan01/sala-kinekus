@@ -1,0 +1,39 @@
+---
+import Base from "../layouts/Base.astro";
+import Picture from "../components/Picture.astro";
+import Booking from "../components/Booking.astro";
+import Pricing from "../components/Pricing.astro";
+import media from "../data/media.json";
+import { url } from "../lib/base";
+
+const description = "Od 1. 6. 2027 je v Sále Kinekus overený catering s vlastnou kuchyňou priamo v sále. Jedlo vzniká na mieste.";
+---
+
+<Base title="Catering | Sála Kinekus Žilina" description={description} bookingHref="#termin">
+  <article>
+    <header class="sub-hero">
+      <div class="wrap">
+        <p class="eyebrow">Catering</p>
+        <h1>Overený catering s kuchyňou priamo v sále.</h1>
+        <p class="lead" style="margin-top:1rem">
+          Od 1. 6. 2027 poskytujeme na akcie overený catering, s ktorým máme dobré skúsenosti. Má priamo v sále vybavenú vlastnú kuchyňu.
+        </p>
+      </div>
+    </header>
+    <div class="section">
+      <div class="wrap path-grid">
+        <div class="prose">
+          <p>Jedlo vzniká na mieste, nie až po ceste. To prispieva k čerstvosti, k teplote na tanieri a k rýchlosti obsluhy.</p>
+          <p>Kuchyňa v sále tiež uľahčuje deň organizátorovi: menej dovozu, pokojnejšia koordinácia s programom a lepší zážitok hostí.</p>
+          <p>Ak chystáte termín pred 1. 6. 2027, napíšte ho do dopytu. Ozveme sa vám.</p>
+          <p>Rozdiel medzi kuchyňou v priestore a donášaným jedlom je v rade <a href={url("/rady/catering-vlastna-kuchyne-a-donaska/")}>o cateringu s vlastnou kuchyňou</a>.</p>
+        </div>
+        <div class="frame">
+          <Picture image={media.party} sizes="(min-width: 720px) 46vw, 100vw" priority />
+        </div>
+      </div>
+    </div>
+  </article>
+  <Pricing id="catering" />
+  <Booking title="Poslať nezáväzný dopyt" />
+</Base>

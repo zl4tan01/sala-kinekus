@@ -1,0 +1,10 @@
+node_modules/
+dist/
+dist-preview/
+dist-kelvio/
+.preview-pack/
+api/config.php
+api/cache/*.json
+.DS_Store
+*.log
+.astro/

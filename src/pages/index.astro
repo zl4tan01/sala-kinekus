@@ -1,0 +1,353 @@
+---
+import Base from "../layouts/Base.astro";
+import Picture from "../components/Picture.astro";
+import Booking from "../components/Booking.astro";
+import AdviceCards from "../components/AdviceCards.astro";
+import Gallery from "../components/Gallery.astro";
+import Location from "../components/Location.astro";
+import Logos from "../components/Logos.astro";
+import Tour from "../components/Tour.astro";
+import media from "../data/media.json";
+import { allAdvice, featuredAdvice } from "../lib/advice";
+import { faqs, gridColumns, isPublicQuote, proof, quotes, site, steps } from "../data/site";
+import { url } from "../lib/base";
+
+const description = "Veľké parkovisko zadarmo v areáli a balkón s terasou priamo zo sály. Svadobná sála a stužkové v Žiline, pódium 12×6 m.";
+const featured = quotes.filter((quote) => quote.featured && isPublicQuote(quote));
+const photo = (id: string) => {
+  const found = media.gallery.find((item) => item.id === id);
+  if (!found) throw new Error(`Chýba fotografia ${id}`);
+  return found;
+};
+function excerpt(text: string, max = 280): string {
+  const clean = text.replace(/\s+/g, " ").trim();
+  if (clean.length <= max) return clean;
+  const slice = clean.slice(0, max + 1);
+  let end = -1;
+  const marks = /[.!?](?=\s)/g;
+  for (const match of slice.matchAll(marks)) {
+    const at = match.index ?? -1;
+    if (at < 80) continue;
+    const before = slice.slice(Math.max(0, at - 2), at);
+    if (/(^|\s)p$/i.test(before)) continue;
+    end = at;
+  }
+  if (end >= 80) return slice.slice(0, end + 1).trim();
+  return clean;
+}
+const cateringPhoto = media.gallery.find((item) => item.id === "svadba-22");
+if (!cateringPhoto) throw new Error("Chýba fotografia svadba-22");
+const advicePreview = featuredAdvice(await allAdvice());
+---
+
+<Base
+  title="Sála Kinekus Žilina | Svadby a stužkové"
+  description={description}
+  bookingHref="#termin"
+>
+  <section class="hero">
+    <div class="wrap hero-copy">
+      <p class="eyebrow">Sála Kinekus · Rosinská cesta, Žilina</p>
+      <h1>Svadba aj stužková. Sviatočný deň v sále.</h1>
+      <p class="lead">
+        Veľký parket a pódium 12×6 m, balkón s terasou a veľké parkovisko zadarmo v areáli Kinekusu sú súčasťou priestoru. Svetlo a ozvučenie sú v sále.
+      </p>
+      <div class="hero-actions">
+        <a class="btn" href="#termin">Poslať nezáväzný dopyt</a>
+        <a class="btn-line" href="?obhliadka=1#termin" data-viewing>Dohodnúť obhliadku</a>
+        <a class="btn-line" href={site.phoneHref}>Zavolať</a>
+      </div>
+      <figure class="hero-quote" data-hero-quote hidden>
+        <blockquote data-hero-quote-text></blockquote>
+        <figcaption>
+          <span data-hero-quote-by></span>
+        </figcaption>
+        <a class="hero-proof" href={site.maps} rel="noopener noreferrer">Recenzie na Google</a>
+      </figure>
+    </div>
+    <div class="hero-photo">
+      <Picture image={media.hero} sizes="100vw" priority />
+    </div>
+  </section>
+
+  <div class="wrap">
+    <section class="proof" aria-label="V skratke">
+      {proof.map((item) => (
+        <article class="proof-lead">
+          {item.icon === "park" && (
+            <svg class="highlight-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M5 16.5A1.5 1.5 0 0 0 6.5 18h1a1.5 1.5 0 0 0 1.5-1.5V16h6v.5A1.5 1.5 0 0 0 16.5 18h1a1.5 1.5 0 0 0 1.5-1.5V14l-1.6-4.2A2 2 0 0 0 15.6 8.5H8.4a2 2 0 0 0-1.9 1.3L5 14v2.5Zm2.2-6.2.7-1.8h8.2l.7 1.8H7.2ZM7 15.2a1.2 1.2 0 1 1 0-2.4 1.2 1.2 0 0 1 0 2.4Zm10 0a1.2 1.2 0 1 1 0-2.4 1.2 1.2 0 0 1 0 2.4Z" />
+            </svg>
+          )}
+          {item.icon === "terrace" && (
+            <svg class="highlight-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M4 4h10a2 2 0 0 1 2 2v3h4v9a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4Zm2 2v12h6V6H6Zm8 5v7h4v-7h-4Zm1.2 1.2h1.6v1.2h-1.6v-1.2Zm0 2.2h1.6V16h-1.6v-1.6ZM7.2 8h3.6v1.4H7.2V8Zm0 2.6h3.6V12H7.2v-1.4Z" />
+            </svg>
+          )}
+          {item.icon === "people" && (
+            <svg class="highlight-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M9 11a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm6.5 1a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5ZM4 19v-1.2C4 15.6 6.2 14 9 14s5 1.6 5 3.8V19H4Zm10 .1V19c0-.7-.2-1.4-.6-2 .9-.6 2.1-1 3.6-1 2.3 0 4 1.3 4 3.1V19h-7Z" />
+            </svg>
+          )}
+          {item.icon === "stage" && (
+            <svg class="highlight-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="currentColor" d="M9 4.2v9.4a2.8 2.8 0 1 0 1.6 2.5V8l6.2-1.3v6.4a2.8 2.8 0 1 0 1.6 2.5V3.2L9 4.2Z" />
+            </svg>
+          )}
+          <span>
+            <strong>{item.value}</strong>
+            <span>{item.label}</span>
+          </span>
+        </article>
+      ))}
+    </section>
+  </div>
+
+  <div id="program">
+  <section class="section" id="svadby-a-stuzkove">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Svadby a stužkové</p>
+        <h2>Svadba aj stužková, sviatočný deň v sále.</h2>
+        <p class="lead">
+          Veľký parket, pódium 12×6 m a ozvučenie sú v priestore.
+        </p>
+      </div>
+      <div class="path-grid">
+        <article class="path">
+          <Picture image={photo("svadba-23")} sizes="(min-width: 720px) 46vw, 100vw" />
+          <div class="path-body">
+            <p class="eyebrow">Svadby</p>
+            <h3>Svadba s parketom a pódiom</h3>
+            <p>Veľký parket a pódium 12×6 m pre sprievodný program, kapelu alebo DJ-a. Ozvučenie je v sále, svetlo sa dá nastaviť podľa večera.</p>
+            <ul>
+              <li>Usadenie podľa stolov a programu</li>
+              <li>Mixážny pult Yamaha, náhlavné aj ručné mikrofóny</li>
+              <li>Balkón a terasa priamo zo sály, veľké parkovisko zadarmo v areáli</li>
+              <li>Od 1. 6. 2027 overený catering s kuchyňou priamo v sále</li>
+            </ul>
+            <a class="btn btn-dark" href={url("/svadby/")}>Svadobná sála</a>
+          </div>
+        </article>
+        <article class="path">
+          <Picture image={photo("stuz-03")} sizes="(min-width: 720px) 46vw, 100vw" />
+          <div class="path-body">
+            <p class="eyebrow">Stužkové</p>
+            <h3>Stužková podľa vašich predstáv</h3>
+            <p>Pre študentov, rodičov aj triednych. Program a tanec sa zmestia na parket a pódium. Pred akciou si s tímom sály prejdete priebeh večera.</p>
+            <ul>
+              <li>Detaily večera si viete prejsť s tímom sály vopred</li>
+              <li>Pódium 12×6 m, ozvučenie Yamaha</li>
+              <li>Veľké parkovisko zadarmo v areáli, balkón a terasa priamo zo sály</li>
+              <li>Kapacita 50 až 250 osôb</li>
+            </ul>
+            <a class="btn btn-dark" href={url("/stuzkova/")}>Stužková v sále</a>
+          </div>
+        </article>
+      </div>
+      <p class="aside-line">
+        <strong>Plesy.</strong> Sála je vhodná aj na ples: parket a pódium 12×6 m sú v priestore. Termín napíšete do rovnakého dopytu a ako druh podujatia vyberiete ples.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" id="pre-firmy" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Pre firmy</p>
+        <h2>Konferencie, školenia, prezentácie a firemné akcie.</h2>
+        <p class="lead">
+          Aj pre firmy. Keď potrebujete projekciu, zvuk a miesto, kde hostia zaparkujú.
+        </p>
+      </div>
+      <article class="path path-wide">
+        <Picture image={photo("konf-03")} sizes="(min-width: 720px) 48vw, 100vw" />
+        <div class="path-body">
+          <h3>Sála pripravená na firemný program</h3>
+          <p>Konferencia, školenie, prezentácia aj firemná akcia pre vlastných ľudí. Technika je v priestore.</p>
+          <ul>
+            <li>Full HD projektor so svietivosťou 5 400 lumenov</li>
+            <li>SMART osvetlenie a možnosť zastrieť okná</li>
+            <li>Ozvučenie s mixážnym pultom Yamaha, náhlavné a ručné mikrofóny</li>
+            <li>Veľké parkovisko zadarmo v areáli Kinekusu</li>
+            <li>Balkón a terasa priamo zo sály</li>
+          </ul>
+          <a class="btn btn-dark" href={url("/konferencie/")}>Pre firmy</a>
+        </div>
+      </article>
+    </div>
+  </section>
+  </div>
+
+  <Tour />
+
+  <section class="section" id="priebeh" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Ako to prebieha</p>
+        <h2>Od dopytu po večer, s niekým na druhej strane.</h2>
+      </div>
+      <ol class="steps">
+        {steps.map((step) => (
+          <li>
+            <b>{step.n}</b>
+            <div>
+              <h3>{step.title}</h3>
+              <p>{step.text}</p>
+            </div>
+          </li>
+        ))}
+      </ol>
+      <div class="viewing">
+        <a class="btn btn-dark" href="?obhliadka=1#termin" data-viewing>Obhliadka sály</a>
+        <p class="note">Dohodneme termín, kedy si sálu prejdete naživo.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="priestor" style="padding-top:0">
+    <div class="wrap">
+      <div class="frame" style="margin-bottom:1.5rem">
+        <Picture image={media.wide} sizes="(min-width: 980px) 74rem, 100vw" />
+      </div>
+      <div class="section-head">
+        <p class="eyebrow">Priestor</p>
+        <h2>Moderný priestor pripravený na vaše podujatie.</h2>
+        <p class="lead">
+          Spoločenská sála vznikla pri rozširovaní distribučného centra spoločnosti Kinekus v Žiline. Priestory sú novo postavené, vrátane sociálnych zariadení. Sála je vhodná pre stužkové, plesy, koncerty, večierky, školenia, firemné akcie, svadby, spoločenské stretnutia a mnoho ďalších akcií. Veľké pódium a akustika umožňujú aj koncert.
+        </p>
+      </div>
+      <div class="fact-grid">
+        <article class="fact fact-lead">
+          <h3>Parkovanie zadarmo</h3>
+          <p>V areáli Kinekusu je veľké parkovisko zadarmo. Sála je na Rosinskej ceste, na okraji Žiliny.</p>
+        </article>
+        <article class="fact fact-lead">
+          <h3>Balkón a terasa</h3>
+          <p>Z sály sa prechádza priamo na balkón a terasu.</p>
+        </article>
+        <article class="fact" id="kaplnka">
+          <h3>Vysvätená kaplnka</h3>
+          <p>Ak ju chcete mať v programe dňa, napíšte to do dopytu.</p>
+        </article>
+        <article class="fact">
+          <h3>Usadenie</h3>
+          <p>Koľko miest dá konkrétne usporiadanie, povieme podľa stolov, pódia a cateringu.</p>
+        </article>
+        <article class="fact">
+          <h3>Pódium a parket</h3>
+          <p>Pódium 12×6 m a veľký tanečný parket. Akustika sály zvládne aj koncert.</p>
+        </article>
+        <article class="fact">
+          <h3>Svetlo a obraz</h3>
+          <p>SMART systém zastrie okná na projekciu a vie navoliť svetelné scény.</p>
+        </article>
+        <article class="fact">
+          <h3>Zvuk</h3>
+          <p>Mixážny pult Yamaha, náhlavné aj ručné mikrofóny, výkonné reproduktory.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <Gallery
+    ids={["svadba-01", "stuz-01", "svadba-22", "stuz-06", "svadba-11", "svadba-25"]}
+    filters={false}
+    heading="Svadby, stužkové a slávnostné stoly"
+    lead="Výber zo svadieb a stužkových, ktoré sa v sále už konali. Celú galériu, vrátane firemných akcií, nájdete na samostatnej stránke."
+  />
+  <div class="wrap" style="margin-top:-3rem;margin-bottom:2rem">
+    <a class="btn-line" href={url("/galeria/")} style="color:var(--ink)">Celá galéria</a>
+  </div>
+
+  <section class="section" id="recenzie-google" data-reviews hidden>
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Google</p>
+        <h2>Z recenzií na Google</h2>
+        <p class="lead">Z profilu Sála Žilina. Stužkové sú na svojej stránke.</p>
+      </div>
+      <ul class="theme-grid" data-review-themes></ul>
+      <div class="review-grid" data-review-list></div>
+      <div class="reviews-actions">
+        <a class="btn btn-dark" href={site.writeReview} data-write-review rel="noopener noreferrer">Napísať recenziu</a>
+      </div>
+      <p class="note"><a href={site.maps} rel="noopener noreferrer">Recenzie z Google profilu Sála Žilina</a></p>
+    </div>
+  </section>
+
+  <section class="section" id="referencie">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Referencie klientov</p>
+        <h2>Referencie klientov.</h2>
+        <p class="lead">Skúsenosti hostí. Celé znenie je na stránke referencií.</p>
+      </div>
+      <div class="quote-grid" style={`--cols: ${gridColumns(featured.length)}`}>
+        {featured.map((quote) => (
+          <blockquote class="quote">
+            <p>„{excerpt(quote.text)}“</p>
+            <footer>
+              <cite>{quote.name}</cite>
+              <small>{quote.meta}</small>
+            </footer>
+          </blockquote>
+        ))}
+      </div>
+      <p style="margin-top:1.2rem"><a href={url("/referencie/")}>Všetky referencie</a></p>
+      <div style="margin-top:2rem">
+        <h3 style="font-size:1.6rem;margin-bottom:0.8rem">Klienti sály</h3>
+        <Logos />
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="catering" style="padding-top:0">
+    <div class="wrap path-grid">
+      <div>
+        <p class="eyebrow">Catering</p>
+        <h2>Jedlo a výzdobu vieme odporučiť.</h2>
+        <div class="prose" style="margin-top:1rem">
+          <p>Od 1. 6. 2027 poskytujeme na akcie overený catering, s ktorým máme dobré skúsenosti. Má priamo v sále vybavenú vlastnú kuchyňu.</p>
+          <p>Jedlo tak vzniká na mieste. Prispieva to k čerstvosti, rýchlosti obsluhy a celkovému zážitku hostí.</p>
+        </div>
+        <p style="margin-top:1rem"><a class="btn btn-dark" href={url("/catering/")}>Viac o cateringu</a></p>
+      </div>
+      <div class="frame">
+        <Picture image={cateringPhoto} sizes="(min-width: 720px) 46vw, 100vw" />
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="otazky" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Otázky</p>
+        <h2>Skôr, než sa spýtate.</h2>
+      </div>
+      <div class="faq">
+        {faqs.map((item) => (
+          <details>
+            <summary>{item.q}</summary>
+            <p>{item.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Booking title="Poslať nezáväzný dopyt" />
+  <Location />
+
+  <section class="section" id="rady" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Rady</p>
+        <h2>Než si vyberiete sálu a deň.</h2>
+        <p class="lead">Praktické texty k cateringu, obhliadke a termínu. Ďalšie rady sú na samostatnej stránke.</p>
+      </div>
+      <AdviceCards articles={advicePreview} />
+      <p class="advice-more"><a class="btn-line" href={url("/rady/")}>Všetky rady</a></p>
+    </div>
+  </section>
+</Base>

@@ -1,0 +1,32 @@
+---
+import Picture from "./Picture.astro";
+import media from "../data/media.json";
+import { site } from "../data/site";
+---
+
+<section class="section" id="prehliadka" style="padding-top:0">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">360°</p>
+      <h2>Virtuálna prehliadka</h2>
+      <p class="lead">Prejdite sa po sále. Prehliadka sa spustí až po kliknutí.</p>
+    </div>
+    <div class="tour" data-tour>
+      <div class="tour-poster" data-tour-poster>
+        <Picture image={media.tour} sizes="(min-width: 980px) 74rem, 100vw" />
+        <button class="btn" type="button" data-tour-open>Prejsť sa po sále 360°</button>
+      </div>
+      <iframe
+        data-tour-frame
+        hidden
+        tabindex="-1"
+        title="Virtuálna prehliadka sály Kinekus"
+        data-src={site.tour}
+        allow="accelerometer; gyroscope; fullscreen"
+        referrerpolicy="strict-origin-when-cross-origin"
+      ></iframe>
+    </div>
+    <p class="note">Prehliadka sa načíta až po kliknutí.</p>
+    <p><a href={site.maps} rel="noopener noreferrer">Otvoriť prehliadku v Mapách Google</a></p>
+  </div>
+</section>
