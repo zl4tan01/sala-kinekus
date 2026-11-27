@@ -815,9 +815,23 @@ body:has([data-consent]:not([hidden])) .dock { display: none; }
   overflow-wrap: anywhere;
 }
 
+.proof article.proof-lead > span {
+  min-width: 0;
+  flex: 1 1 auto;
+  max-width: 100%;
+}
+
+.proof article.proof-lead strong,
+.proof article.proof-lead span span {
+  max-width: 100%;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+}
+
 .proof article.proof-lead strong {
-  font-size: clamp(1.45rem, 3.2vw, 2.2rem);
-  overflow-wrap: normal;
+  font-size: clamp(1.15rem, 0.35rem + 1.15vw, 1.55rem);
+  line-height: 1.12;
 }
 
 .proof span {
@@ -1459,7 +1473,7 @@ textarea { min-height: 7rem; resize: vertical; }
     padding: 0.85rem 1rem;
   }
   .wrap { width: min(var(--max), calc(100% - 3rem)); }
-  .proof { grid-template-columns: repeat(4, minmax(0, 1fr)); align-items: stretch; }
+  .proof { grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: stretch; }
   .proof article { border-bottom: 0; padding: 1.15rem 1rem; }
   .path-grid, .map-grid { grid-template-columns: 1fr 1fr; }
   .booking-grid { max-width: 40rem; }
@@ -1678,6 +1692,10 @@ textarea { min-height: 7rem; resize: vertical; }
 
 @media (min-width: 980px) {
   .advice-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (min-width: 1024px) {
+  .proof { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
 @media (prefers-reduced-motion: reduce) {
